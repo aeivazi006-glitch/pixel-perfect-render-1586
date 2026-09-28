@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AccessoriesRouteImport } from './routes/accessories'
+import { Route as BestSellersRouteImport } from './routes/best-sellers'
+import { Route as HomeDecorRouteImport } from './routes/home-decor'
+import { Route as NewArrivalsRouteImport } from './routes/new-arrivals'
+import { Route as ShopRouteImport } from './routes/shop'
+import { Route as WallArtRouteImport } from './routes/wall-art'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccessoriesRoute = AccessoriesRouteImport.update({
+  id: '/accessories',
+  path: '/accessories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BestSellersRoute = BestSellersRouteImport.update({
+  id: '/best-sellers',
+  path: '/best-sellers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeDecorRoute = HomeDecorRouteImport.update({
+  id: '/home-decor',
+  path: '/home-decor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewArrivalsRoute = NewArrivalsRouteImport.update({
+  id: '/new-arrivals',
+  path: '/new-arrivals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WallArtRoute = WallArtRouteImport.update({
+  id: '/wall-art',
+  path: '/wall-art',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/accessories': typeof AccessoriesRoute
+  '/best-sellers': typeof BestSellersRoute
+  '/home-decor': typeof HomeDecorRoute
+  '/new-arrivals': typeof NewArrivalsRoute
+  '/shop': typeof ShopRoute
+  '/wall-art': typeof WallArtRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/accessories': typeof AccessoriesRoute
+  '/best-sellers': typeof BestSellersRoute
+  '/home-decor': typeof HomeDecorRoute
+  '/new-arrivals': typeof NewArrivalsRoute
+  '/shop': typeof ShopRoute
+  '/wall-art': typeof WallArtRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/accessories': typeof AccessoriesRoute
+  '/best-sellers': typeof BestSellersRoute
+  '/home-decor': typeof HomeDecorRoute
+  '/new-arrivals': typeof NewArrivalsRoute
+  '/shop': typeof ShopRoute
+  '/wall-art': typeof WallArtRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/accessories'
+    | '/best-sellers'
+    | '/home-decor'
+    | '/new-arrivals'
+    | '/shop'
+    | '/wall-art'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/accessories'
+    | '/best-sellers'
+    | '/home-decor'
+    | '/new-arrivals'
+    | '/shop'
+    | '/wall-art'
+  id:
+    | '__root__'
+    | '/'
+    | '/accessories'
+    | '/best-sellers'
+    | '/home-decor'
+    | '/new-arrivals'
+    | '/shop'
+    | '/wall-art'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccessoriesRoute: typeof AccessoriesRoute
+  BestSellersRoute: typeof BestSellersRoute
+  HomeDecorRoute: typeof HomeDecorRoute
+  NewArrivalsRoute: typeof NewArrivalsRoute
+  ShopRoute: typeof ShopRoute
+  WallArtRoute: typeof WallArtRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +130,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/accessories': {
+      id: '/accessories'
+      path: '/accessories'
+      fullPath: '/accessories'
+      preLoaderRoute: typeof AccessoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/best-sellers': {
+      id: '/best-sellers'
+      path: '/best-sellers'
+      fullPath: '/best-sellers'
+      preLoaderRoute: typeof BestSellersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home-decor': {
+      id: '/home-decor'
+      path: '/home-decor'
+      fullPath: '/home-decor'
+      preLoaderRoute: typeof HomeDecorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new-arrivals': {
+      id: '/new-arrivals'
+      path: '/new-arrivals'
+      fullPath: '/new-arrivals'
+      preLoaderRoute: typeof NewArrivalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wall-art': {
+      id: '/wall-art'
+      path: '/wall-art'
+      fullPath: '/wall-art'
+      preLoaderRoute: typeof WallArtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccessoriesRoute: AccessoriesRoute,
+  BestSellersRoute: BestSellersRoute,
+  HomeDecorRoute: HomeDecorRoute,
+  NewArrivalsRoute: NewArrivalsRoute,
+  ShopRoute: ShopRoute,
+  WallArtRoute: WallArtRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
