@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 import { categories } from "@/data/techverse";
 import { Reveal } from "@/components/Reveal";
@@ -8,10 +8,10 @@ export function TechCategoryRow() {
   return (
     <section id="categories" className="shell py-14 lg:py-20">
       <TechSectionHead
-        eyebrow="Shop by category"
-        title="Built for every kind of upgrade"
-        description="Five curated departments, from studio-grade audio to the accessories that tie your setup together."
-        action={{ label: "View all categories", href: "#trending" }}
+        eyebrow="خرید بر اساس دسته‌بندی"
+        title="برای هر سلیقه، یک ارتقای تازه"
+        description="پنج دسته‌ی منتخب؛ از صدای حرفه‌ای تا لوازم جانبی‌ای که تکمیل‌کننده‌ی میز کار شماست."
+        action={{ label: "مشاهده همه دسته‌بندی‌ها", href: "#trending" }}
       />
 
       <div className="mt-9 flex snap-x snap-mandatory gap-4 overflow-x-auto pt-1 pb-2 no-scrollbar lg:grid lg:grid-cols-5 lg:gap-5 lg:overflow-visible lg:pb-0">
@@ -38,8 +38,8 @@ export function TechCategoryRow() {
                   <h3 className="text-base font-bold text-ink">{category.title}</h3>
                   <p className="mt-0.5 text-sm text-muted-foreground">{category.subtitle}</p>
                 </div>
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground transition-all duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45">
-                  <ArrowRight className="h-4 w-4" />
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground transition-all duration-500 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45">
+                  <ArrowLeft className="h-4 w-4" />
                 </span>
               </div>
             </a>

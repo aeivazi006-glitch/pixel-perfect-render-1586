@@ -10,19 +10,19 @@ import { TechTrending } from "@/components/TechTrending";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "TechVerse — Premium Tech Gadgets, Audio & Wearables" },
+      { title: "TechVerse | جدیدترین گجت‌های تکنولوژی" },
       {
         name: "description",
         content:
-          "Shop premium tech gadgets: headphones, smartwatches, drones and accessories. Curated for people who upgrade their everyday.",
+          "جدیدترین محصولات دیجیتال را برای تجربه‌ای هوشمندتر کشف کنید: هدفون، ساعت هوشمند، پهپاد و لوازم جانبی با ارسال سریع.",
       },
-      { property: "og:title", content: "TechVerse — Latest Tech That Upgrades Your Lifestyle" },
+      { property: "og:title", content: "TechVerse | تکنولوژی برای زندگی بهتر" },
       {
         property: "og:description",
-        content:
-          "Cutting-edge gadgets, handpicked essentials and free express shipping over $99.",
+        content: "گجت‌های پیشرفته، دست‌چین‌شده و آماده ارسال سریع به سراسر ایران.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "fa_IR" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),

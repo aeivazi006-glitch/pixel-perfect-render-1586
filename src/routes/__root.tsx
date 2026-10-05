@@ -18,16 +18,16 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-[70svh] items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="display-lg">Page not found</h1>
+        <h1 className="display-lg">صفحه‌ای پیدا نشد</h1>
         <p className="mt-4 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+          صفحه‌ای که دنبالش هستید وجود ندارد یا جابه‌جا شده است.
         </p>
         <div className="mt-8">
           <Link
             to="/"
             className="inline-flex rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
           >
-            Back to the store
+            بازگشت به فروشگاه
           </Link>
         </div>
       </div>
@@ -45,9 +45,9 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-[70svh] items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="display-md">This page didn't load</h1>
+        <h1 className="display-md">این صفحه بارگذاری نشد</h1>
         <p className="mt-3 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try again or head back home.
+          مشکلی پیش آمد. می‌توانید دوباره تلاش کنید یا به صفحه اصلی برگردید.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <button
@@ -57,13 +57,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
           >
-            Try again
+            تلاش دوباره
           </button>
           <a
             href="/"
             className="rounded-full border border-border px-6 py-3 text-sm font-bold text-ink transition-colors duration-300 hover:border-ink"
           >
-            Go home
+            صفحه اصلی
           </a>
         </div>
       </div>
@@ -76,14 +76,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "TechVerse — Premium Tech Gadgets, Audio & Wearables" },
+      { title: "TechVerse | فروشگاه تکنولوژی و گجت‌های دیجیتال" },
       {
         name: "description",
         content:
-          "Shop premium tech gadgets: headphones, smartwatches, drones and accessories. Curated for people who upgrade their everyday.",
+          "خرید جدیدترین گجت‌های دیجیتال: هدفون، ساعت هوشمند، پهپاد و لوازم جانبی. تجربه‌ای هوشمندتر با تکنولوژی برای زندگی بهتر.",
       },
       { property: "og:site_name", content: "TechVerse" },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "fa_IR" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
@@ -93,7 +94,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap",
       },
     ],
   }),
@@ -105,7 +106,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="fa" dir="rtl">
       <head>
         <HeadContent />
       </head>
