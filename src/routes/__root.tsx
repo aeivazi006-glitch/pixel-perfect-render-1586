@@ -11,23 +11,24 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { TechSiteFooter } from "@/components/TechSiteFooter";
-import { TechSiteHeader } from "@/components/TechSiteHeader";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { StoreProvider } from "@/lib/store";
 
 function NotFoundComponent() {
   return (
     <div className="flex min-h-[70svh] items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="display-lg">صفحه‌ای پیدا نشد</h1>
+        <h1 className="display-lg">Page not found</h1>
         <p className="mt-4 text-sm text-muted-foreground">
-          صفحه‌ای که دنبالش هستید وجود ندارد یا جابه‌جا شده است.
+          The page you're looking for doesn't exist or has been moved.
         </p>
         <div className="mt-8">
           <Link
-            to="/"
-            className="inline-flex rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
+            to="/shop"
+            className="inline-flex bg-primary px-8 py-4 text-[0.7rem] tracking-[0.2em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
           >
-            بازگشت به فروشگاه
+            Continue shopping
           </Link>
         </div>
       </div>
@@ -45,9 +46,9 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-[70svh] items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="display-md">این صفحه بارگذاری نشد</h1>
+        <h1 className="display-md">This page didn't load</h1>
         <p className="mt-3 text-sm text-muted-foreground">
-          مشکلی پیش آمد. می‌توانید دوباره تلاش کنید یا به صفحه اصلی برگردید.
+          Something went wrong on our end. You can try again or head back home.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <button
@@ -55,15 +56,15 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
+            className="bg-primary px-7 py-3.5 text-[0.7rem] tracking-[0.2em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
           >
-            تلاش دوباره
+            Try again
           </button>
           <a
             href="/"
-            className="rounded-full border border-border px-6 py-3 text-sm font-bold text-ink transition-colors duration-300 hover:border-ink"
+            className="border border-input px-7 py-3.5 text-[0.7rem] tracking-[0.2em] uppercase transition-colors hover:border-foreground"
           >
-            صفحه اصلی
+            Go home
           </a>
         </div>
       </div>
@@ -76,15 +77,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "TechVerse | فروشگاه تکنولوژی و گجت‌های دیجیتال" },
+      { title: "Maison Étage — Art, Objects & Accessories" },
       {
         name: "description",
         content:
-          "خرید جدیدترین گجت‌های دیجیتال: هدفون، ساعت هوشمند، پهپاد و لوازم جانبی. تجربه‌ای هوشمندتر با تکنولوژی برای زندگی بهتر.",
+          "Curated wall art, posters, ceramics and minimal accessories for spaces with personality.",
       },
-      { property: "og:site_name", content: "TechVerse" },
+      { property: "og:site_name", content: "Maison Étage" },
       { property: "og:type", content: "website" },
-      { property: "og:locale", content: "fa_IR" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
@@ -94,7 +94,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300;400;500&display=swap",
       },
     ],
   }),
@@ -106,7 +106,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="fa" dir="rtl">
+    <html lang="en">
       <head>
         <HeadContent />
       </head>
@@ -123,12 +123,14 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TechSiteHeader />
-      <main>
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-      </main>
-      <TechSiteFooter />
+      <StoreProvider>
+        <Header />
+        <main>
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+        </main>
+        <Footer />
+      </StoreProvider>
     </QueryClientProvider>
   );
 }

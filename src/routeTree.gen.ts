@@ -10,33 +10,232 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AccessoriesRouteImport } from './routes/accessories'
+import { Route as AccountRouteImport } from './routes/account'
+import { Route as BestSellersRouteImport } from './routes/best-sellers'
+import { Route as CartRouteImport } from './routes/cart'
+import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as HomeDecorRouteImport } from './routes/home-decor'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as NewArrivalsRouteImport } from './routes/new-arrivals'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as ShopRouteImport } from './routes/shop'
+import { Route as WallArtRouteImport } from './routes/wall-art'
+import { Route as WishlistRouteImport } from './routes/wishlist'
+import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccessoriesRoute = AccessoriesRouteImport.update({
+  id: '/accessories',
+  path: '/accessories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BestSellersRoute = BestSellersRouteImport.update({
+  id: '/best-sellers',
+  path: '/best-sellers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CartRoute = CartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeDecorRoute = HomeDecorRouteImport.update({
+  id: '/home-decor',
+  path: '/home-decor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewArrivalsRoute = NewArrivalsRouteImport.update({
+  id: '/new-arrivals',
+  path: '/new-arrivals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WallArtRoute = WallArtRouteImport.update({
+  id: '/wall-art',
+  path: '/wall-art',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WishlistRoute = WishlistRouteImport.update({
+  id: '/wishlist',
+  path: '/wishlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductSlugRoute = ProductSlugRouteImport.update({
+  id: '/product/$slug',
+  path: '/product/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/accessories': typeof AccessoriesRoute
+  '/account': typeof AccountRoute
+  '/best-sellers': typeof BestSellersRoute
+  '/cart': typeof CartRoute
+  '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
+  '/home-decor': typeof HomeDecorRoute
+  '/login': typeof LoginRoute
+  '/new-arrivals': typeof NewArrivalsRoute
+  '/search': typeof SearchRoute
+  '/shop': typeof ShopRoute
+  '/wall-art': typeof WallArtRoute
+  '/wishlist': typeof WishlistRoute
+  '/product/$slug': typeof ProductSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/accessories': typeof AccessoriesRoute
+  '/account': typeof AccountRoute
+  '/best-sellers': typeof BestSellersRoute
+  '/cart': typeof CartRoute
+  '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
+  '/home-decor': typeof HomeDecorRoute
+  '/login': typeof LoginRoute
+  '/new-arrivals': typeof NewArrivalsRoute
+  '/search': typeof SearchRoute
+  '/shop': typeof ShopRoute
+  '/wall-art': typeof WallArtRoute
+  '/wishlist': typeof WishlistRoute
+  '/product/$slug': typeof ProductSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/accessories': typeof AccessoriesRoute
+  '/account': typeof AccountRoute
+  '/best-sellers': typeof BestSellersRoute
+  '/cart': typeof CartRoute
+  '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
+  '/home-decor': typeof HomeDecorRoute
+  '/login': typeof LoginRoute
+  '/new-arrivals': typeof NewArrivalsRoute
+  '/search': typeof SearchRoute
+  '/shop': typeof ShopRoute
+  '/wall-art': typeof WallArtRoute
+  '/wishlist': typeof WishlistRoute
+  '/product/$slug': typeof ProductSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/accessories'
+    | '/account'
+    | '/best-sellers'
+    | '/cart'
+    | '/checkout'
+    | '/contact'
+    | '/home-decor'
+    | '/login'
+    | '/new-arrivals'
+    | '/search'
+    | '/shop'
+    | '/wall-art'
+    | '/wishlist'
+    | '/product/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/accessories'
+    | '/account'
+    | '/best-sellers'
+    | '/cart'
+    | '/checkout'
+    | '/contact'
+    | '/home-decor'
+    | '/login'
+    | '/new-arrivals'
+    | '/search'
+    | '/shop'
+    | '/wall-art'
+    | '/wishlist'
+    | '/product/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/accessories'
+    | '/account'
+    | '/best-sellers'
+    | '/cart'
+    | '/checkout'
+    | '/contact'
+    | '/home-decor'
+    | '/login'
+    | '/new-arrivals'
+    | '/search'
+    | '/shop'
+    | '/wall-art'
+    | '/wishlist'
+    | '/product/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AccessoriesRoute: typeof AccessoriesRoute
+  AccountRoute: typeof AccountRoute
+  BestSellersRoute: typeof BestSellersRoute
+  CartRoute: typeof CartRoute
+  CheckoutRoute: typeof CheckoutRoute
+  ContactRoute: typeof ContactRoute
+  HomeDecorRoute: typeof HomeDecorRoute
+  LoginRoute: typeof LoginRoute
+  NewArrivalsRoute: typeof NewArrivalsRoute
+  SearchRoute: typeof SearchRoute
+  ShopRoute: typeof ShopRoute
+  WallArtRoute: typeof WallArtRoute
+  WishlistRoute: typeof WishlistRoute
+  ProductSlugRoute: typeof ProductSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +247,131 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/accessories': {
+      id: '/accessories'
+      path: '/accessories'
+      fullPath: '/accessories'
+      preLoaderRoute: typeof AccessoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/best-sellers': {
+      id: '/best-sellers'
+      path: '/best-sellers'
+      fullPath: '/best-sellers'
+      preLoaderRoute: typeof BestSellersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cart': {
+      id: '/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof CartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home-decor': {
+      id: '/home-decor'
+      path: '/home-decor'
+      fullPath: '/home-decor'
+      preLoaderRoute: typeof HomeDecorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new-arrivals': {
+      id: '/new-arrivals'
+      path: '/new-arrivals'
+      fullPath: '/new-arrivals'
+      preLoaderRoute: typeof NewArrivalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wall-art': {
+      id: '/wall-art'
+      path: '/wall-art'
+      fullPath: '/wall-art'
+      preLoaderRoute: typeof WallArtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wishlist': {
+      id: '/wishlist'
+      path: '/wishlist'
+      fullPath: '/wishlist'
+      preLoaderRoute: typeof WishlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/product/$slug': {
+      id: '/product/$slug'
+      path: '/product/$slug'
+      fullPath: '/product/$slug'
+      preLoaderRoute: typeof ProductSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AccessoriesRoute: AccessoriesRoute,
+  AccountRoute: AccountRoute,
+  BestSellersRoute: BestSellersRoute,
+  CartRoute: CartRoute,
+  CheckoutRoute: CheckoutRoute,
+  ContactRoute: ContactRoute,
+  HomeDecorRoute: HomeDecorRoute,
+  LoginRoute: LoginRoute,
+  NewArrivalsRoute: NewArrivalsRoute,
+  SearchRoute: SearchRoute,
+  ShopRoute: ShopRoute,
+  WallArtRoute: WallArtRoute,
+  WishlistRoute: WishlistRoute,
+  ProductSlugRoute: ProductSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
