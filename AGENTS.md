@@ -112,6 +112,13 @@ scrolling back rewinds.
   static frame (no scrub, no fade).
 - If the video fails, the hero falls back to `src/assets/moderno/hero.jpg` and
   must never render blank.
+- **The hero must never render a loading state** — no overlay, spinner or copy.
+  The first frame (`poster`) is the visible background from the first paint, and
+  the component's `ready` state only gates scrubbing/the featured chip. Because
+  the `<video>` is server-rendered, `loadedmetadata`/`loadeddata` can fire before
+  hydration attaches listeners, so the bootstrap effect re-checks
+  `video.readyState` on mount; without that catch-up the scrub engine never
+  learns the duration and the video stays frozen on frame 0.
 
 **Video asset pipeline.** `public/video/hero-3d.mp4` is the scrubbing master and
 `public/video/hero-3d-poster.jpg` its first frame. The supplied clip had a single

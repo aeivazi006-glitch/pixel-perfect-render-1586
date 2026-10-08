@@ -108,6 +108,13 @@ export function HeroSection() {
     el.addEventListener("loadedmetadata", onMetadata);
     el.addEventListener("loadeddata", onData);
     el.addEventListener("error", onError);
+
+    /* The <video> is server-rendered, so it can already be past these events by
+       the time hydration attaches the listeners. Catch up on the state it has
+       reached — readiness gates scrubbing only, never a visible loader. */
+    if (el.readyState >= 1) onMetadata();
+    if (el.readyState >= 2) onData();
+
     return () => {
       el.removeEventListener("loadedmetadata", onMetadata);
       el.removeEventListener("loadeddata", onData);
@@ -176,10 +183,7 @@ export function HeroSection() {
         {!failed ? (
           <video
             ref={video}
-            className={cn(
-              "absolute inset-0 size-full object-cover transition-opacity duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
-              ready ? "opacity-100" : "opacity-0",
-            )}
+            className="absolute inset-0 size-full object-cover"
             src={heroVideo.src}
             poster={heroVideo.poster}
             preload="auto"
@@ -312,27 +316,6 @@ export function HeroSection() {
             style={{ transform: "scaleX(0)" }}
           />
         </div>
-
-        {/* Minimal premium loading treatment — never blocks the rest of the page. */}
-        {!failed && (
-          <div
-            aria-hidden={ready}
-            aria-live="polite"
-            className={cn(
-              "pointer-events-none absolute inset-0 z-30 grid place-items-center bg-background/60 backdrop-blur-[2px] transition-opacity duration-700",
-              ready ? "opacity-0" : "opacity-100",
-            )}
-          >
-            <div className="flex flex-col items-center gap-3">
-              <span className="font-display text-base text-muted-foreground">
-                در حال آماده‌سازی…
-              </span>
-              <span className="block h-px w-24 overflow-hidden bg-foreground/15">
-                <span className="skeleton block size-full" />
-              </span>
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );

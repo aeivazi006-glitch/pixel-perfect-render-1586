@@ -274,27 +274,6 @@
   }
 }
 
-/* Skeleton shimmer for loading states. */
-@utility skeleton {
-  background: linear-gradient(
-    100deg,
-    var(--color-linen) 30%,
-    var(--color-sand) 50%,
-    var(--color-linen) 70%
-  );
-  background-size: 220% 100%;
-  animation: skeleton-drift 1.6s ease-in-out infinite;
-}
-
-@keyframes skeleton-drift {
-  from {
-    background-position: 140% 0;
-  }
-  to {
-    background-position: -40% 0;
-  }
-}
-
 @keyframes hotspot-pulse {
   0% {
     transform: scale(1);
