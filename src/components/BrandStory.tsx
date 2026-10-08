@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { images } from "@/data/catalog";
 import { Reveal } from "@/components/Reveal";
 
@@ -11,7 +11,7 @@ export function BrandStory() {
           <div className="aspect-4/3 overflow-hidden rounded-lg bg-linen md:aspect-16/11">
             <img
               src={images.story}
-              alt="Calm living room with a fireplace, pale seating and soft afternoon light"
+              alt="اتاق نشیمن آرام با شومینه، نشیمن روشن و نور ملایم بعدازظهر"
               loading="lazy"
               className="size-full object-cover transition-transform duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.03]"
             />
@@ -19,22 +19,22 @@ export function BrandStory() {
         </Reveal>
 
         <Reveal delay={80} className="order-1 max-w-xl lg:order-2">
-          <p className="eyebrow">Our story</p>
-          <h2 id="story-heading" className="display-lg mt-4 text-balance">
-            Furniture with a sense of place.
+          <p className="eyebrow">داستان ما</p>
+          <h2 id="story-heading" className="display-lg mt-4">
+            مبلمانی با حسِ مکان.
           </h2>
           <p className="mt-6 text-sm leading-relaxed text-muted-foreground md:text-base">
-            We believe great furniture should do more than fill a room. It should create atmosphere,
-            support everyday living and become part of the stories made at home.
+            باور داریم مبلمان خوب باید بیشتر از پر کردن اتاق کار کند. باید فضا بسازد، زندگی روزمره
+            را راحت‌تر کند و بخشی از خاطراتی شود که در خانه ساخته می‌شوند.
           </p>
           <Link
             to="/about"
-            className="group mt-8 inline-flex items-center gap-2.5 text-[0.68rem] tracking-[0.18em] uppercase"
+            className="group mt-8 inline-flex items-center gap-2.5 text-[0.8rem] font-semibold"
           >
-            Discover Our Story
-            <ArrowRight
-              className="size-3.5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1.5"
-              strokeWidth={1.5}
+            داستان ما را بخوانید
+            <ArrowLeft
+              className="size-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-x-1.5"
+              strokeWidth={1.6}
               aria-hidden
             />
           </Link>

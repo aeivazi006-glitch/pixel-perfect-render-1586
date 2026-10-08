@@ -9,9 +9,9 @@ export function Testimonials() {
     <section aria-labelledby="reviews-heading" className="shell py-20 md:py-28">
       <SectionHeading
         align="center"
-        eyebrow="Customer reviews"
-        title="Loved By Modern Homes"
-        description="Over 2,400 rooms furnished since 2019. Here is what a few of them say."
+        eyebrow="نظر مشتریان"
+        title="محبوب خانه‌های مدرن"
+        description="از سال ۲۰۱۹ بیش از ۲٬۴۰۰ فضا با ما مبله شده است. چند مورد از آن‌ها را بخوانید."
         className="pb-12 md:pb-16"
       />
 
@@ -20,23 +20,23 @@ export function Testimonials() {
           <Reveal as="li" key={testimonial.id} delay={index * 90}>
             <figure className="flex h-full flex-col rounded-lg border border-border/80 bg-card p-7 shadow-soft">
               <Stars rating={testimonial.rating} />
-              <blockquote className="mt-5 flex-1 font-display text-xl leading-snug text-balance">
-                “{testimonial.body}”
+              <blockquote className="mt-5 flex-1 font-display text-lg font-medium leading-relaxed">
+                «{testimonial.body}»
               </blockquote>
               <figcaption className="mt-7 flex items-center gap-3 border-t border-border pt-5">
-                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-secondary text-[0.62rem] tracking-[0.06em] text-secondary-foreground">
+                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-secondary text-[0.72rem] font-medium text-secondary-foreground">
                   {testimonial.author
                     .split(" ")
                     .map((part) => part[0])
                     .join("")}
                 </span>
                 <span className="min-w-0">
-                  <span className="block text-sm">{testimonial.author}</span>
-                  <span className="mt-0.5 flex items-center gap-1.5 text-[0.6rem] tracking-[0.14em] uppercase text-muted-foreground">
+                  <span className="block text-sm font-medium">{testimonial.author}</span>
+                  <span className="mt-0.5 flex items-center gap-1.5 text-[0.72rem] text-muted-foreground">
                     {testimonial.verified && (
                       <BadgeCheck className="size-3.5 text-clay" strokeWidth={1.6} aria-hidden />
                     )}
-                    {testimonial.verified ? "Verified purchase" : testimonial.date}
+                    {testimonial.verified ? "خرید تأییدشده" : testimonial.date}
                   </span>
                 </span>
               </figcaption>

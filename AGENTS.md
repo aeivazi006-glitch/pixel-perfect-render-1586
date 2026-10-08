@@ -1,4 +1,5 @@
 <!-- LOVABLE:BEGIN -->
+
 > [!IMPORTANT]
 > This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
 > published git history — force pushing, or rebasing/amending/squashing commits
@@ -7,6 +8,7 @@
 >
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
+
 <!-- LOVABLE:END -->
 
 ## MODERNO storefront
@@ -19,8 +21,7 @@ Premium furniture e-commerce storefront (Vite + TanStack Start + Tailwind v4).
 docker compose -f docker-compose.base44.yml up -d --build
 ```
 
-The single `web` service runs the dev server from the cloned source on host port
-3000. Dependencies are installed into a named volume on every container start
+The single `web` service runs the dev server from the cloned source on host port 3000. Dependencies are installed into a named volume on every container start
 (`bun install --frozen-lockfile`), so a dependency change needs no image rebuild —
 just restart the service. There is **no database or backend**: cart, wishlist,
 recent searches and recently-viewed products persist in `localStorage` via
@@ -66,3 +67,66 @@ passed through bare in `docker-compose.base44.yml`:
   `docker compose -f docker-compose.base44.yml restart web`.
 - Check for runtime errors in the browser console, and confirm
   `document.querySelector("#main")` has rendered children.
+
+### Persian / RTL interface
+
+The storefront is Persian and right-to-left end to end.
+
+- `src/routes/__root.tsx` renders `<html lang="fa" dir="rtl">` and `styles.css`
+  also sets `direction: rtl` on `html`. Every route and component is written for
+  RTL — use logical utilities (`ps-`/`pe-`, `ms-`/`me-`, `start-`/`end-`,
+  `border-s`/`border-e`) instead of physical `left`/`right`, and use `ArrowLeft`
+  for forward/"next" actions (the arrow trailing a CTA sits to its left).
+- **Typography:** Vazirmatn (Google Fonts, weights 400/500/600/700) is the only
+  family — `--font-display` and `--font-sans` both resolve to it. Never add
+  `tracking-*`/letter-spacing to Persian text: the tracking utilities were
+  removed for this reason. Headings are weight 700 with generous line-height
+  (see the `display-*` utilities).
+- **Never mirror** photography, product imagery, the hero video or camera
+  movement — only the interface mirrors. Shop-the-room hotspot coordinates in
+  `src/data/catalog.ts` are intentionally physical (`left`/`top`).
+- **Money is Toman.** `formatPrice` renders `fa-IR` numerals with «تومان». The
+  filter bounds live in `src/components/FilterSidebar.tsx`
+  (`PRICE_FLOOR`/`PRICE_CEILING`), and the free-shipping threshold / shipping
+  fee in `src/lib/store.tsx`.
+- Product `slug` values stay latin so URLs and deep links stay stable, even
+  though names are Persian.
+
+### Hero: scroll-driven 3D video
+
+`src/components/HeroSection.tsx` owns the whole experience. The section is a
+`hero-runway` (300vh) with a `hero-stage` (sticky, 100svh); scroll progress maps
+0→100% onto the video timeline through `video.currentTime`. The video is never
+played and never loops, so stopping the scroll freezes that exact frame and
+scrolling back rewinds.
+
+- All seeking happens inside a single `requestAnimationFrame` loop fed by **one**
+  passive scroll listener that only records a target progress; the value is
+  exponentially smoothed, and a new seek is issued only when the previous one has
+  settled (`video.seeking`) and the delta exceeds `MIN_SEEK`. Do not replace this
+  with `scroll` → `currentTime` directly: the browser's seek queue backs up and
+  the scrub stutters.
+- Copy fade, the scroll hint and the progress bar are written straight to the DOM
+  via refs, so scrolling never re-renders React.
+- `prefers-reduced-motion: reduce` collapses the runway to 100svh and shows a
+  static frame (no scrub, no fade).
+- If the video fails, the hero falls back to `src/assets/moderno/hero.jpg` and
+  must never render blank.
+
+**Video asset pipeline.** `public/video/hero-3d.mp4` is the scrubbing master and
+`public/video/hero-3d-poster.jpg` its first frame. The supplied clip had a single
+keyframe for the whole 8s, which makes random-access seeking unusable, so it is
+re-encoded with a keyframe every 4 frames:
+
+```sh
+docker run --rm -v "$PWD:/data" jrottenberg/ffmpeg:4.4-alpine -v error -y \
+  -i /data/source.mp4 -an -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p \
+  -g 4 -keyint_min 4 -sc_threshold 0 -bf 0 -movflags +faststart \
+  /data/hero-3d.mp4
+```
+
+`ffmpeg` is not installed on the sandbox host — run it through an ffmpeg image.
+Verify the result has a keyframe every few frames (`ffprobe -select_streams v:0
+-show_entries frame=key_frame`) and that the dev server serves range requests
+(`curl -r 0-1023 -o /dev/null -w '%{http_code}' localhost:3000/video/hero-3d.mp4`
+→ `206`).

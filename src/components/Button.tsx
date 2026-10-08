@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonStyles = cva(
-  "group/btn relative inline-flex items-center justify-center gap-2 rounded-full text-center font-medium tracking-[0.18em] uppercase transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] disabled:pointer-events-none disabled:opacity-40",
+  "group/btn relative inline-flex items-center justify-center gap-2 rounded-full text-center font-semibold transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] disabled:pointer-events-none disabled:opacity-40",
   {
     variants: {
       variant: {
@@ -13,9 +13,9 @@ const buttonStyles = cva(
         ghost: "text-foreground hover:bg-secondary/70",
       },
       size: {
-        sm: "px-5 py-2.5 text-[0.62rem]",
-        md: "px-7 py-3.5 text-[0.66rem]",
-        lg: "px-9 py-4 text-[0.68rem]",
+        sm: "px-5 py-2.5 text-[0.78rem]",
+        md: "px-7 py-3.5 text-[0.8rem]",
+        lg: "px-9 py-4 text-[0.82rem]",
       },
     },
     defaultVariants: { variant: "primary", size: "md" },
@@ -25,7 +25,7 @@ const buttonStyles = cva(
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonStyles>;
 
-/** Reusable button. Outline variants fill left-to-right and invert on hover. */
+/** Reusable button. Outline variants fill from the inline start and invert on hover. */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   { className, variant, size, children, ...props },
   ref,

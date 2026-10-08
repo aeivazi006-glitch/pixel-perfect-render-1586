@@ -27,15 +27,15 @@ export const Route = createFileRoute("/product/$slug")({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Product not found — MODERNO" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "محصول پیدا نشد | مدرنو" }, { name: "robots", content: "noindex" }],
       };
     }
     const { product } = loaderData;
     return {
       meta: [
-        { title: `${product.name} — MODERNO` },
+        { title: `${product.name} | مدرنو` },
         { name: "description", content: product.summary },
-        { property: "og:title", content: `${product.name} — MODERNO` },
+        { property: "og:title", content: `${product.name} | مدرنو` },
         { property: "og:description", content: product.summary },
         { property: "og:type", content: "product" },
         { name: "twitter:card", content: "summary_large_image" },
@@ -77,23 +77,16 @@ function ProductPage() {
 
   return (
     <div className="shell py-8 md:py-12">
-      <nav
-        aria-label="Breadcrumb"
-        className="text-[0.62rem] tracking-[0.16em] uppercase text-muted-foreground"
-      >
+      <nav aria-label="مسیر صفحه" className="text-[0.75rem] text-muted-foreground">
         <Link to="/" className="hover:text-foreground">
-          Home
+          خانه
         </Link>
         <span className="px-2">/</span>
         <Link to="/shop" className="hover:text-foreground">
-          Shop
+          فروشگاه
         </Link>
         <span className="px-2">/</span>
-        <Link
-          to="/shop"
-          search={{ category: product.category }}
-          className="hover:text-foreground"
-        >
+        <Link to="/shop" search={{ category: product.category }} className="hover:text-foreground">
           {product.categoryName}
         </Link>
         <span className="px-2">/</span>
@@ -110,12 +103,12 @@ function ProductPage() {
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <Stars rating={product.rating} />
             <span className="text-sm text-muted-foreground">
-              {product.rating.toFixed(1)} · {product.reviewCount} reviews
+              {product.rating.toFixed(1)} · {product.reviewCount} نظر
             </span>
           </div>
 
           <div className="mt-6 flex flex-wrap items-baseline gap-3">
-            <span className={cn("text-2xl", product.compareAt && "text-clay")}>
+            <span className={cn("text-xl font-semibold", product.compareAt && "text-clay")}>
               {formatPrice(product.price)}
             </span>
             {product.compareAt && (
@@ -123,8 +116,8 @@ function ProductPage() {
                 <span className="text-sm text-muted-foreground line-through">
                   {formatPrice(product.compareAt)}
                 </span>
-                <span className="rounded-full bg-clay px-2.5 py-1 text-[0.58rem] tracking-[0.14em] uppercase text-clay-foreground">
-                  Save {off}%
+                <span className="rounded-full bg-clay px-2.5 py-1 text-[0.7rem] font-medium text-clay-foreground">
+                  ٪{off} صرفه‌جویی
                 </span>
               </>
             )}
@@ -138,7 +131,7 @@ function ProductPage() {
             <fieldset className="mt-8">
               <legend className="eyebrow">
                 {product.options.label}
-                {variant && <span className="ml-2 text-foreground normal-case">{variant}</span>}
+                {variant && <span className="ms-2 font-medium text-foreground">{variant}</span>}
               </legend>
               <div className="mt-3.5 flex flex-wrap gap-2">
                 {product.options.values.map((value) => (
@@ -148,7 +141,7 @@ function ProductPage() {
                     onClick={() => setVariant(value)}
                     aria-pressed={value === variant}
                     className={cn(
-                      "rounded-full border px-4 py-2.5 text-[0.66rem] tracking-[0.12em] uppercase transition-colors duration-500",
+                      "rounded-full border px-4 py-2.5 text-[0.78rem] font-medium transition-colors duration-500",
                       value === variant
                         ? "border-foreground bg-foreground text-background"
                         : "border-input hover:border-foreground",
@@ -165,7 +158,7 @@ function ProductPage() {
             <div className="flex items-center rounded-full border border-input">
               <button
                 type="button"
-                aria-label="Decrease quantity"
+                aria-label="کاهش تعداد"
                 onClick={() => setQuantity((value) => Math.max(1, value - 1))}
                 className="grid size-11 place-items-center rounded-full transition-colors hover:bg-secondary"
               >
@@ -176,7 +169,7 @@ function ProductPage() {
               </span>
               <button
                 type="button"
-                aria-label="Increase quantity"
+                aria-label="افزایش تعداد"
                 onClick={() => setQuantity((value) => value + 1)}
                 className="grid size-11 place-items-center rounded-full transition-colors hover:bg-secondary"
               >
@@ -192,7 +185,7 @@ function ProductPage() {
                 notifyWishlist(product.name, saved);
               }}
               aria-pressed={isWishlisted(product.id)}
-              className="flex items-center gap-2 rounded-full border border-input px-5 py-3.5 text-[0.64rem] tracking-[0.14em] uppercase transition-colors duration-500 hover:border-foreground"
+              className="flex items-center gap-2 rounded-full border border-input px-5 py-3.5 text-[0.78rem] font-semibold transition-colors duration-500 hover:border-foreground"
             >
               <Heart
                 className={cn(
@@ -202,7 +195,7 @@ function ProductPage() {
                 strokeWidth={1.4}
                 aria-hidden
               />
-              {isWishlisted(product.id) ? "Saved" : "Wishlist"}
+              {isWishlisted(product.id) ? "ذخیره شد" : "علاقه‌مندی‌ها"}
             </button>
           </div>
 
@@ -211,9 +204,13 @@ function ProductPage() {
               type="button"
               onClick={() => add()}
               disabled={!product.inStock}
-              className="w-full rounded-full bg-primary py-4 text-[0.68rem] tracking-[0.18em] uppercase text-primary-foreground transition-opacity duration-500 hover:opacity-88 disabled:opacity-45"
+              className="w-full rounded-full bg-primary py-4 text-[0.8rem] font-semibold text-primary-foreground transition-opacity duration-500 hover:opacity-88 disabled:opacity-45"
             >
-              {!product.inStock ? "Made to order — 12 weeks" : added ? "Added to cart" : "Add to cart"}
+              {!product.inStock
+                ? "ساخت به‌سفارش — ۱۲ هفته"
+                : added
+                  ? "به سبد خرید اضافه شد"
+                  : "افزودن به سبد خرید"}
             </button>
             <button
               type="button"
@@ -222,48 +219,60 @@ function ProductPage() {
                 navigate({ to: "/checkout" });
               }}
               disabled={!product.inStock}
-              className="fill-sweep w-full rounded-full border border-foreground/25 py-4 text-[0.68rem] tracking-[0.18em] uppercase text-foreground transition-colors duration-500 hover:border-foreground hover:text-background disabled:pointer-events-none disabled:opacity-45"
+              className="fill-sweep w-full rounded-full border border-foreground/25 py-4 text-[0.8rem] font-semibold text-foreground transition-colors duration-500 hover:border-foreground hover:text-background disabled:pointer-events-none disabled:opacity-45"
             >
-              Buy now
+              خرید فوری
             </button>
           </div>
 
           <ul className="mt-9 space-y-3.5 border-t border-border pt-7 text-sm text-muted-foreground">
             <li className="flex items-start gap-3">
               <Truck className="mt-0.5 size-4 shrink-0 text-umber" strokeWidth={1.4} aria-hidden />
-              Free shipping on orders over $100 · assembled delivery in 2–4 weeks
+              ارسال رایگان برای سفارش‌های بالای ۵ میلیون تومان · تحویل نصب‌شده در ۲ تا ۴ هفته
             </li>
             <li className="flex items-start gap-3">
-              <RefreshCcw className="mt-0.5 size-4 shrink-0 text-umber" strokeWidth={1.4} aria-hidden />
-              Free returns within 30 days, collected from your home
+              <RefreshCcw
+                className="mt-0.5 size-4 shrink-0 text-umber"
+                strokeWidth={1.4}
+                aria-hidden
+              />
+              بازگشت رایگان تا ۳۰ روز، با جمع‌آوری از خانه شما
             </li>
             <li className="flex items-start gap-3">
-              <Package className="mt-0.5 size-4 shrink-0 text-umber" strokeWidth={1.4} aria-hidden />
-              Plastic-free packaging, recycled board and paper tape
+              <Package
+                className="mt-0.5 size-4 shrink-0 text-umber"
+                strokeWidth={1.4}
+                aria-hidden
+              />
+              بسته‌بندی بدون پلاستیک، با مقوای بازیافتی و چسب کاغذی
             </li>
           </ul>
 
           <div className="mt-9 border-t border-border">
-            <Accordion title="Material & care" defaultOpen>
+            <Accordion title="متریال و نگهداری" defaultOpen>
               <dl className="space-y-4">
-                <Detail label="Material" value={product.material} />
-                <Detail label="Care" value={product.care} />
+                <Detail label="متریال" value={product.material} />
+                <Detail label="نگهداری" value={product.care} />
               </dl>
             </Accordion>
-            <Accordion title="Dimensions">
+            <Accordion title="ابعاد">
               <p className="flex items-start gap-3 text-sm text-muted-foreground">
-                <Ruler className="mt-0.5 size-4 shrink-0 text-umber" strokeWidth={1.4} aria-hidden />
+                <Ruler
+                  className="mt-0.5 size-4 shrink-0 text-umber"
+                  strokeWidth={1.4}
+                  aria-hidden
+                />
                 {product.dimensions}
               </p>
             </Accordion>
-            <Accordion title="Shipping & returns">
+            <Accordion title="ارسال و بازگشت">
               <ul className="space-y-2.5 text-sm text-muted-foreground">
-                <li>Dispatched from Lisbon in 1–2 working days.</li>
-                <li>Assembled delivery in 2–4 weeks for made-to-order pieces.</li>
-                <li>Free returns within 30 days, collection arranged by us.</li>
+                <li>ارسال از کارگاه در ۱ تا ۲ روز کاری.</li>
+                <li>تحویل نصب‌شده در ۲ تا ۴ هفته برای قطعه‌های سفارشی.</li>
+                <li>بازگشت رایگان تا ۳۰ روز، با هماهنگی جمع‌آوری توسط ما.</li>
               </ul>
             </Accordion>
-            <Accordion title="Why MODERNO">
+            <Accordion title="چرا مدرنو">
               <ul className="space-y-2.5 text-sm text-muted-foreground">
                 {product.details.map((detail) => (
                   <li key={detail}>{detail}</li>
@@ -275,18 +284,25 @@ function ProductPage() {
       </div>
 
       <div className="mt-20 md:mt-24">
-        <ReviewSection reviews={product.reviews} rating={product.rating} count={product.reviewCount} />
+        <ReviewSection
+          reviews={product.reviews}
+          rating={product.rating}
+          count={product.reviewCount}
+        />
       </div>
 
-      <section aria-label="Related products" className="mt-20 md:mt-24">
-        <SectionHeading linkTo="/shop" linkLabel="Shop all" title="You may also like" />
+      <section aria-label="محصولات مرتبط" className="mt-20 md:mt-24">
+        <SectionHeading linkTo="/shop" linkLabel="همه محصولات" title="اینها را هم ببینید" />
         <ProductGrid products={related} columns={4} showRating />
       </section>
 
       {seen.length > 0 && (
-        <section aria-label="Recently viewed" className="mt-20 border-t border-border pt-16 md:mt-24">
-          <SectionHeading title="Recently viewed" />
-          <ProductCarousel products={seen} ariaLabel="Recently viewed products" />
+        <section
+          aria-label="اخیراً دیده‌شده"
+          className="mt-20 border-t border-border pt-16 md:mt-24"
+        >
+          <SectionHeading title="اخیراً دیده‌اید" />
+          <ProductCarousel products={seen} ariaLabel="محصولات اخیراً دیده‌شده" />
         </section>
       )}
     </div>
@@ -304,8 +320,8 @@ function Accordion({
 }) {
   return (
     <details open={defaultOpen} className="group border-b border-border">
-      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-sm tracking-[0.02em] [&::-webkit-details-marker]:hidden">
-        <span className="font-sans text-[0.78rem] tracking-[0.12em] uppercase">{title}</span>
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-sm [&::-webkit-details-marker]:hidden">
+        <span className="font-sans text-[0.9rem] font-semibold">{title}</span>
         <ChevronDown
           className="size-4 shrink-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-open:rotate-180"
           strokeWidth={1.5}
@@ -320,7 +336,7 @@ function Accordion({
 function Detail({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="text-[0.6rem] tracking-[0.16em] uppercase text-muted-foreground">{label}</dt>
+      <dt className="text-[0.72rem] text-muted-foreground">{label}</dt>
       <dd className="mt-1.5 text-sm text-muted-foreground">{value}</dd>
     </div>
   );

@@ -5,16 +5,16 @@ import { Reveal } from "@/components/Reveal";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Us — MODERNO" },
+      { title: "درباره ما | مدرنو" },
       {
         name: "description",
         content:
-          "MODERNO designs and makes premium modern furniture in short runs, working with a small group of workshops across Portugal, Spain and Denmark.",
+          "مدرنو مبلمان مدرن و ممتاز را در سری‌های محدود طراحی و تولید می‌کند، با همکاری گروهی کوچک از کارگاه‌ها.",
       },
-      { property: "og:title", content: "About MODERNO" },
+      { property: "og:title", content: "درباره مدرنو" },
       {
         property: "og:description",
-        content: "Furniture with a sense of place — designed in-house, made in short runs.",
+        content: "مبلمانی با حسِ مکان — طراحی در استودیوی خودمان، ساخت در سری‌های محدود.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -25,16 +25,16 @@ export const Route = createFileRoute("/about")({
 
 const principles = [
   {
-    title: "Proportion before ornament",
-    body: "Every piece is drawn to sit well beside the next one, so a room can be built over years rather than bought in a weekend.",
+    title: "تناسبات پیش از تزئین",
+    body: "هر قطعه طوری طراحی شده که در کنار قطعه بعدی درست بنشیند؛ پس یک فضا در طول سال‌ها ساخته می‌شود، نه در یک آخر هفته.",
   },
   {
-    title: "Materials you can trace",
-    body: "Managed European oak, aniline-dyed leather, unlacquered brass and stoneware. Nothing synthetic pretending otherwise.",
+    title: "متریالی که می‌توانید ردیابی کنید",
+    body: "بلوط مدیریت‌شده، چرم آنیلین، برنج بدون لاک و سفال دست‌ساز. هیچ متریال مصنوعی‌ای که خودش را چیز دیگری جا بزند.",
   },
   {
-    title: "Made to be repaired",
-    body: "Covers unzip, slats lift out and hardware is standard. Furniture should outlast the trend that sold it to you.",
+    title: "ساخته‌شده برای تعمیر",
+    body: "روکش‌ها باز می‌شوند، نواره‌ها درمی‌آیند و یراق‌ها استانداردند. مبلمان باید بیشتر از مُدِ روز عمر کند.",
   },
 ];
 
@@ -43,31 +43,29 @@ function AboutPage() {
     <div className="pb-4">
       <section className="shell grid items-center gap-12 py-14 md:py-20 lg:grid-cols-2 lg:gap-20">
         <div className="max-w-xl">
-          <p className="eyebrow">Our story</p>
-          <h1 className="display-lg mt-4 text-balance">
-            A house of quiet furniture, made slowly.
-          </h1>
+          <p className="eyebrow">داستان ما</p>
+          <h1 className="display-lg mt-4">خانه‌ای از مبلمان آرام، ساخته‌شده با صبر.</h1>
           <p className="mt-6 text-sm leading-relaxed text-muted-foreground md:text-base">
-            MODERNO began in a single sunlit workshop in Lisbon, making one sofa at a time for people
-            who could not find anything low enough, soft enough and simple enough. Twenty years on,
-            we still work the same way: a small group of workshops in Portugal, Spain and Denmark,
-            short runs, and no seasonal churn.
+            مدرنو در یک کارگاه آفتاب‌گیر به دنیا آمد، در حالی که هر بار تنها یک مبل می‌ساخت؛ برای
+            کسانی که هیچ‌چیز به‌قدر کافی کوتاه، به‌قدر کافی نرم و به‌قدر کافی ساده پیدا نمی‌کردند.
+            بیست سال بعد، هنوز همان‌گونه کار می‌کنیم: چند کارگاه کوچک، سری‌های محدود و بدون تولید
+            فصلی بی‌هدف.
           </p>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
-            We believe great furniture should do more than fill a room. It should create atmosphere,
-            support everyday living and become part of the stories made at home.
+            باور داریم مبلمان خوب باید بیشتر از پر کردن اتاق کار کند. باید فضا بسازد، زندگی روزمره
+            را راحت‌تر کند و بخشی از خاطراتی شود که در خانه ساخته می‌شوند.
           </p>
           <Link
             to="/shop"
-            className="mt-9 inline-flex rounded-full bg-primary px-8 py-4 text-[0.68rem] tracking-[0.18em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
+            className="mt-9 inline-flex rounded-full bg-primary px-8 py-4 text-[0.8rem] font-semibold text-primary-foreground transition-opacity hover:opacity-85"
           >
-            Shop the collection
+            مشاهده مجموعه
           </Link>
         </div>
         <div className="aspect-4/3 overflow-hidden rounded-lg bg-linen lg:aspect-4/5">
           <img
             src={images.story}
-            alt="Calm living room with pale seating, a fireplace and soft afternoon light"
+            alt="اتاق نشیمن آرام با نشیمن روشن، شومینه و نور ملایم بعدازظهر"
             loading="lazy"
             className="size-full object-cover"
           />
@@ -89,24 +87,23 @@ function AboutPage() {
         <div className="aspect-4/3 overflow-hidden rounded-lg bg-linen">
           <img
             src={images.editorialMain}
-            alt="Neutral living room styled with layered natural light and greenery"
+            alt="اتاق نشیمن خنثی با نور طبیعی لایه‌لایه و گیاهان"
             loading="lazy"
             className="size-full object-cover"
           />
         </div>
         <div className="max-w-md">
-          <p className="eyebrow">The studio</p>
-          <h2 className="display-lg mt-4">Visit us in Lisbon</h2>
+          <p className="eyebrow">استودیو</p>
+          <h2 className="display-lg mt-4">در تهران به دیدار ما بیایید</h2>
           <p className="mt-5 text-sm leading-relaxed text-muted-foreground md:text-base">
-            Our showroom and workshop are open by appointment on Thursdays and Fridays. Bring a plan
-            of your room and we will help you with sizes, finishes and spacing — no obligation, no
-            showroom theatre.
+            شوروم و کارگاه ما پنجشنبه‌ها و جمعه‌ها با هماهنگی قبلی باز است. نقشه اتاق‌تان را بیاورید
+            تا در انتخاب اندازه، پرداخت و چیدمان کمک‌تان کنیم — بدون هیچ اجباری.
           </p>
           <Link
             to="/contact"
-            className="mt-7 inline-flex text-[0.68rem] tracking-[0.18em] uppercase link-underline"
+            className="link-underline mt-7 inline-flex text-[0.8rem] font-semibold"
           >
-            Book a visit
+            رزرو بازدید
           </Link>
         </div>
       </section>

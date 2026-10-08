@@ -1,6 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowRight, Clock, Search, X } from "lucide-react";
+import { ArrowLeft, Clock, Search, X } from "lucide-react";
 import { categories, formatPrice, searchProducts } from "@/data/catalog";
 import { useStore } from "@/lib/store";
 
@@ -14,9 +14,9 @@ export function SearchModal() {
   const results = useMemo(() => searchProducts(query), [query]);
   const suggestions = useMemo(
     () => [
-      { label: "New arrivals", to: "/new-arrivals" as const },
-      { label: "Best sellers", to: "/best-sellers" as const },
-      { label: "On sale", to: "/shop" as const },
+      { label: "محصولات جدید", to: "/new-arrivals" as const },
+      { label: "پرفروش‌ها", to: "/best-sellers" as const },
+      { label: "کالاهای تخفیف‌دار", to: "/shop" as const },
     ],
     [],
   );
@@ -55,22 +55,22 @@ export function SearchModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-70" role="dialog" aria-modal="true" aria-label="Search products">
+    <div className="fixed inset-0 z-70" role="dialog" aria-modal="true" aria-label="جستجوی محصولات">
       <button
         type="button"
-        aria-label="Close search"
+        aria-label="بستن جستجو"
         onClick={closeSearch}
         className="absolute inset-0 cursor-default bg-foreground/40 backdrop-blur-[3px]"
       />
 
-      <div className="relative max-h-[92vh] overflow-y-auto border-b border-border bg-background/97 backdrop-blur-xl">
+      <div className="drawer-in relative max-h-[92vh] overflow-y-auto border-b border-border bg-background/97 backdrop-blur-xl">
         <div className="shell py-7 md:py-10">
           <div className="flex items-center justify-between gap-4">
-            <p className="eyebrow">Search MODERNO</p>
+            <p className="eyebrow">جستجو در مدرنو</p>
             <button
               type="button"
               onClick={closeSearch}
-              aria-label="Close search"
+              aria-label="بستن جستجو"
               className="grid size-10 place-items-center rounded-full transition-colors hover:bg-secondary"
             >
               <X className="size-5" strokeWidth={1.4} aria-hidden />
@@ -79,18 +79,22 @@ export function SearchModal() {
 
           <form onSubmit={submit} className="mt-6">
             <label htmlFor="search-overlay-input" className="sr-only">
-              Search furniture and decor
+              جستجوی مبلمان و دکوراسیون
             </label>
             <div className="flex items-center gap-4 border-b border-input pb-4 focus-within:border-foreground">
-              <Search className="size-5 shrink-0 text-muted-foreground" strokeWidth={1.4} aria-hidden />
+              <Search
+                className="size-5 shrink-0 text-muted-foreground"
+                strokeWidth={1.4}
+                aria-hidden
+              />
               <input
                 id="search-overlay-input"
                 ref={inputRef}
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Sofas, dining tables, lighting…"
+                placeholder="مبل، میز غذاخوری، روشنایی…"
                 autoComplete="off"
-                className="w-full bg-transparent font-display text-2xl outline-none placeholder:text-muted-foreground md:text-4xl"
+                className="w-full bg-transparent font-display text-xl font-medium outline-none placeholder:text-muted-foreground md:text-3xl"
               />
             </div>
           </form>
@@ -99,9 +103,7 @@ export function SearchModal() {
             <div className="mt-8">
               {results.length > 0 ? (
                 <>
-                  <p className="eyebrow">
-                    {results.length} {results.length === 1 ? "result" : "results"}
-                  </p>
+                  <p className="eyebrow">{results.length} نتیجه</p>
                   <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {results.map((product) => (
                       <li key={product.id}>
@@ -112,7 +114,7 @@ export function SearchModal() {
                             closeSearch();
                             navigate({ to: "/product/$slug", params: { slug: product.slug } });
                           }}
-                          className="group flex w-full items-center gap-4 rounded-lg border border-border/70 bg-card p-3 text-left transition-colors hover:border-foreground/30"
+                          className="group flex w-full items-center gap-4 rounded-lg border border-border/70 bg-card p-3 text-start transition-colors hover:border-foreground/30"
                         >
                           <img
                             src={product.image}
@@ -122,16 +124,18 @@ export function SearchModal() {
                             className="size-16 shrink-0 rounded-lg object-cover"
                           />
                           <span className="min-w-0 flex-1">
-                            <span className="block text-[0.58rem] tracking-[0.16em] uppercase text-muted-foreground">
+                            <span className="block text-[0.72rem] text-muted-foreground">
                               {product.categoryName}
                             </span>
-                            <span className="mt-1 block truncate text-sm">{product.name}</span>
+                            <span className="mt-1 block truncate text-sm font-medium">
+                              {product.name}
+                            </span>
                             <span className="mt-1 block text-xs text-muted-foreground">
                               {formatPrice(product.price)}
                             </span>
                           </span>
-                          <ArrowRight
-                            className="size-4 shrink-0 text-muted-foreground transition-transform duration-500 group-hover:translate-x-1"
+                          <ArrowLeft
+                            className="size-4 shrink-0 text-muted-foreground transition-transform duration-500 group-hover:-translate-x-1"
                             strokeWidth={1.5}
                             aria-hidden
                           />
@@ -142,14 +146,15 @@ export function SearchModal() {
                 </>
               ) : (
                 <p className="text-sm text-muted-foreground">
-                  No pieces match “{query.trim()}”. Try a room, a material or a product name.
+                  چیزی با «{query.trim()}» هم‌خوان نبود. یک اتاق، یک متریال یا نام محصول را امتحان
+                  کنید.
                 </p>
               )}
             </div>
           ) : (
             <div className="mt-8 grid gap-10 md:grid-cols-3">
               <div>
-                <p className="eyebrow">Shop by category</p>
+                <p className="eyebrow">خرید بر اساس دسته‌بندی</p>
                 <ul className="mt-5 space-y-2.5">
                   {categories.map((category) => (
                     <li key={category.slug}>
@@ -169,7 +174,7 @@ export function SearchModal() {
               </div>
 
               <div>
-                <p className="eyebrow">Popular</p>
+                <p className="eyebrow">پرجستجو</p>
                 <ul className="mt-5 space-y-2.5">
                   {suggestions.map((item) => (
                     <li key={item.label}>
@@ -190,20 +195,20 @@ export function SearchModal() {
 
               <div>
                 <div className="flex items-center justify-between gap-3">
-                  <p className="eyebrow">Recent searches</p>
+                  <p className="eyebrow">جستجوهای اخیر</p>
                   {recentSearches.length > 0 && (
                     <button
                       type="button"
                       onClick={clearSearches}
-                      className="text-[0.6rem] tracking-[0.14em] uppercase text-muted-foreground hover:text-foreground"
+                      className="text-[0.75rem] font-medium text-muted-foreground hover:text-foreground"
                     >
-                      Clear
+                      پاک کردن
                     </button>
                   )}
                 </div>
                 {recentSearches.length === 0 ? (
                   <p className="mt-5 text-sm text-muted-foreground">
-                    Nothing yet — your last searches will appear here.
+                    هنوز چیزی نیست — جستجوهای اخیر شما اینجا نمایش داده می‌شود.
                   </p>
                 ) : (
                   <ul className="mt-5 space-y-2.5">

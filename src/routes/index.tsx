@@ -18,16 +18,16 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MODERNO — Furniture That Defines Your Space" },
+      { title: "مدرنو — مبلمانی برای تعریف فضای شما" },
       {
         name: "description",
         content:
-          "Discover thoughtfully designed furniture and curated collections created to bring comfort, character and timeless style to every room.",
+          "مجموعه‌ای از مبلمان مدرن و باکیفیت را کشف کنید؛ طراحی شده برای ایجاد آرامش، زیبایی و شخصیت در هر گوشه از خانه شما.",
       },
-      { property: "og:title", content: "MODERNO — Furniture That Defines Your Space" },
+      { property: "og:title", content: "مدرنو — مبلمانی برای تعریف فضای شما" },
       {
         property: "og:description",
-        content: "Premium modern furniture and home decor, designed for modern living.",
+        content: "مبلمان و دکوراسیون مدرن و ممتاز، طراحی‌شده برای زندگی امروز.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -42,13 +42,13 @@ function Home() {
       <HeroSection />
       <TrustBar />
 
-      <section aria-label="Shop by category" className="shell py-20 md:py-28">
+      <section aria-label="خرید بر اساس دسته‌بندی" className="shell py-20 md:py-28">
         <SectionHeading
-          eyebrow="Shop by category"
-          title="Shop By Category"
-          description="Explore furniture curated for every part of your home."
+          eyebrow="دسته‌بندی‌ها"
+          title="خرید بر اساس اتاق"
+          description="مبلمانی که برای هر گوشه از خانه شما انتخاب شده است."
           linkTo="/categories"
-          linkLabel="View all categories"
+          linkLabel="مشاهده همه دسته‌بندی‌ها"
         />
 
         <ul className="no-scrollbar snap-row -mx-5 flex gap-4 overflow-x-auto px-5 pb-2 md:mx-0 md:grid md:grid-cols-6 md:gap-5 md:overflow-visible md:px-0">
@@ -72,27 +72,27 @@ function Home() {
 
       <PromoBanner />
 
-      <section aria-label="New arrivals" className="shell py-20 md:py-28">
+      <section aria-label="محصولات جدید" className="shell py-20 md:py-28">
         <SectionHeading
-          eyebrow="Just landed"
-          title="New Arrivals"
-          description="Fresh pieces for modern interiors."
+          eyebrow="تازه رسیده"
+          title="محصولات جدید"
+          description="قطعه‌های تازه برای فضاهای مدرن."
           linkTo="/new-arrivals"
-          linkLabel="See everything new"
+          linkLabel="همه محصولات جدید را ببینید"
         />
         <ProductGrid products={newArrivals} columns={5} />
       </section>
 
-      <section aria-label="Best sellers" className="border-y border-border bg-linen/60">
+      <section aria-label="پرفروش‌ها" className="border-y border-border bg-linen/60">
         <div className="shell py-20 md:py-28">
           <SectionHeading
-            eyebrow="Loved most"
-            title="Best Sellers"
-            description="The pieces our customers keep coming back for, and recommending on."
+            eyebrow="محبوب‌ترین‌ها"
+            title="پرفروش‌ها"
+            description="قطعه‌هایی که مشتریان ما دوباره و دوباره سراغشان می‌آیند و به دیگران معرفی می‌کنند."
             linkTo="/best-sellers"
-            linkLabel="View all best sellers"
+            linkLabel="مشاهده همه پرفروش‌ها"
           />
-          <ProductCarousel products={bestSellers} ariaLabel="Best selling furniture and decor" />
+          <ProductCarousel products={bestSellers} ariaLabel="مبلمان و دکوراسیون پرفروش" />
         </div>
       </section>
 
@@ -105,20 +105,20 @@ function Home() {
       <section aria-labelledby="newsletter-heading" className="border-t border-border bg-sand/50">
         <div className="shell grid gap-8 py-20 md:py-24 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div>
-            <p className="eyebrow">Newsletter</p>
-            <h2 id="newsletter-heading" className="display-lg mt-4 text-balance">
-              Bring better design home.
+            <p className="eyebrow">خبرنامه</p>
+            <h2 id="newsletter-heading" className="display-lg mt-4">
+              طراحی بهتر را به خانه بیاورید.
             </h2>
           </div>
-          <div className="lg:pl-6">
+          <div className="lg:ps-6">
             <p className="max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
-              Get early access to new collections, private offers and interior inspiration.
+              از مجموعه‌های تازه، پیشنهادهای خصوصی و الهام‌های دکوراسیون زودتر از همه باخبر شوید.
             </p>
             <Newsletter className="mt-7" />
             <p className="mt-5 text-xs text-muted-foreground">
-              Prefer to browse first?{" "}
+              ترجیح می‌دهید اول بگردید؟{" "}
               <Link to="/shop" className="link-underline text-foreground">
-                Shop the full collection
+                همه محصولات را ببینید
               </Link>
               .
             </p>

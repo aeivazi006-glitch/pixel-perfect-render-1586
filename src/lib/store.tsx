@@ -54,8 +54,9 @@ type StoreContextValue = PersistedState & {
 const StoreContext = createContext<StoreContextValue | null>(null);
 const STORAGE_KEY = "moderno-store-v1";
 const DISCOUNTS: Record<string, number> = { WELCOME10: 0.1, STUDIO15: 0.15, MODERNO20: 0.2 };
-export const FREE_SHIPPING_THRESHOLD = 100;
-const SHIPPING_FEE = 14;
+/** Prices are quoted in Toman. */
+export const FREE_SHIPPING_THRESHOLD = 5000000;
+const SHIPPING_FEE = 350000;
 const MAX_RECENT = 6;
 
 const emptyState: PersistedState = {
@@ -186,7 +187,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
     const subtotal = lines.reduce((sum, { line, product }) => sum + product.price * line.quantity, 0);
     const rate = state.discountCode ? (DISCOUNTS[state.discountCode] ?? 0) : 0;
-    const discount = Math.round(subtotal * rate * 100) / 100;
+    const discount = Math.round(subtotal * rate);
     const shipping =
       subtotal === 0 || subtotal - discount >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
 

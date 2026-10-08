@@ -1,20 +1,25 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { SlidersHorizontal, X } from "lucide-react";
-import { defaultFilters, FilterSidebar, PRICE_CEILING, type Filters } from "@/components/FilterSidebar";
+import {
+  defaultFilters,
+  FilterSidebar,
+  PRICE_CEILING,
+  type Filters,
+} from "@/components/FilterSidebar";
 import { FilterDrawer } from "@/components/FilterDrawer";
 import { ProductGrid } from "@/components/ProductGrid";
-import { categoryName, type CategorySlug, type Product } from "@/data/catalog";
+import { categoryName, formatPrice, type CategorySlug, type Product } from "@/data/catalog";
 import { cn } from "@/lib/utils";
 
 type SortKey = "featured" | "price-asc" | "price-desc" | "rating" | "newest";
 
 const sortOptions: { value: SortKey; label: string }[] = [
-  { value: "featured", label: "Featured" },
-  { value: "newest", label: "Newest" },
-  { value: "price-asc", label: "Price: low to high" },
-  { value: "price-desc", label: "Price: high to low" },
-  { value: "rating", label: "Top rated" },
+  { value: "featured", label: "منتخب" },
+  { value: "newest", label: "جدیدترین" },
+  { value: "price-asc", label: "قیمت: کم به زیاد" },
+  { value: "price-desc", label: "قیمت: زیاد به کم" },
+  { value: "rating", label: "بیشترین امتیاز" },
 ];
 
 const PAGE_SIZE = 12;
@@ -61,7 +66,10 @@ export function CollectionView({
   const filtered = useMemo(() => {
     const query = filters.query.trim().toLowerCase();
     const list = products.filter((product) => {
-      if (query && !`${product.name} ${product.categoryName} ${product.summary}`.toLowerCase().includes(query))
+      if (
+        query &&
+        !`${product.name} ${product.categoryName} ${product.summary}`.toLowerCase().includes(query)
+      )
         return false;
       if (filters.categories.length && !filters.categories.includes(product.category)) return false;
       if (product.price > filters.maxPrice) return false;
@@ -93,40 +101,38 @@ export function CollectionView({
     ...(filters.maxPrice < PRICE_CEILING
       ? [
           {
-            label: `Under $${filters.maxPrice.toLocaleString("en-US")}`,
+            label: `تا ${formatPrice(filters.maxPrice)}`,
             clear: () => setFilters((prev) => ({ ...prev, maxPrice: PRICE_CEILING })),
           },
         ]
       : []),
     ...(filters.inStockOnly
-      ? [{ label: "In stock", clear: () => setFilters((prev) => ({ ...prev, inStockOnly: false })) }]
+      ? [{ label: "موجود", clear: () => setFilters((prev) => ({ ...prev, inStockOnly: false })) }]
       : []),
     ...(filters.onSale
-      ? [{ label: "On sale", clear: () => setFilters((prev) => ({ ...prev, onSale: false })) }]
+      ? [{ label: "تخفیف‌دار", clear: () => setFilters((prev) => ({ ...prev, onSale: false })) }]
       : []),
   ];
 
   const filterProps = {
     filters,
     onChange: setFilters,
-    onReset: () => setFilters({ ...defaultFilters, categories: initialCategory ? [initialCategory] : [] }),
+    onReset: () =>
+      setFilters({ ...defaultFilters, categories: initialCategory ? [initialCategory] : [] }),
     lockCategories,
   };
 
   return (
     <div className="shell py-10 md:py-14">
-      <nav
-        aria-label="Breadcrumb"
-        className="text-[0.62rem] tracking-[0.16em] uppercase text-muted-foreground"
-      >
+      <nav aria-label="مسیر صفحه" className="text-[0.75rem] text-muted-foreground">
         <Link to="/" className="hover:text-foreground">
-          Home
+          خانه
         </Link>
         <span className="px-2">/</span>
         {crumb ? (
           <>
             <Link to="/shop" className="hover:text-foreground">
-              Shop
+              فروشگاه
             </Link>
             <span className="px-2">/</span>
             <span className="text-foreground">{crumb}</span>
@@ -144,30 +150,25 @@ export function CollectionView({
       </header>
 
       <div className="mt-9 flex flex-wrap items-center justify-between gap-4 border-y border-border py-4">
-        <p className="text-xs tracking-[0.14em] uppercase text-muted-foreground">
-          {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
-        </p>
+        <p className="text-xs text-muted-foreground">{filtered.length} کالا</p>
         <div className="flex items-center gap-5">
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
-            className="flex items-center gap-2 text-xs tracking-[0.14em] uppercase lg:hidden"
+            className="flex items-center gap-2 text-xs font-medium lg:hidden"
           >
             <SlidersHorizontal className="size-4" strokeWidth={1.4} aria-hidden />
-            Filters
+            فیلترها
           </button>
           <div className="flex items-center gap-2">
-            <label
-              htmlFor="sort-select"
-              className="text-xs tracking-[0.14em] uppercase text-muted-foreground"
-            >
-              Sort
+            <label htmlFor="sort-select" className="text-xs text-muted-foreground">
+              مرتب‌سازی
             </label>
             <select
               id="sort-select"
               value={sort}
               onChange={(event) => setSort(event.target.value as SortKey)}
-              className="rounded-full border border-input bg-background/70 py-2 pr-3 pl-3.5 text-xs tracking-[0.1em] uppercase outline-none focus:border-foreground"
+              className="rounded-full border border-input bg-background/70 px-3.5 py-2 text-xs outline-none focus:border-foreground"
             >
               {sortOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -186,7 +187,7 @@ export function CollectionView({
               <button
                 type="button"
                 onClick={chip.clear}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3.5 py-1.5 text-[0.62rem] tracking-[0.12em] uppercase transition-colors hover:border-foreground/30"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3.5 py-1.5 text-[0.75rem] font-medium transition-colors hover:border-foreground/30"
               >
                 {chip.label}
                 <X className="size-3" strokeWidth={1.8} aria-hidden />
@@ -203,19 +204,19 @@ export function CollectionView({
             products={visible}
             columns={columns}
             showRating={showRating}
-            emptyMessage="No pieces match those filters — try widening your price range or clearing a category."
+            emptyMessage="هیچ کالایی با این فیلترها هم‌خوان نیست — محدوده قیمت را بازتر کنید یا یک دسته‌بندی را بردارید."
           />
           {visibleCount < filtered.length && (
             <div className="mt-14 flex flex-col items-center gap-4">
-              <p className="text-xs tracking-[0.14em] uppercase text-muted-foreground">
-                Showing {visible.length} of {filtered.length}
+              <p className="text-xs text-muted-foreground">
+                نمایش {visible.length} از {filtered.length}
               </p>
               <button
                 type="button"
                 onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}
-                className="rounded-full border border-foreground/25 px-8 py-3.5 text-[0.66rem] tracking-[0.18em] uppercase transition-colors duration-500 hover:border-foreground hover:bg-primary hover:text-primary-foreground"
+                className="rounded-full border border-foreground/25 px-8 py-3.5 text-[0.8rem] font-semibold transition-colors duration-500 hover:border-foreground hover:bg-primary hover:text-primary-foreground"
               >
-                Load more
+                نمایش بیشتر
               </button>
             </div>
           )}
@@ -229,9 +230,9 @@ export function CollectionView({
           <button
             type="button"
             onClick={() => setDrawerOpen(false)}
-            className="w-full rounded-full bg-primary py-3.5 text-[0.66rem] tracking-[0.18em] uppercase text-primary-foreground"
+            className="w-full rounded-full bg-primary py-3.5 text-[0.8rem] font-semibold text-primary-foreground"
           >
-            Show {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
+            نمایش {filtered.length} کالا
           </button>
         }
       >

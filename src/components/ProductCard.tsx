@@ -41,7 +41,7 @@ export function ProductCard({
         <Link
           to="/product/$slug"
           params={{ slug: product.slug }}
-          aria-label={`View ${product.name}`}
+          aria-label={`مشاهده ${product.name}`}
           className="block"
         >
           <span className="block aspect-4/5 w-full">
@@ -61,20 +61,20 @@ export function ProductCard({
           </span>
         </Link>
 
-        <div className="pointer-events-none absolute top-3 left-3 flex flex-col items-start gap-1.5">
+        <div className="pointer-events-none absolute top-3 start-3 flex flex-col items-start gap-1.5">
           {off > 0 && (
-            <span className="rounded-full bg-clay px-2.5 py-1 text-[0.58rem] tracking-[0.14em] uppercase text-clay-foreground">
-              −{off}%
+            <span className="rounded-full bg-clay px-2.5 py-1 text-[0.7rem] font-medium text-clay-foreground">
+              ٪{off} تخفیف
             </span>
           )}
           {product.tags.includes("new") && (
-            <span className="rounded-full bg-background/92 px-2.5 py-1 text-[0.58rem] tracking-[0.14em] uppercase backdrop-blur-sm">
-              New
+            <span className="rounded-full bg-background/92 px-2.5 py-1 text-[0.7rem] font-medium backdrop-blur-sm">
+              جدید
             </span>
           )}
           {!product.inStock && (
-            <span className="rounded-full bg-foreground/88 px-2.5 py-1 text-[0.58rem] tracking-[0.14em] uppercase text-background">
-              Made to order
+            <span className="rounded-full bg-foreground/88 px-2.5 py-1 text-[0.7rem] font-medium text-background">
+              ساخت به‌سفارش
             </span>
           )}
         </div>
@@ -82,9 +82,13 @@ export function ProductCard({
         <button
           type="button"
           onClick={onWishlist}
-          aria-label={wishlisted ? `Remove ${product.name} from wishlist` : `Save ${product.name} to wishlist`}
+          aria-label={
+            wishlisted
+              ? `${product.name} را از علاقه‌مندی‌ها بردار`
+              : `${product.name} را به علاقه‌مندی‌ها اضافه کن`
+          }
           aria-pressed={wishlisted}
-          className="absolute top-3 right-3 grid size-9 place-items-center rounded-full border border-border/70 bg-background/88 backdrop-blur-sm transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-background focus-visible:bg-background"
+          className="absolute top-3 end-3 grid size-9 place-items-center rounded-full border border-border/70 bg-background/88 backdrop-blur-sm transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-background focus-visible:bg-background"
         >
           <Heart
             className={cn(
@@ -101,17 +105,17 @@ export function ProductCard({
             type="button"
             onClick={quickAdd}
             disabled={!product.inStock}
-            className="flex w-full items-center justify-center gap-2 rounded-full border border-border/60 bg-background/85 py-3 text-[0.64rem] tracking-[0.16em] uppercase backdrop-blur-md transition-colors duration-500 hover:bg-primary hover:text-primary-foreground disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:bg-background/85 disabled:hover:text-foreground"
+            className="flex w-full items-center justify-center gap-2 rounded-full border border-border/60 bg-background/85 py-3 text-[0.78rem] font-semibold backdrop-blur-md transition-colors duration-500 hover:bg-primary hover:text-primary-foreground disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:bg-background/85 disabled:hover:text-foreground"
           >
             <Plus className="size-3.5" strokeWidth={1.6} aria-hidden />
-            {!product.inStock ? "Made to order" : added ? "Added" : "Quick add"}
+            {!product.inStock ? "ساخت به‌سفارش" : added ? "افزوده شد" : "افزودن سریع"}
           </button>
         </div>
       </div>
 
       <div className="flex flex-1 flex-col pt-4">
         <p className="eyebrow">{product.categoryName}</p>
-        <h3 className="mt-1.5 text-[0.95rem] leading-snug">
+        <h3 className="mt-1.5 text-[0.95rem] font-semibold leading-snug">
           <Link to="/product/$slug" params={{ slug: product.slug }} className="link-underline">
             {product.name}
           </Link>
@@ -125,7 +129,7 @@ export function ProductCard({
         )}
 
         <div className="mt-auto flex items-baseline gap-2 pt-3 text-sm">
-          <span className={cn("font-medium", product.compareAt && "text-clay")}>
+          <span className={cn("font-semibold", product.compareAt && "text-clay")}>
             {formatPrice(product.price)}
           </span>
           {product.compareAt && (

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -31,9 +31,7 @@ export function SectionHeading({
     <div
       className={cn(
         "flex flex-wrap gap-6 pb-10 md:pb-14",
-        align === "center"
-          ? "flex-col items-center text-center"
-          : "items-end justify-between",
+        align === "center" ? "flex-col items-center text-center" : "items-end justify-between",
         className,
       )}
     >
@@ -57,12 +55,12 @@ export function SectionHeading({
           to={linkTo}
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           search={linkSearch as any}
-          className="group inline-flex items-center gap-2 text-[0.68rem] tracking-[0.18em] uppercase"
+          className="group inline-flex items-center gap-2 text-[0.8rem] font-semibold"
         >
           {linkLabel}
-          <ArrowRight
-            className="size-3.5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1.5"
-            strokeWidth={1.5}
+          <ArrowLeft
+            className="size-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-x-1.5"
+            strokeWidth={1.6}
           />
         </Link>
       )}

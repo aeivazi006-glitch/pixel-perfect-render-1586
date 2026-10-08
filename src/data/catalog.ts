@@ -2,6 +2,9 @@
  * Content layer — MODERNO.
  * Every piece of storefront content lives here in a structured model so it can
  * later be swapped for a CMS / commerce API without touching the UI components.
+ *
+ * The interface is Persian (fa-IR) with RTL layout. Product `slug` values stay
+ * latin so URLs, deep links and analytics remain stable.
  */
 import heroImg from "@/assets/moderno/hero.jpg";
 import catLivingImg from "@/assets/moderno/cat-living-room.jpg";
@@ -43,16 +46,17 @@ export const images = {
   journal: journalImg,
 };
 
+/** Hero showcase video (re-encoded with a keyframe every 4 frames for scrubbing). */
+export const heroVideo = {
+  src: "/video/hero-3d.mp4",
+  poster: "/video/hero-3d-poster.jpg",
+};
+
 /* ------------------------------------------------------------------ */
 /* Categories                                                          */
 /* ------------------------------------------------------------------ */
 
-export type CategorySlug =
-  | "living-room"
-  | "dining-room"
-  | "bedroom"
-  | "home-office"
-  | "outdoor";
+export type CategorySlug = "living-room" | "dining-room" | "bedroom" | "home-office" | "outdoor";
 
 export type Category = {
   slug: CategorySlug;
@@ -65,42 +69,39 @@ export type Category = {
 export const categories: Category[] = [
   {
     slug: "living-room",
-    name: "Living Room",
-    tagline: "Sofas, tables, light",
-    description:
-      "Deep seating, low tables and quiet lighting — the pieces a room organises itself around.",
+    name: "اتاق نشیمن",
+    tagline: "مبل، میز و نور",
+    description: "نشیمن عمیق، میزهای کوتاه و نور ملایم — قطعاتی که هر فضا حول آن‌ها شکل می‌گیرد.",
     image: catLivingImg,
   },
   {
     slug: "dining-room",
-    name: "Dining Room",
-    tagline: "Tables & sideboards",
-    description:
-      "Solid timber tables and considered storage, sized for long evenings rather than quick meals.",
+    name: "اتاق غذاخوری",
+    tagline: "میز و کنسول",
+    description: "میزهای چوب یکدست و کمدهای سنجیده، ساخته‌شده برای شب‌های طولانی و دورهمی‌ها.",
     image: catDiningImg,
   },
   {
     slug: "bedroom",
-    name: "Bedroom",
-    tagline: "Rest, quietly made",
+    name: "اتاق خواب",
+    tagline: "آرامشی ساده",
     description:
-      "Upholstered beds and warm casegoods, finished in tactile fabrics that soften with use.",
+      "تخت‌های روکش‌دار و مبلمان چوبی گرم، با پارچه‌های لطیفی که با گذر زمان دلنشین‌تر می‌شوند.",
     image: catBedroomImg,
   },
   {
     slug: "home-office",
-    name: "Home Office",
-    tagline: "Desks & shelving",
-    description:
-      "Work surfaces and open storage that live comfortably inside a home, not a corporate floor.",
+    name: "دفتر کار",
+    tagline: "میز و شلف",
+    description: "سطوح کار و قفسه‌های باز که در خانه بی‌دردسر می‌نشینند، نه در فضای اداری.",
     image: catOfficeImg,
   },
   {
     slug: "outdoor",
-    name: "Outdoor",
-    tagline: "Terraces & gardens",
+    name: "فضای باز",
+    tagline: "تراس و حیاط",
     description:
-      "Weather-ready lounging in the same palette as our interiors, so the house keeps its voice outside.",
+      "نشیمن مقاوم در برابر آب‌وهوا، با همان پالت رنگ داخل خانه تا زبان طراحی یکدست بماند.",
     image: catOutdoorImg,
   },
 ];
@@ -159,31 +160,32 @@ const review = (
 const baseReviews: Review[] = [
   review(
     "r1",
-    "Elena M.",
+    "الهام م.",
     5,
-    "September 2026",
-    "Even better in person",
-    "The proportions are perfect in a small room and the finish is genuinely lovely. It has changed how the whole space feels.",
+    "مهر ۱۴۰۵",
+    "از نزدیک بهتر هم هست",
+    "تناسباتش در فضای کوچک بی‌نقص است و پرداخت نهایی واقعاً دلنشین. حس کل فضا را عوض کرده.",
   ),
   review(
     "r2",
-    "Jonas P.",
+    "یونس پ.",
     4,
-    "August 2026",
-    "Solid and understated",
-    "Exactly the muted tone I hoped for. Delivery took a few days longer than estimated — still worth the wait.",
+    "شهریور ۱۴۰۵",
+    "محکم و بی‌ادعا",
+    "دقیقاً همان تن رنگ آرامی که می‌خواستم. تحویل کمی بیشتر از زمان اعلامی طول کشید، اما ارزش انتظار را داشت.",
   ),
   review(
     "r3",
-    "Priya R.",
+    "پریا ر.",
     5,
-    "July 2026",
-    "Worth every penny",
-    "Beautifully made and effortlessly neutral. It reads far more expensive than it was.",
+    "مرداد ۱۴۰۵",
+    "ارزش هر ریالش را دارد",
+    "ساخت بسیار خوب و رنگی که بی‌دردسر با هر فضایی می‌سازد. خیلی گران‌تر از قیمتش به نظر می‌رسد.",
   ),
 ];
 
 type Seed = {
+  slug: string;
   name: string;
   category: CategorySlug;
   price: number;
@@ -204,225 +206,239 @@ type Seed = {
 
 const seeds: Seed[] = [
   {
-    name: "Luna 3-Seater Sofa",
+    slug: "luna-3-seater-sofa",
+    name: "مبل سه‌نفره لونا",
     category: "living-room",
-    price: 799,
-    compareAt: 949,
+    price: 48900000,
+    compareAt: 58900000,
     image: pSofaImg,
     hoverImage: pSofa2Img,
-    summary: "Low, deep and generously upholstered in a soft brushed weave.",
+    summary: "کوتاه، عمیق و با روکش پارچه‌ای لطیف و پرحجم.",
     description:
-      "Luna sits low and deep, with a feather-blend back that softens the more you use it. The frame is kiln-dried beech, the legs solid oak, and the cover is a brushed wool-viscose weave that holds its shape without feeling stiff.",
-    material: "Brushed wool-viscose weave · kiln-dried beech frame · solid oak legs",
-    dimensions: "W 218 × D 92 × H 78 cm · seat height 42 cm",
-    care: "Vacuum weekly with a soft brush head. Rotate cushions monthly. Professional clean only.",
-    options: { label: "Upholstery", values: ["Ivory boucle", "Stone linen", "Oak velvet"] },
+      "مبل لونا کوتاه و عمیق طراحی شده و پشتی آن با ترکیب پَر پر شده است؛ هرچه بیشتر استفاده شود، نرم‌تر و دلنشین‌تر می‌شود. بدنه از راش کوره‌خشک، پایه‌ها از بلوط یکدست و روکش از پارچه پشم و ویسکوز است که فرم خود را حفظ می‌کند و سخت به نظر نمی‌رسد.",
+    material: "پارچه پشم و ویسکوز براشد · بدنه راش کوره‌خشک · پایه بلوط یکدست",
+    dimensions: "عرض ۲۱۸ × عمق ۹۲ × ارتفاع ۷۸ سانتی‌متر · ارتفاع نشیمن ۴۲ سانتی‌متر",
+    care: "هفته‌ای یک‌بار با برس نرم جاروبرقی بکشید. هر ماه کوسن‌ها را جابه‌جا کنید. شست‌وشو فقط به‌صورت خشک.",
+    options: { label: "روکش", values: ["بوکل شیری", "کتان سنگی", "مخمل بلوطی"] },
     rating: 4.9,
     reviewCount: 214,
     tags: ["new", "best-seller"],
   },
   {
-    name: "Nova Coffee Table",
+    slug: "nova-coffee-table",
+    name: "میز جلومبلی نوا",
     category: "living-room",
-    price: 299,
+    price: 18500000,
     image: pCoffeeTableImg,
     hoverImage: editorialSide1Img,
-    summary: "A reclaimed-oak slab on a slim, hand-welded base.",
+    summary: "صفحه‌ای از بلوط بازیافتی روی پایه‌ای باریک و دست‌ساز.",
     description:
-      "Nova is cut from reclaimed oak, so every top carries its own grain and patina. The base is hand-welded steel in a warm graphite finish, powder-coated for a matte, almost chalky surface.",
-    material: "Reclaimed solid oak · powder-coated steel base",
-    dimensions: "W 120 × D 60 × H 38 cm",
-    care: "Wipe with a damp cloth. Re-oil the top once a year with a clear furniture oil.",
-    options: { label: "Finish", values: ["Natural oak", "Smoked oak"] },
+      "صفحه میز نوا از بلوط بازیافتی بریده شده، پس هر قطعه رگه و پتینه خودش را دارد. پایه از فولاد دست‌ساز با روکش گرافیتی گرم است و پوشش پودری، سطحی مات و تقریباً گچی می‌سازد.",
+    material: "بلوط بازیافتی یکدست · پایه فولادی با پوشش پودری",
+    dimensions: "عرض ۱۲۰ × عمق ۶۰ × ارتفاع ۳۸ سانتی‌متر",
+    care: "با پارچه نمدار پاک کنید. سالی یک‌بار سطح را با روغن شفاف مبلمان بازسازی کنید.",
+    options: { label: "رنگ", values: ["بلوط طبیعی", "بلوط دودی"] },
     rating: 4.8,
     reviewCount: 96,
     tags: ["new"],
   },
   {
-    name: "Elle Accent Chair",
+    slug: "elle-accent-chair",
+    name: "صندلی ال",
     category: "living-room",
-    price: 349,
+    price: 21900000,
     image: pAccentChairImg,
     hoverImage: pAccentChair2Img,
-    summary: "A curved shell on tapered legs — elegant without being formal.",
+    summary: "بدنه منحنی روی پایه‌های مخروطی — شیک، بدون تشریفات.",
     description:
-      "Elle is a single curved shell, upholstered by hand and set on tapered solid oak legs. It is narrow enough for a reading corner and sturdy enough to anchor the end of a long table.",
-    material: "Cotton-linen blend · moulded shell · solid oak legs",
-    dimensions: "W 68 × D 72 × H 76 cm · seat height 45 cm",
-    care: "Spot clean with a mild detergent. Keep out of direct sunlight.",
-    options: { label: "Upholstery", values: ["Oat linen", "Charcoal weave", "Clay boucle"] },
+      "صندلی ال یک بدنه منحنی است که با دست روکش شده و روی پایه‌های مخروطی بلوط یکدست نشسته است. به‌قدری باریک است که گوشه مطالعه را زیبا کند و به‌قدری محکم که انتهای یک میز بلند را تکیه‌گاه باشد.",
+    material: "ترکیب پنبه و کتان · بدنه قالب‌گیری‌شده · پایه بلوط یکدست",
+    dimensions: "عرض ۶۸ × عمق ۷۲ × ارتفاع ۷۶ سانتی‌متر · ارتفاع نشیمن ۴۵ سانتی‌متر",
+    care: "لکه‌ها را با شوینده ملایم پاک کنید. از نور مستقیم خورشید دور نگه دارید.",
+    options: { label: "روکش", values: ["کتان جویرنگ", "بافت ذغالی", "بوکل رسی"] },
     rating: 4.7,
     reviewCount: 138,
     tags: ["new", "best-seller"],
   },
   {
-    name: "Haven Sideboard",
+    slug: "haven-sideboard",
+    name: "کنسول هِیوِن",
     category: "living-room",
-    price: 599,
+    price: 36500000,
     image: editorialSide2Img,
     hoverImage: pShelvesImg,
-    summary: "Reeded oak doors with push-latch hardware and adjustable shelves.",
+    summary: "درهای شیاردار بلوط با قفل فشاری و طبقه‌های تنظیم‌شدنی.",
     description:
-      "Haven is reeded oak, finished by hand and set on a recessed plinth so it reads as furniture rather than cabinetry. Push-latch doors keep the front perfectly clean, and the interior shelves adjust to take records, linen or glassware.",
-    material: "Solid oak and oak veneer · brass hardware",
-    dimensions: "W 160 × D 45 × H 72 cm",
-    care: "Dust with a dry cloth. Avoid solvent cleaners on the reeded surface.",
-    options: { label: "Finish", values: ["Pale oak", "Walnut stain"] },
+      "هیون از بلوط شیاردار ساخته شده، با دست پرداخت شده و روی پلینتی فرورفته نشسته تا بیشتر مبلمان به نظر برسد تا کابینت. درهای قفل فشاری جلوی آن را کاملاً یکدست نگه می‌دارند و طبقه‌های داخلی برای صفحه، پارچه یا ظرف شیشه‌ای تنظیم می‌شوند.",
+    material: "بلوط یکدست و روکش بلوط · یراق برنجی",
+    dimensions: "عرض ۱۶۰ × عمق ۴۵ × ارتفاع ۷۲ سانتی‌متر",
+    care: "با پارچه خشک گردگیری کنید. از شوینده‌های حلّال روی سطح شیاردار پرهیز کنید.",
+    options: { label: "رنگ", values: ["بلوط روشن", "رنگ گردویی"] },
     rating: 4.8,
     reviewCount: 87,
     tags: ["new"],
   },
   {
-    name: "Woven Pendant Light",
+    slug: "woven-pendant-light",
+    name: "آویز حصیری",
     category: "living-room",
-    price: 129,
+    price: 7900000,
     image: pPendantImg,
     hoverImage: pPendant2Img,
-    summary: "Hand-woven bamboo over a warm, dimmable LED core.",
+    summary: "حصیر بامبو دست‌باف روی نور گرم و قابل تنظیم.",
     description:
-      "A single woven shade, made by hand from split bamboo and hung on a braided fabric cord. The weave throws a soft, striped shadow across the ceiling after dark — warm rather than bright.",
-    material: "Hand-woven bamboo · braided cotton cord · dimmable LED",
-    dimensions: "Ø 42 × H 34 cm · 200 cm cord",
-    care: "Dust with a soft brush. Do not wash.",
-    options: { label: "Finish", values: ["Natural", "Blackened"] },
+      "یک آباژور بافته‌شده که با دست از بامبوی شکافته ساخته شده و از سیم پارچه‌ای آویزان است. این بافت پس از تاریکی سایه‌ای نرم و راه‌راه روی سقف می‌اندازد؛ گرم، نه پرنور.",
+    material: "بامبوی دست‌باف · سیم پارچه‌ای · لامپ کم‌مصرف قابل تنظیم",
+    dimensions: "قطر ۴۲ × ارتفاع ۳۴ سانتی‌متر · سیم ۲۰۰ سانتی‌متر",
+    care: "با برس نرم گردگیری کنید. قابل شست‌وشو نیست.",
+    options: { label: "رنگ", values: ["طبیعی", "مشکی‌شده"] },
     rating: 4.6,
     reviewCount: 64,
     tags: ["new"],
   },
   {
-    name: "Sable Leather Sofa",
+    slug: "sable-leather-sofa",
+    name: "مبل چرمی سیبل",
     category: "living-room",
-    price: 1299,
-    compareAt: 1499,
+    price: 79500000,
+    compareAt: 92000000,
     image: pLeatherSofaImg,
     hoverImage: heroImg,
-    summary: "Full-grain leather that softens into its own patina.",
+    summary: "چرم تمام‌دانه که به پتینه خودش می‌رسد.",
     description:
-      "Aniline-dyed full-grain leather over a hardwood frame, with a low back that keeps sightlines open. Sable starts firm and settles into the shape of the room within a season.",
-    material: "Aniline full-grain leather · kiln-dried hardwood frame",
-    dimensions: "W 226 × D 96 × H 74 cm · seat height 41 cm",
-    care: "Condition twice a year. Wipe spills immediately with a dry cloth.",
-    options: { label: "Leather", values: ["Chestnut", "Espresso", "Black"] },
+      "چرم آنیلین تمام‌دانه روی بدنه چوب سخت، با پشتی کوتاه که دید باز فضا را حفظ می‌کند. سیبل ابتدا محکم است و در یک فصل به فرم اتاق درمی‌آید.",
+    material: "چرم آنیلین تمام‌دانه · بدنه چوب سخت کوره‌خشک",
+    dimensions: "عرض ۲۲۶ × عمق ۹۶ × ارتفاع ۷۴ سانتی‌متر · ارتفاع نشیمن ۴۱ سانتی‌متر",
+    care: "سالی دو بار چرم را تغذیه کنید. ریختگی‌ها را فوراً با پارچه خشک بردارید.",
+    options: { label: "چرم", values: ["بلوطی", "قهوه‌ای تیره", "مشکی"] },
     rating: 4.8,
     reviewCount: 187,
     tags: ["best-seller"],
   },
   {
-    name: "Astrid Dining Table",
+    slug: "astrid-dining-table",
+    name: "میز غذاخوری آسترید",
     category: "dining-room",
-    price: 899,
+    price: 55000000,
     image: catDiningImg,
     hoverImage: pDiningTableImg,
-    summary: "A solid oak top with a softly rounded bullnose edge.",
+    summary: "صفحه بلوط یکدست با لبه گرد و نرم.",
     description:
-      "Astrid is a single plank top on trestle legs, with a bullnose edge that is comfortable to lean on. It seats six without crowding and eight when the occasion calls for it.",
-    material: "Solid European oak · hand-rubbed hardwax oil",
-    dimensions: "W 200 × D 95 × H 75 cm · seats 6–8",
-    care: "Wipe with a damp cloth. Re-oil annually or when the surface dulls.",
-    options: { label: "Finish", values: ["Natural oak", "Smoked oak", "Chalk"] },
+      "آسترید یک صفحه یکپارچه روی پایه‌های خرک است، با لبه‌ای گرد که تکیه دادن به آن راحت است. برای شش نفر بی‌دردسر جا دارد و در مهمانی‌ها برای هشت نفر.",
+    material: "بلوط اروپایی یکدست · روغن سخت موم دست‌مالی‌شده",
+    dimensions: "عرض ۲۰۰ × عمق ۹۵ × ارتفاع ۷۵ سانتی‌متر · مناسب ۶ تا ۸ نفر",
+    care: "با پارچه نمدار پاک کنید. سالی یک‌بار یا هر زمان سطح کدر شد روغن بزنید.",
+    options: { label: "رنگ", values: ["بلوط طبیعی", "بلوط دودی", "گچی"] },
     rating: 4.7,
     reviewCount: 142,
     tags: ["best-seller"],
   },
   {
-    name: "Cove Bed Frame",
+    slug: "cove-bed-frame",
+    name: "تخت‌خواب کاو",
     category: "bedroom",
-    price: 749,
-    compareAt: 899,
+    price: 46900000,
+    compareAt: 56000000,
     image: pBedImg,
     hoverImage: pBed2Img,
-    summary: "A tall upholstered headboard with a slatted oak base.",
+    summary: "پشتی بلند روکش‌دار با پایه نواره‌ای بلوط.",
     description:
-      "Cove pairs a deep upholstered headboard with a quietly engineered slatted base — no box spring needed. The upholstery runs to the floor, so the bed reads as a single, calm volume.",
-    material: "Cotton-linen blend upholstery · solid oak slats",
-    dimensions: "Queen · W 165 × L 215 × H 120 cm",
-    care: "Vacuum the headboard with an upholstery attachment.",
-    options: { label: "Size", values: ["Double", "Queen", "King"] },
+      "کاو یک پشتی بلند روکش‌دار را با پایه‌ای نواره‌ای و سنجیده ترکیب می‌کند؛ بدون نیاز به تشک فنری. روکش تا کف ادامه دارد، پس تخت به‌صورت یک حجم آرام و یکپارچه دیده می‌شود.",
+    material: "روکش ترکیب پنبه و کتان · نواره‌های بلوط یکدست",
+    dimensions: "دو نفره · عرض ۱۶۵ × طول ۲۱۵ × ارتفاع ۱۲۰ سانتی‌متر",
+    care: "پشتی را با سری مخصوص مبلمان جاروبرقی بکشید.",
+    options: { label: "اندازه", values: ["دو نفره", "کوئین", "کینگ"] },
     rating: 4.9,
     reviewCount: 168,
     tags: ["best-seller"],
   },
   {
-    name: "Marlowe Desk",
+    slug: "marlowe-desk",
+    name: "میز کار مارلو",
     category: "home-office",
-    price: 459,
+    price: 28500000,
     image: pDeskImg,
     hoverImage: catOfficeImg,
-    summary: "A slim oak work surface with a discreet cable channel.",
+    summary: "سطح کار باریک بلوط با مسیر مخفی کابل.",
     description:
-      "Marlowe is deliberately shallow, so a room keeps its proportions. A felt-lined drawer and a hidden channel under the back edge keep cables off the floor.",
-    material: "Solid oak and oak veneer · felt-lined drawer",
-    dimensions: "W 140 × D 60 × H 74 cm",
-    care: "Dust regularly. Keep hot drinks off the timber surface.",
-    options: { label: "Finish", values: ["Pale oak", "Graphite"] },
+      "مارلو عمداً کم‌عمق طراحی شده تا اتاق تناسبات خود را حفظ کند. یک کشوی آستردار و مسیری پنهان در لبه پشتی، کابل‌ها را از کف جمع می‌کند.",
+    material: "بلوط یکدست و روکش بلوط · کشوی آستردار",
+    dimensions: "عرض ۱۴۰ × عمق ۶۰ × ارتفاع ۷۴ سانتی‌متر",
+    care: "مرتب گردگیری کنید. نوشیدنی گرم را روی سطح چوب نگذارید.",
+    options: { label: "رنگ", values: ["بلوط روشن", "گرافیتی"] },
     rating: 4.6,
     reviewCount: 91,
     tags: ["best-seller"],
   },
   {
-    name: "Terrace Lounge Set",
+    slug: "terrace-lounge-set",
+    name: "ست نشیمن تراس",
     category: "outdoor",
-    price: 1149,
+    price: 69000000,
     image: catOutdoorImg,
     hoverImage: promoImg,
-    summary: "Powder-coated aluminium with quick-dry cushions.",
+    summary: "آلومینیوم رنگ‌پودری با کوسن‌های زودخشک.",
     description:
-      "Two chairs, a low table and a modular bench in powder-coated aluminium, finished in a warm sand tone. Cushions are quick-dry and covered in a solution-dyed acrylic that shrugs off sun and rain.",
-    material: "Powder-coated aluminium · solution-dyed acrylic cushions",
-    dimensions: "Bench W 180 × D 78 × H 72 cm · table W 90 × D 55 × H 34 cm",
-    care: "Hose down the frame. Store cushions indoors through winter.",
-    options: { label: "Frame", values: ["Sand", "Graphite"] },
+      "دو صندلی، یک میز کوتاه و یک نیمکت ماژولار از آلومینیوم رنگ‌پودری با تناژ شن گرم. کوسن‌ها زودخشک‌اند و با اکریلیک رنگ‌شده پوشیده شده‌اند که در برابر آفتاب و باران مقاوم است.",
+    material: "آلومینیوم رنگ‌پودری · کوسن اکریلیک رنگ‌شده",
+    dimensions:
+      "نیمکت عرض ۱۸۰ × عمق ۷۸ × ارتفاع ۷۲ سانتی‌متر · میز عرض ۹۰ × عمق ۵۵ × ارتفاع ۳۴ سانتی‌متر",
+    care: "بدنه را با شلنگ بشویید. کوسن‌ها را در زمستان داخل خانه نگه دارید.",
+    options: { label: "بدنه", values: ["شنی", "گرافیتی"] },
     rating: 4.8,
     reviewCount: 76,
     tags: ["best-seller"],
   },
   {
-    name: "Solene Floor Lamp",
+    slug: "solene-floor-lamp",
+    name: "چراغ ایستاده سلن",
     category: "living-room",
-    price: 189,
+    price: 11900000,
     image: pLampImg,
     hoverImage: storyImg,
-    summary: "A brushed brass stem with a linen drum shade.",
+    summary: "میله برنج براشد با آباژور کتان.",
     description:
-      "Solene is left unlacquered, so the brushed brass deepens with time. The linen shade diffuses light low and wide — exactly what a corner needs after dark.",
-    material: "Unlacquered brushed brass · linen shade",
-    dimensions: "Ø 38 × H 152 cm",
-    care: "Dust with a dry cloth. Do not polish the brass — it is meant to patinate.",
+      "سلن بدون لاک رها شده تا برنج براشد با گذر زمان عمیق‌تر شود. آباژور کتان نور را پایین و گسترده پخش می‌کند؛ دقیقاً همان چیزی که یک گوشه پس از تاریکی لازم دارد.",
+    material: "برنج براشد بدون لاک · آباژور کتان",
+    dimensions: "قطر ۳۸ × ارتفاع ۱۵۲ سانتی‌متر",
+    care: "با پارچه خشک گردگیری کنید. برنج را پولیش نکنید؛ پتینه بخشی از طرح است.",
     rating: 4.5,
     reviewCount: 63,
     tags: ["best-seller"],
   },
   {
-    name: "Ember Ceramic Vase",
+    slug: "ember-ceramic-vase",
+    name: "گلدان سرامیکی اِمبر",
     category: "living-room",
-    price: 89,
+    price: 5400000,
     image: pVaseImg,
     hoverImage: editorialMainImg,
-    summary: "Hand-thrown stoneware in a speckled oat glaze.",
+    summary: "سفال دست‌ساز با لعاب جویرنگ دانه‌دار.",
     description:
-      "Thrown on the wheel in small batches, so no two are quite the same. The speckled oat glaze breaks warmer over the shoulder where the wall is thinnest.",
-    material: "Hand-thrown stoneware · speckled oat glaze",
-    dimensions: "Ø 22 × H 34 cm",
-    care: "Hand wash. Watertight — no liner required.",
-    options: { label: "Size", values: ["Small", "Tall"] },
+      "روی چرخ و در تیراژ کم ساخته می‌شود، پس هیچ دو تایی کاملاً یکسان نیست. لعاب جویرنگ دانه‌دار روی شانه گلدان، جایی که دیواره نازک‌تر است، گرم‌تر می‌شکند.",
+    material: "سفال دست‌ساز · لعاب جویرنگ دانه‌دار",
+    dimensions: "قطر ۲۲ × ارتفاع ۳۴ سانتی‌متر",
+    care: "با دست بشویید. ضد‌نشت است و به لایه داخلی نیاز ندارد.",
+    options: { label: "اندازه", values: ["کوچک", "بلند"] },
     rating: 4.7,
     reviewCount: 118,
     tags: ["best-seller"],
   },
   {
-    name: "Arc Wall Shelf",
+    slug: "arc-wall-shelf",
+    name: "شلف دیواری آرک",
     category: "home-office",
-    price: 159,
-    compareAt: 199,
+    price: 9800000,
+    compareAt: 12400000,
     image: pShelvesImg,
     hoverImage: editorialSide2Img,
-    summary: "Two arcs of solid oak, mounted on concealed brackets.",
+    summary: "دو قوس بلوط یکدست روی بست‌های پنهان.",
     description:
-      "Arc is a pair of curved oak shelves that hold books, ceramics or the everyday objects you actually want on show. Concealed brackets keep the wall line uninterrupted.",
-    material: "Solid oak · concealed steel brackets",
-    dimensions: "Each shelf W 90 × D 20 × H 5 cm",
-    care: "Dust with a dry cloth. Check fixings twice a year.",
-    options: { label: "Finish", values: ["Natural oak", "Blackened oak"] },
+      "آرک دو شلف منحنی از بلوط است که کتاب، سفال یا اشیای روزمره‌ای را نگه می‌دارند که دوست دارید دیده شوند. بست‌های پنهان خط دیوار را یکدست نگه می‌دارند.",
+    material: "بلوط یکدست · بست‌های فولادی پنهان",
+    dimensions: "هر شلف عرض ۹۰ × عمق ۲۰ × ارتفاع ۵ سانتی‌متر",
+    care: "با پارچه خشک گردگیری کنید. سالی دو بار بست‌ها را بررسی کنید.",
+    options: { label: "رنگ", values: ["بلوط طبیعی", "بلوط مشکی‌شده"] },
     rating: 4.6,
     reviewCount: 54,
     tags: ["best-seller"],
@@ -430,15 +446,9 @@ const seeds: Seed[] = [
   },
 ];
 
-const slugify = (value: string) =>
-  value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-
 export const products: Product[] = seeds.map((seed, index) => ({
   id: `m-${index + 1}`,
-  slug: slugify(seed.name),
+  slug: seed.slug,
   name: seed.name,
   category: seed.category,
   categoryName: categoryName(seed.category),
@@ -453,10 +463,10 @@ export const products: Product[] = seeds.map((seed, index) => ({
   dimensions: seed.dimensions,
   care: seed.care,
   details: [
-    "Designed in-house and made to order in short runs",
-    "Frame and finishes covered by a 10-year structural guarantee",
-    "Delivered flat-packed or assembled by our own team",
-    "Free returns within 30 days, collection arranged for you",
+    "طراحی در استودیوی خودمان و ساخت به‌سفارش در سری‌های محدود",
+    "بدنه و پرداخت نهایی با ۱۰ سال ضمانت ساختاری",
+    "تحویل به‌صورت بسته‌بندی‌شده یا نصب‌شده توسط تیم خودمان",
+    "مرجوعی رایگان تا ۳۰ روز، با هماهنگی جمع‌آوری از خانه شما",
   ],
   options: seed.options,
   rating: seed.rating,
@@ -499,23 +509,23 @@ export const searchProducts = (query: string, limit = 6) => {
 
 export const benefits = [
   {
-    title: "Free Shipping",
-    body: "On orders over $100",
+    title: "ارسال رایگان",
+    body: "برای سفارش‌های بالای ۵ میلیون تومان",
     icon: "truck" as const,
   },
   {
-    title: "Secure Payment",
-    body: "100% secure checkout",
+    title: "پرداخت امن",
+    body: "پرداخت کاملاً ایمن و مطمئن",
     icon: "shield" as const,
   },
   {
-    title: "Premium Quality",
-    body: "Crafted with care",
+    title: "کیفیت ممتاز",
+    body: "انتخاب شده با دقت و وسواس",
     icon: "gem" as const,
   },
   {
-    title: "24/7 Support",
-    body: "We're here to help",
+    title: "پشتیبانی ۲۴/۷",
+    body: "همیشه در کنار شما هستیم",
     icon: "headset" as const,
   },
 ];
@@ -523,29 +533,29 @@ export const benefits = [
 export const testimonials: Review[] = [
   {
     id: "t1",
-    author: "Sofia Lindqvist",
+    author: "سارا محمدی",
     rating: 5,
-    date: "Copenhagen",
-    title: "Transformed the room",
-    body: "Beautiful quality and even better in person. The sofa completely transformed our living room.",
+    date: "تهران",
+    title: "فضا را دگرگون کرد",
+    body: "کیفیت فوق‌العاده و از نزدیک بهتر از تصویر. این مبل حال کل اتاق نشیمن ما را عوض کرد.",
     verified: true,
   },
   {
     id: "t2",
-    author: "Daniel Reyes",
+    author: "امیر رضایی",
     rating: 5,
-    date: "London",
-    title: "Faultless service",
-    body: "Exceptional design, fast delivery and excellent customer service.",
+    date: "اصفهان",
+    title: "خدمات بی‌دردسر",
+    body: "طراحی چشمگیر، ارسال سریع و پشتیبانی بسیار خوب.",
     verified: true,
   },
   {
     id: "t3",
-    author: "Amara Kone",
+    author: "نگار کریمی",
     rating: 5,
-    date: "Lyon",
-    title: "Our favourite store",
-    body: "The attention to detail is incredible. MODERNO has become our favorite furniture store.",
+    date: "شیراز",
+    title: "فروشگاه موردعلاقه‌مان",
+    body: "دقت در جزئیات شگفت‌انگیز است. مدرنو به فروشگاه موردعلاقه ما تبدیل شده.",
     verified: true,
   },
 ];
@@ -560,10 +570,10 @@ export type Hotspot = {
 
 /** Percentage positions over the room photograph. */
 export const roomHotspots: Hotspot[] = [
-  { id: "h1", label: "Sofa", productSlug: "luna-3-seater-sofa", x: 27, y: 56 },
-  { id: "h2", label: "Coffee Table", productSlug: "nova-coffee-table", x: 55, y: 74 },
-  { id: "h3", label: "Floor Lamp", productSlug: "solene-floor-lamp", x: 84, y: 33 },
-  { id: "h4", label: "Accent Chair", productSlug: "elle-accent-chair", x: 13, y: 45 },
+  { id: "h1", label: "مبل", productSlug: "luna-3-seater-sofa", x: 27, y: 56 },
+  { id: "h2", label: "میز جلومبلی", productSlug: "nova-coffee-table", x: 55, y: 74 },
+  { id: "h3", label: "چراغ ایستاده", productSlug: "solene-floor-lamp", x: 84, y: 33 },
+  { id: "h4", label: "صندلی", productSlug: "elle-accent-chair", x: 13, y: 45 },
 ];
 
 export type JournalPost = {
@@ -579,32 +589,31 @@ export type JournalPost = {
 export const journalPosts: JournalPost[] = [
   {
     slug: "the-quiet-power-of-negative-space",
-    title: "The quiet power of negative space",
+    title: "قدرت آرام فضای خالی",
     excerpt:
-      "Why the most restful rooms are the least crowded — and how to decide what to take out rather than what to add.",
-    category: "Interiors",
-    date: "02 October 2026",
-    readingTime: "5 min read",
+      "چرا آرامش‌بخش‌ترین اتاق‌ها خلوت‌ترین‌اند — و چطور تصمیم بگیریم چه چیزی را برداریم، نه چه چیزی را اضافه کنیم.",
+    category: "معماری داخلی",
+    date: "۱۰ مهر ۱۴۰۵",
+    readingTime: "۵ دقیقه مطالعه",
     image: editorialMainImg,
   },
   {
     slug: "sourcing-oak-a-note-from-the-workshop",
-    title: "Sourcing oak: a note from the workshop",
+    title: "تأمین بلوط؛ یادداشتی از کارگاه",
     excerpt:
-      "Every plank we buy is traced to a managed European forest. Here is what that actually means for the grain you see.",
-    category: "Craft",
-    date: "18 September 2026",
-    readingTime: "7 min read",
+      "هر تخته چوبی که می‌خریم تا یک جنگل مدیریت‌شده اروپایی ردیابی می‌شود. این برای رگه‌ای که می‌بینید یعنی چه.",
+    category: "صنعتگری",
+    date: "۲۷ شهریور ۱۴۰۵",
+    readingTime: "۷ دقیقه مطالعه",
     image: journalImg,
   },
   {
     slug: "layering-light-in-a-modern-living-room",
-    title: "Layering light in a modern living room",
-    excerpt:
-      "Three sources, three heights, one dimmer. A simple framework for lighting a room so it works all day.",
-    category: "Guides",
-    date: "04 September 2026",
-    readingTime: "4 min read",
+    title: "لایه‌های نور در نشیمن مدرن",
+    excerpt: "سه منبع، سه ارتفاع، یک دیمر. چارچوبی ساده برای نورپردازی اتاقی که تمام روز کار کند.",
+    category: "راهنما",
+    date: "۱۳ شهریور ۱۴۰۵",
+    readingTime: "۴ دقیقه مطالعه",
     image: storyImg,
   },
 ];
@@ -613,12 +622,9 @@ export const journalPosts: JournalPost[] = [
 /* Helpers                                                             */
 /* ------------------------------------------------------------------ */
 
+/** Persian numerals with the Toman suffix, e.g. «۴۸٬۹۰۰٬۰۰۰ تومان». */
 export const formatPrice = (value: number) =>
-  new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: value % 1 === 0 ? 0 : 2,
-  }).format(value);
+  `${new Intl.NumberFormat("fa-IR", { maximumFractionDigits: 0 }).format(Math.round(value))} تومان`;
 
 export const discountPercent = (product: Product) =>
   product.compareAt ? Math.round((1 - product.price / product.compareAt) * 100) : 0;

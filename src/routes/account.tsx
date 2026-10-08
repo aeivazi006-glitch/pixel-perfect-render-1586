@@ -7,35 +7,35 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/account")({
   head: () => ({
     meta: [
-      { title: "Your Account — MODERNO" },
-      { name: "description", content: "Orders, saved pieces and delivery details." },
+      { title: "حساب کاربری شما | مدرنو" },
+      { name: "description", content: "سفارش‌ها، کالاهای ذخیره‌شده و اطلاعات ارسال." },
       { name: "robots", content: "noindex" },
     ],
   }),
   component: AccountPage,
 });
 
-const tabs = ["Orders", "Wishlist", "Details"] as const;
+const tabs = ["سفارش‌ها", "علاقه‌مندی‌ها", "اطلاعات من"] as const;
 
 const orders = [
-  { id: "MD-10428", date: "12 September 2026", status: "Delivered", total: 1098, items: 2 },
-  { id: "MD-10311", date: "24 August 2026", status: "In transit", total: 299, items: 1 },
-  { id: "MD-10190", date: "06 July 2026", status: "Delivered", total: 189, items: 1 },
+  { id: "MD-10428", date: "۲۱ شهریور ۱۴۰۵", status: "تحویل شده", total: 48900000, items: 2 },
+  { id: "MD-10311", date: "۲ مرداد ۱۴۰۵", status: "در مسیر", total: 18500000, items: 1 },
+  { id: "MD-10190", date: "۱۵ تیر ۱۴۰۵", status: "تحویل شده", total: 11900000, items: 1 },
 ];
 
 function AccountPage() {
-  const [tab, setTab] = useState<(typeof tabs)[number]>("Orders");
+  const [tab, setTab] = useState<(typeof tabs)[number]>("سفارش‌ها");
   const { wishlist } = useStore();
   const saved = products.filter((product) => wishlist.includes(product.id));
 
   return (
     <div className="shell py-10 md:py-14">
-      <p className="eyebrow">Account</p>
-      <h1 className="display-lg mt-3">Hello, Alex</h1>
+      <p className="eyebrow">حساب کاربری</p>
+      <h1 className="display-lg mt-3">سلام، الکس</h1>
       <p className="mt-3 text-sm text-muted-foreground">
-        Not you?{" "}
+        شما نیستید؟{" "}
         <Link to="/login" className="link-underline text-foreground">
-          Sign in to another account
+          ورود با حساب دیگر
         </Link>
       </p>
 
@@ -47,7 +47,7 @@ function AccountPage() {
             onClick={() => setTab(item)}
             aria-pressed={tab === item}
             className={cn(
-              "-mb-px border-b-2 pb-3 text-[0.68rem] tracking-[0.16em] uppercase transition-colors",
+              "-mb-px border-b-2 pb-3 text-[0.85rem] font-medium transition-colors",
               tab === item ? "border-foreground" : "border-transparent text-muted-foreground",
             )}
           >
@@ -56,7 +56,7 @@ function AccountPage() {
         ))}
       </div>
 
-      {tab === "Orders" && (
+      {tab === "سفارش‌ها" && (
         <ul className="mt-10 divide-y divide-border border-y border-border">
           {orders.map((order) => (
             <li
@@ -66,10 +66,10 @@ function AccountPage() {
               <div>
                 <p>{order.id}</p>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  {order.date} · {order.items} {order.items === 1 ? "item" : "items"}
+                  {order.date} · {order.items} قلم کالا
                 </p>
               </div>
-              <span className="rounded-full border border-border px-3 py-1 text-[0.6rem] tracking-[0.14em] uppercase text-muted-foreground">
+              <span className="rounded-full border border-border px-3 py-1 text-[0.72rem] text-muted-foreground">
                 {order.status}
               </span>
               <span>{formatPrice(order.total)}</span>
@@ -78,20 +78,23 @@ function AccountPage() {
         </ul>
       )}
 
-      {tab === "Wishlist" && (
+      {tab === "علاقه‌مندی‌ها" && (
         <div className="mt-10">
           {saved.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              Nothing saved yet —{" "}
+              هنوز چیزی ذخیره نشده —{" "}
               <Link to="/shop" className="link-underline text-foreground">
-                browse the collection
+                مجموعه را ببینید
               </Link>
               .
             </p>
           ) : (
             <ul className="space-y-4 text-sm">
               {saved.map((product) => (
-                <li key={product.id} className="flex items-center gap-4 border-b border-border pb-4">
+                <li
+                  key={product.id}
+                  className="flex items-center gap-4 border-b border-border pb-4"
+                >
                   <img
                     src={product.image}
                     alt=""
@@ -114,20 +117,20 @@ function AccountPage() {
         </div>
       )}
 
-      {tab === "Details" && (
+      {tab === "اطلاعات من" && (
         <dl className="mt-10 grid max-w-lg gap-6 text-sm sm:grid-cols-2">
           <div>
-            <dt className="eyebrow">Name</dt>
-            <dd className="mt-2">Alex Moreau</dd>
+            <dt className="eyebrow">نام</dt>
+            <dd className="mt-2">الکس مرادی</dd>
           </div>
           <div>
-            <dt className="eyebrow">Email</dt>
+            <dt className="eyebrow">ایمیل</dt>
             <dd className="mt-2">alex@example.com</dd>
           </div>
           <div className="sm:col-span-2">
-            <dt className="eyebrow">Delivery address</dt>
+            <dt className="eyebrow">نشانی تحویل</dt>
             <dd className="mt-2 text-muted-foreground">
-              24 Fitzroy Street, London W1T 4BQ, United Kingdom
+              تهران، خیابان ونک، کوچه ۲۴، پلاک ۳، واحد ۷
             </dd>
           </div>
         </dl>

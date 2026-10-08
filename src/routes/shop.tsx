@@ -17,16 +17,16 @@ export const Route = createFileRoute("/shop")({
   },
   head: () => ({
     meta: [
-      { title: "Shop All Furniture & Home Decor — MODERNO" },
+      { title: "فروشگاه — همه مبلمان و دکوراسیون | مدرنو" },
       {
         name: "description",
         content:
-          "Browse the full MODERNO collection — sofas, dining tables, beds, desks, lighting and decor, filterable by category, price, availability and sale.",
+          "همه مجموعه مدرنو را ببینید — مبل، میز غذاخوری، تخت، میز کار، روشنایی و دکوراسیون، با فیلتر دسته‌بندی، قیمت، موجودی و تخفیف.",
       },
-      { property: "og:title", content: "Shop All — MODERNO" },
+      { property: "og:title", content: "فروشگاه — مدرنو" },
       {
         property: "og:description",
-        content: "The full collection of modern furniture and home decor, in one place.",
+        content: "همه مجموعه مبلمان و دکوراسیون مدرن، یک‌جا.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -37,10 +37,10 @@ export const Route = createFileRoute("/shop")({
 
 function ShopPage() {
   const { category, sale = false } = Route.useSearch();
-  const title = category ? categoryName(category) : "Shop All";
+  const title = category ? categoryName(category) : "همه محصولات";
   const description = category
-    ? `Every piece in our ${categoryName(category).toLowerCase()} collection — filter by price, availability or sale.`
-    : "Everything currently in the house, from deep sofas and solid oak tables to lighting and the objects that finish a room.";
+    ? `همه قطعه‌های مجموعه ${categoryName(category)} — با فیلتر قیمت، موجودی یا تخفیف.`
+    : "هر چیزی که اکنون در خانه ما هست؛ از مبل‌های عمیق و میزهای بلوط یکدست تا روشنایی و اشیایی که یک فضا را کامل می‌کنند.";
 
   return (
     <CollectionView

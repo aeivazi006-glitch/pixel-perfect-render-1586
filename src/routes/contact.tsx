@@ -5,16 +5,16 @@ import { Clock, Mail, MapPin, Phone } from "lucide-react";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — MODERNO" },
+      { title: "تماس با ما | مدرنو" },
       {
         name: "description",
         content:
-          "Questions about sizing, delivery, returns or a showroom visit? Contact the MODERNO team in Lisbon.",
+          "پرسشی درباره اندازه، ارسال، بازگشت کالا یا بازدید از شوروم دارید؟ با تیم مدرنو در تماس باشید.",
       },
-      { property: "og:title", content: "Contact — MODERNO" },
+      { property: "og:title", content: "تماس با ما | مدرنو" },
       {
         property: "og:description",
-        content: "Talk to our team about sizing, delivery and returns.",
+        content: "درباره اندازه، ارسال و بازگشت کالا با تیم ما صحبت کنید.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -29,11 +29,11 @@ function ContactPage() {
   return (
     <div className="shell grid gap-14 py-12 md:py-16 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
       <div>
-        <p className="eyebrow">Contact</p>
-        <h1 className="display-lg mt-4 text-balance">We answer within one working day.</h1>
+        <p className="eyebrow">تماس با ما</p>
+        <h1 className="display-lg mt-4">حداکثر تا یک روز کاری پاسخ می‌دهیم.</h1>
         <p className="mt-5 text-sm leading-relaxed text-muted-foreground md:text-base">
-          Sizing advice, fabric swatches, delivery timelines or a trade enquiry — write to us and a
-          real person will reply.
+          مشاوره اندازه، نمونه پارچه، زمان تحویل یا سفارش عمده — برای ما بنویسید و یک انسان واقعی
+          پاسخ می‌دهد.
         </p>
 
         <ul className="mt-10 space-y-5 text-sm">
@@ -43,15 +43,15 @@ function ContactPage() {
           </li>
           <li className="flex items-start gap-3">
             <Phone className="mt-0.5 size-4 shrink-0 text-clay" strokeWidth={1.5} aria-hidden />
-            +351 210 000 000
+            ۰۲۱ ۰۰۰۰ ۰۰۰۰
           </li>
           <li className="flex items-start gap-3">
             <MapPin className="mt-0.5 size-4 shrink-0 text-clay" strokeWidth={1.5} aria-hidden />
-            18 Rue des Arts, Lisbon
+            تهران، خیابان ولی‌عصر، پلاک ۱۸
           </li>
           <li className="flex items-start gap-3">
             <Clock className="mt-0.5 size-4 shrink-0 text-clay" strokeWidth={1.5} aria-hidden />
-            Monday to Friday, 9:00–18:00 WET
+            شنبه تا چهارشنبه، ۹:۰۰ تا ۱۸:۰۰
           </li>
         </ul>
       </div>
@@ -63,14 +63,14 @@ function ContactPage() {
           setSent(true);
         }}
       >
-        <h2 className="display-md">Send a message</h2>
+        <h2 className="display-md">ارسال پیام</h2>
         <div className="mt-7 grid gap-6 sm:grid-cols-2">
-          <Field label="Name" name="name" />
-          <Field label="Email" name="email" type="email" />
-          <Field label="Subject" name="subject" className="sm:col-span-2" />
+          <Field label="نام" name="name" />
+          <Field label="ایمیل" name="email" type="email" />
+          <Field label="موضوع" name="subject" className="sm:col-span-2" />
           <div className="sm:col-span-2">
             <label htmlFor="message" className="eyebrow">
-              Message
+              متن پیام
             </label>
             <textarea
               id="message"
@@ -83,13 +83,13 @@ function ContactPage() {
         </div>
         <button
           type="submit"
-          className="mt-9 rounded-full bg-primary px-8 py-4 text-[0.68rem] tracking-[0.18em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
+          className="mt-9 rounded-full bg-primary px-8 py-4 text-[0.8rem] font-semibold text-primary-foreground transition-opacity hover:opacity-85"
         >
-          Send message
+          ارسال پیام
         </button>
         {sent && (
           <p aria-live="polite" className="mt-5 text-sm text-muted-foreground">
-            Thank you — your message is with the studio. We'll reply within one working day.
+            سپاسگزاریم — پیام شما به دست استودیو رسید. حداکثر تا یک روز کاری پاسخ می‌دهیم.
           </p>
         )}
       </form>

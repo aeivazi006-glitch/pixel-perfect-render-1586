@@ -3,12 +3,13 @@ import { X } from "lucide-react";
 
 /**
  * Slide-over panel used for mobile product filters.
- * Closes on Escape, backdrop tap and the explicit close control.
+ * Anchored to the inline start (the right edge in RTL) and closes on Escape,
+ * backdrop tap and the explicit close control.
  */
 export function FilterDrawer({
   open,
   onClose,
-  title = "Filters",
+  title = "فیلترها",
   footer,
   children,
 }: {
@@ -37,21 +38,26 @@ export function FilterDrawer({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-70 lg:hidden" role="dialog" aria-modal="true" aria-label={title}>
+    <div
+      className="fixed inset-0 z-70 lg:hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label={title}
+    >
       <button
         type="button"
-        aria-label="Close filters"
+        aria-label="بستن فیلترها"
         onClick={onClose}
         className="absolute inset-0 cursor-default bg-foreground/40 backdrop-blur-[3px]"
       />
-      <div className="relative ml-auto flex h-full w-[88%] max-w-sm flex-col border-l border-border bg-background">
+      <div className="drawer-in relative me-auto flex h-full w-[88%] max-w-sm flex-col border-e border-border bg-background">
         <div className="flex items-center justify-between border-b border-border px-6 py-5">
-          <h2 className="font-display text-xl">{title}</h2>
+          <h2 className="font-display text-xl font-semibold">{title}</h2>
           <button
             ref={closeRef}
             type="button"
             onClick={onClose}
-            aria-label="Close filters"
+            aria-label="بستن فیلترها"
             className="grid size-10 place-items-center rounded-full transition-colors hover:bg-secondary"
           >
             <X className="size-5" strokeWidth={1.4} aria-hidden />

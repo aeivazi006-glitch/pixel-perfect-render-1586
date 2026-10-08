@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function Newsletter({ className }: { className?: string }) {
@@ -16,26 +16,26 @@ export function Newsletter({ className }: { className?: string }) {
   return (
     <form onSubmit={submit} className={cn("w-full max-w-lg", className)}>
       <label htmlFor="newsletter-email" className="sr-only">
-        Your email address
+        نشانی ایمیل شما
       </label>
-      <div className="flex items-center gap-2 rounded-full border border-input bg-background/70 pr-1.5 pl-5 transition-colors focus-within:border-foreground">
+      <div className="flex items-center gap-2 rounded-full border border-input bg-background/70 pe-1.5 ps-5 transition-colors focus-within:border-foreground">
         <input
           id="newsletter-email"
           type="email"
           required
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          placeholder="Your email address"
+          placeholder="نشانی ایمیل شما"
           className="w-full min-w-0 bg-transparent py-3.5 text-sm outline-none placeholder:text-muted-foreground"
         />
         <button
           type="submit"
-          className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[0.64rem] tracking-[0.18em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
+          className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[0.78rem] font-semibold text-primary-foreground transition-opacity hover:opacity-85"
         >
-          Subscribe
-          <ArrowRight
-            className="size-3.5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1"
-            strokeWidth={1.5}
+          عضویت
+          <ArrowLeft
+            className="size-3.5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-x-1"
+            strokeWidth={1.6}
             aria-hidden
           />
         </button>
@@ -47,7 +47,7 @@ export function Newsletter({ className }: { className?: string }) {
           done ? "opacity-100" : "opacity-0",
         )}
       >
-        Thank you — look for our next edit in your inbox.
+        سپاسگزاریم — شماره بعدی ما را در ایمیل خود ببینید.
       </p>
     </form>
   );

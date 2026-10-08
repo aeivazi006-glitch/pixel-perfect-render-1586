@@ -12,7 +12,7 @@ export function ProductGrid({
   columns = 4,
   showRating = false,
   className,
-  emptyMessage = "Nothing matches those filters yet — try widening your selection.",
+  emptyMessage = "هنوز چیزی با این فیلترها پیدا نشد — محدوده را بازتر کنید.",
 }: {
   products: Product[];
   columns?: 3 | 4 | 5;
@@ -32,7 +32,11 @@ export function ProductGrid({
     <ul
       className={cn(
         "grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-3",
-        columns === 5 ? "xl:grid-cols-5 lg:grid-cols-4" : columns === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3",
+        columns === 5
+          ? "xl:grid-cols-5 lg:grid-cols-4"
+          : columns === 4
+            ? "lg:grid-cols-4"
+            : "lg:grid-cols-3",
         className,
       )}
     >

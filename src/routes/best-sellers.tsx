@@ -5,22 +5,22 @@ import { bestSellers } from "@/data/catalog";
 export const Route = createFileRoute("/best-sellers")({
   head: () => ({
     meta: [
-      { title: "Best Sellers — MODERNO" },
+      { title: "پرفروش‌ها | مدرنو" },
       {
         name: "description",
         content:
-          "Our most-loved furniture: the Sable leather sofa, the Astrid dining table, the Cove bed frame and the pieces our customers reorder.",
+          "محبوب‌ترین مبلمان ما: مبل چرمی سیبل، میز غذاخوری آسترید، تخت‌خواب کاو و قطعه‌هایی که مشتریان دوباره سفارش می‌دهند.",
       },
-      { property: "og:title", content: "Best Sellers — MODERNO" },
-      { property: "og:description", content: "The pieces our customers keep coming back for." },
+      { property: "og:title", content: "پرفروش‌ها | مدرنو" },
+      { property: "og:description", content: "قطعه‌هایی که مشتریان ما دوباره سراغشان می‌آیند." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: () => (
     <CollectionView
-      title="Best Sellers"
-      description="The pieces that leave the workshop fastest — tried, reordered and recommended more than anything else in the collection."
+      title="پرفروش‌ها"
+      description="قطعه‌هایی که سریع‌تر از همه از کارگاه بیرون می‌روند — آزموده‌شده، دوباره سفارش‌داده‌شده و بیشتر از هر چیز دیگری پیشنهادشده."
       products={bestSellers}
       columns={4}
       showRating

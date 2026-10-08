@@ -1,17 +1,17 @@
 import { Link } from "@tanstack/react-router";
 
 const aboutLinks = [
-  { label: "Our Story", to: "/about" as const },
-  { label: "Journal", to: "/journal" as const },
-  { label: "Design Philosophy", to: "/about" as const },
-  { label: "Contact", to: "/contact" as const },
+  { label: "داستان ما", to: "/about" as const },
+  { label: "مجله", to: "/journal" as const },
+  { label: "فلسفه طراحی", to: "/about" as const },
+  { label: "تماس با ما", to: "/contact" as const },
 ];
 
-const careLinks = ["Shipping", "Returns", "FAQ", "Support", "Track Order"];
+const careLinks = ["ارسال کالا", "بازگشت کالا", "پرسش‌های متداول", "پشتیبانی", "پیگیری سفارش"];
 const socialLinks = [
-  { label: "Instagram", href: "https://instagram.com" },
-  { label: "Pinterest", href: "https://pinterest.com" },
-  { label: "Facebook", href: "https://facebook.com" },
+  { label: "اینستاگرام", href: "https://instagram.com" },
+  { label: "پینترست", href: "https://pinterest.com" },
+  { label: "فیسبوک", href: "https://facebook.com" },
 ];
 
 const paymentMethods = ["Visa", "Mastercard", "Amex", "PayPal", "Apple Pay"];
@@ -23,63 +23,63 @@ export function Footer() {
     <footer className="mt-20 border-t border-border bg-linen md:mt-28">
       <div className="shell grid gap-12 py-16 md:grid-cols-2 md:py-20 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:gap-10">
         <div className="max-w-xs">
-          <span className="block font-sans text-[1.05rem] font-medium tracking-[0.34em] uppercase">
+          <span className="block font-sans text-[1.05rem] font-semibold tracking-[0.34em] uppercase">
             Moderno
           </span>
           <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-            Premium modern furniture and home decor, designed in-house and made to order for rooms
-            that are lived in rather than styled.
+            مبلمان و دکوراسیون مدرن و باکیفیت؛ طراحی‌شده در استودیوی خودمان و ساخته‌شده به‌سفارش
+            برای خانه‌هایی که در آن‌ها زندگی می‌شود، نه فقط چیده می‌شوند.
           </p>
           <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-            18 Rue des Arts, Lisbon
+            تهران، خیابان ولی‌عصر، پلاک ۱۸
             <br />
             hello@moderno.com
           </p>
         </div>
 
-        <nav aria-label="Shop" className="text-sm">
-          <h2 className="eyebrow">Shop</h2>
+        <nav aria-label="فروشگاه" className="text-sm">
+          <h2 className="eyebrow">فروشگاه</h2>
           <ul className="mt-5 space-y-3">
             <li>
               <Link to="/new-arrivals" className={linkClass}>
-                New Arrivals
+                محصولات جدید
               </Link>
             </li>
             <li>
               <Link to="/best-sellers" className={linkClass}>
-                Best Sellers
+                پرفروش‌ها
               </Link>
             </li>
             <li>
               <Link to="/shop" search={{ category: "living-room" }} className={linkClass}>
-                Living Room
+                اتاق نشیمن
               </Link>
             </li>
             <li>
               <Link to="/shop" search={{ category: "bedroom" }} className={linkClass}>
-                Bedroom
+                اتاق خواب
               </Link>
             </li>
             <li>
               <Link to="/shop" search={{ category: "dining-room" }} className={linkClass}>
-                Dining
+                اتاق غذاخوری
               </Link>
             </li>
             <li>
               <Link to="/shop" search={{ category: "home-office" }} className={linkClass}>
-                Office
+                دفتر کار
               </Link>
             </li>
             <li>
               <Link to="/shop" search={{ sale: true }} className={linkClass}>
-                Sale
+                حراج
               </Link>
             </li>
           </ul>
         </nav>
 
-        <nav aria-label="About" className="text-sm">
-          <h2 className="eyebrow">About</h2>
+        <nav aria-label="درباره ما" className="text-sm">
+          <h2 className="eyebrow">درباره</h2>
           <ul className="mt-5 space-y-3">
             {aboutLinks.map((link) => (
               <li key={link.label}>
@@ -92,8 +92,8 @@ export function Footer() {
         </nav>
 
         <div className="grid content-start gap-10">
-          <nav aria-label="Customer care" className="text-sm">
-            <h2 className="eyebrow">Customer Care</h2>
+          <nav aria-label="خدمات مشتریان" className="text-sm">
+            <h2 className="eyebrow">خدمات مشتریان</h2>
             <ul className="mt-5 space-y-3">
               {careLinks.map((label) => (
                 <li key={label}>
@@ -106,7 +106,7 @@ export function Footer() {
           </nav>
 
           <div className="text-sm">
-            <h2 className="eyebrow">Social</h2>
+            <h2 className="eyebrow">شبکه‌های اجتماعی</h2>
             <ul className="mt-5 space-y-3">
               {socialLinks.map((link) => (
                 <li key={link.label}>
@@ -126,13 +126,13 @@ export function Footer() {
       </div>
 
       <div className="shell flex flex-col gap-6 border-t border-border py-7 lg:flex-row lg:items-center lg:justify-between">
-        <p className="text-xs text-muted-foreground">© 2026 MODERNO. All rights reserved.</p>
+        <p className="text-xs text-muted-foreground">© ۱۴۰۵ مدرنو. همه حقوق محفوظ است.</p>
 
-        <ul className="flex flex-wrap items-center gap-2" aria-label="Accepted payment methods">
+        <ul className="flex flex-wrap items-center gap-2" aria-label="روش‌های پرداخت">
           {paymentMethods.map((method) => (
             <li
               key={method}
-              className="rounded-md border border-border bg-background/70 px-2.5 py-1 text-[0.6rem] tracking-[0.12em] uppercase text-muted-foreground"
+              className="rounded-md border border-border bg-background/70 px-2.5 py-1 text-[0.68rem] tracking-[0.04em] text-muted-foreground"
             >
               {method}
             </li>
@@ -142,17 +142,17 @@ export function Footer() {
         <ul className="flex flex-wrap items-center gap-5 text-xs text-muted-foreground">
           <li>
             <Link to="/contact" className="link-underline">
-              Privacy Policy
+              حریم خصوصی
             </Link>
           </li>
           <li>
             <Link to="/contact" className="link-underline">
-              Cookie Preferences
+              تنظیمات کوکی
             </Link>
           </li>
           <li>
             <Link to="/contact" className="link-underline">
-              Terms
+              شرایط استفاده
             </Link>
           </li>
         </ul>

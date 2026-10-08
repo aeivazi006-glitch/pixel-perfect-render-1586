@@ -6,8 +6,8 @@ import { useStore } from "@/lib/store";
 export const Route = createFileRoute("/wishlist")({
   head: () => ({
     meta: [
-      { title: "Wishlist — MODERNO" },
-      { name: "description", content: "The pieces you've saved for later." },
+      { title: "علاقه‌مندی‌ها | مدرنو" },
+      { name: "description", content: "قطعه‌هایی که برای بعد ذخیره کرده‌اید." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -20,19 +20,19 @@ function WishlistPage() {
 
   return (
     <div className="shell py-10 md:py-14">
-      <h1 className="display-lg">Wishlist</h1>
+      <h1 className="display-lg">علاقه‌مندی‌ها</h1>
       <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground">
-        Saved pieces stay here on this device, so you can come back and decide slowly.
+        قطعه‌های ذخیره‌شده روی همین دستگاه می‌مانند تا هر وقت خواستید با آرامش تصمیم بگیرید.
       </p>
 
       {saved.length === 0 ? (
         <div className="py-24 text-center">
-          <p className="text-sm text-muted-foreground">Nothing saved yet.</p>
+          <p className="text-sm text-muted-foreground">هنوز چیزی ذخیره نشده است.</p>
           <Link
             to="/shop"
-            className="mt-8 inline-flex rounded-full bg-primary px-8 py-4 text-[0.68rem] tracking-[0.18em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
+            className="mt-8 inline-flex rounded-full bg-primary px-8 py-4 text-[0.8rem] font-semibold text-primary-foreground transition-opacity hover:opacity-85"
           >
-            Find something you love
+            چیزی پیدا کنید که دوستش دارید
           </Link>
         </div>
       ) : (

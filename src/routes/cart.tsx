@@ -7,8 +7,8 @@ import { formatPrice } from "@/data/catalog";
 export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
-      { title: "Your Cart — MODERNO" },
-      { name: "description", content: "Review the pieces in your cart before checkout." },
+      { title: "سبد خرید شما | مدرنو" },
+      { name: "description", content: "پیش از تسویه حساب، کالاهای سبد خرید خود را بررسی کنید." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -33,16 +33,16 @@ function CartPage() {
 
   return (
     <div className="shell py-10 md:py-14">
-      <h1 className="display-lg">Your Cart</h1>
+      <h1 className="display-lg">سبد خرید شما</h1>
 
       {lines.length === 0 ? (
         <div className="py-24 text-center">
-          <p className="text-sm text-muted-foreground">Your cart is empty for now.</p>
+          <p className="text-sm text-muted-foreground">سبد خرید شما در این لحظه خالی است.</p>
           <Link
             to="/shop"
-            className="mt-8 inline-flex rounded-full bg-primary px-8 py-4 text-[0.68rem] tracking-[0.18em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
+            className="mt-8 inline-flex rounded-full bg-primary px-8 py-4 text-[0.8rem] font-semibold text-primary-foreground transition-opacity hover:opacity-85"
           >
-            Start shopping
+            شروع خرید
           </Link>
         </div>
       ) : (
@@ -62,7 +62,7 @@ function CartPage() {
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
                       <p className="eyebrow">{product.categoryName}</p>
-                      <h2 className="mt-1 text-base">
+                      <h2 className="mt-1 text-base font-semibold">
                         <Link
                           to="/product/$slug"
                           params={{ slug: product.slug }}
@@ -82,7 +82,7 @@ function CartPage() {
                     <div className="flex items-center rounded-full border border-input">
                       <button
                         type="button"
-                        aria-label={`Decrease quantity of ${product.name}`}
+                        aria-label={`کاهش تعداد ${product.name}`}
                         onClick={() => setQuantity(product.id, line.variant, line.quantity - 1)}
                         className="grid size-9 place-items-center rounded-full transition-colors hover:bg-secondary"
                       >
@@ -91,7 +91,7 @@ function CartPage() {
                       <span className="w-8 text-center text-sm">{line.quantity}</span>
                       <button
                         type="button"
-                        aria-label={`Increase quantity of ${product.name}`}
+                        aria-label={`افزایش تعداد ${product.name}`}
                         onClick={() => setQuantity(product.id, line.variant, line.quantity + 1)}
                         className="grid size-9 place-items-center rounded-full transition-colors hover:bg-secondary"
                       >
@@ -104,18 +104,18 @@ function CartPage() {
                         toggleWishlist(product.id);
                         removeLine(product.id, line.variant);
                       }}
-                      className="flex items-center gap-2 text-[0.62rem] tracking-[0.14em] uppercase text-muted-foreground hover:text-foreground"
+                      className="flex items-center gap-2 text-[0.75rem] font-medium text-muted-foreground hover:text-foreground"
                     >
                       <Heart className="size-3.5" strokeWidth={1.4} aria-hidden />
-                      Move to wishlist
+                      انتقال به علاقه‌مندی‌ها
                     </button>
                     <button
                       type="button"
                       onClick={() => removeLine(product.id, line.variant)}
-                      className="flex items-center gap-1.5 text-[0.62rem] tracking-[0.14em] uppercase text-muted-foreground hover:text-foreground"
+                      className="flex items-center gap-1.5 text-[0.75rem] font-medium text-muted-foreground hover:text-foreground"
                     >
                       <X className="size-3.5" strokeWidth={1.4} aria-hidden />
-                      Remove
+                      حذف
                     </button>
                   </div>
                 </div>
@@ -124,16 +124,16 @@ function CartPage() {
           </ul>
 
           <aside className="h-fit rounded-2xl bg-linen p-7 lg:sticky lg:top-28">
-            <h2 className="display-md">Order summary</h2>
+            <h2 className="display-md">خلاصه سفارش</h2>
             <dl className="mt-6 space-y-3 text-sm">
-              <Row label="Subtotal" value={formatPrice(subtotal)} />
+              <Row label="جمع کالاها" value={formatPrice(subtotal)} />
               {discount > 0 && (
-                <Row label={`Discount (${discountCode})`} value={`−${formatPrice(discount)}`} />
+                <Row label={`تخفیف (${discountCode})`} value={`−${formatPrice(discount)}`} />
               )}
-              <Row label="Shipping" value={shipping === 0 ? "Free" : formatPrice(shipping)} />
+              <Row label="هزینه ارسال" value={shipping === 0 ? "رایگان" : formatPrice(shipping)} />
               <div className="flex items-baseline justify-between border-t border-border pt-4 text-base">
-                <dt>Total</dt>
-                <dd className="font-medium">{formatPrice(total)}</dd>
+                <dt>مبلغ قابل پرداخت</dt>
+                <dd className="font-semibold">{formatPrice(total)}</dd>
               </div>
             </dl>
 
@@ -142,14 +142,14 @@ function CartPage() {
               onSubmit={(event) => {
                 event.preventDefault();
                 const ok = applyDiscount(code);
-                setError(ok ? "" : "That code isn't valid. Try WELCOME10.");
+                setError(ok ? "" : "این کد معتبر نیست. WELCOME10 را امتحان کنید.");
                 if (ok) setCode("");
               }}
             >
               <label htmlFor="cart-code" className="eyebrow">
-                Promo code
+                کد تخفیف
               </label>
-              <div className="mt-3 flex items-center gap-3 rounded-full border border-input bg-background/70 pr-1.5 pl-4">
+              <div className="mt-3 flex items-center gap-3 rounded-full border border-input bg-background/70 pe-1.5 ps-4">
                 <input
                   id="cart-code"
                   value={code}
@@ -159,9 +159,9 @@ function CartPage() {
                 />
                 <button
                   type="submit"
-                  className="shrink-0 rounded-full px-3 py-1.5 text-[0.62rem] tracking-[0.14em] uppercase transition-colors hover:bg-secondary"
+                  className="shrink-0 rounded-full px-3 py-1.5 text-[0.75rem] font-semibold transition-colors hover:bg-secondary"
                 >
-                  Apply
+                  اعمال
                 </button>
               </div>
               {error && (
@@ -173,12 +173,12 @@ function CartPage() {
 
             <Link
               to="/checkout"
-              className="mt-8 block rounded-full bg-primary py-4 text-center text-[0.68rem] tracking-[0.18em] uppercase text-primary-foreground transition-opacity hover:opacity-88"
+              className="mt-8 block rounded-full bg-primary py-4 text-center text-[0.8rem] font-semibold text-primary-foreground transition-opacity hover:opacity-88"
             >
-              Checkout
+              تسویه حساب
             </Link>
             <p className="mt-4 text-xs text-muted-foreground">
-              Free shipping on orders over {formatPrice(FREE_SHIPPING)}.
+              ارسال رایگان برای سفارش‌های بالای {formatPrice(FREE_SHIPPING)}.
             </p>
           </aside>
         </div>

@@ -9,8 +9,8 @@ export const Route = createFileRoute("/search")({
   }),
   head: () => ({
     meta: [
-      { title: "Search — MODERNO" },
-      { name: "description", content: "Search the MODERNO collection of modern furniture and home decor." },
+      { title: "جستجو | مدرنو" },
+      { name: "description", content: "جستجو در مجموعه مبلمان و دکوراسیون مدرن مدرنو." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -24,25 +24,25 @@ function SearchPage() {
   return (
     <div className="shell py-10 md:py-14">
       <SectionHeading
-        eyebrow="Search"
-        title={q.trim() ? `Results for “${q}”` : "Search the collection"}
+        eyebrow="جستجو"
+        title={q.trim() ? `نتایج برای «${q}»` : "جستجو در مجموعه"}
         description={
           q.trim()
-            ? `${results.length} ${results.length === 1 ? "piece" : "pieces"} matched your search.`
-            : "Use the search icon in the header to browse sofas, tables, lighting and decor."
+            ? `${results.length} کالا با جستجوی شما هم‌خوان بود.`
+            : "از آیکن جستجو در سربرگ استفاده کنید تا میان مبل‌ها، میزها، روشنایی و دکوراسیون بگردید."
         }
       />
 
       {q.trim() && results.length === 0 ? (
         <div className="rounded-lg border border-dashed border-border py-20 text-center">
           <p className="text-sm text-muted-foreground">
-            Nothing matched “{q}”. Try a room, a material or a product name.
+            چیزی با «{q}» هم‌خوان نبود. نام یک اتاق، یک متریال یا یک محصول را امتحان کنید.
           </p>
           <Link
             to="/shop"
-            className="mt-7 inline-flex rounded-full bg-primary px-7 py-3.5 text-[0.66rem] tracking-[0.18em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
+            className="mt-7 inline-flex rounded-full bg-primary px-7 py-3.5 text-[0.8rem] font-semibold text-primary-foreground transition-opacity hover:opacity-85"
           >
-            Browse everything
+            مشاهده همه محصولات
           </Link>
         </div>
       ) : (

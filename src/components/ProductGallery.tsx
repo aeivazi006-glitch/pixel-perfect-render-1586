@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-/** Gallery with thumbnail switching and cursor-follow zoom on the main image. */
+/**
+ * Gallery with thumbnail switching and cursor-follow zoom on the main image.
+ * The rail runs along the inline start, so thumbnails sit on the right in RTL.
+ */
 export function ProductGallery({ images, alt }: { images: string[]; alt: string }) {
   const [active, setActive] = useState(0);
   const [zoom, setZoom] = useState(false);
@@ -23,14 +26,20 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
             <button
               type="button"
               onClick={() => setActive(index)}
-              aria-label={`View image ${index + 1} of ${images.length}`}
+              aria-label={`مشاهده تصویر ${index + 1} از ${images.length}`}
               aria-current={index === active}
               className={cn(
                 "block size-20 overflow-hidden rounded-lg border bg-linen transition-colors duration-500 md:size-24",
                 index === active ? "border-foreground" : "border-transparent hover:border-input",
               )}
             >
-              <img src={image} alt="" aria-hidden loading="lazy" className="size-full object-cover" />
+              <img
+                src={image}
+                alt=""
+                aria-hidden
+                loading="lazy"
+                className="size-full object-cover"
+              />
             </button>
           </li>
         ))}

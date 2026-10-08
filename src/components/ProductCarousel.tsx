@@ -7,6 +7,10 @@ import { cn } from "@/lib/utils";
 /**
  * Horizontal, snap-scrolling product rail with accessible prev/next controls.
  * Used for the best sellers carousel and the cart's pairing suggestions.
+ *
+ * In RTL the rail starts at the right edge, so "next" scrolls physically left
+ * while "previous" scrolls back to the right; positions are read with
+ * `Math.abs` so the negative `scrollLeft` RTL browsers report is handled.
  */
 export function ProductCarousel({
   products,
@@ -26,8 +30,8 @@ export function ProductCarousel({
   const sync = useCallback(() => {
     const node = rail.current;
     if (!node) return;
-    setAtStart(node.scrollLeft <= 4);
-    setAtEnd(node.scrollLeft + node.clientWidth >= node.scrollWidth - 4);
+    setAtStart(Math.abs(node.scrollLeft) <= 4);
+    setAtEnd(Math.abs(node.scrollLeft) + node.clientWidth >= node.scrollWidth - 4);
   }, []);
 
   useEffect(() => {
@@ -42,10 +46,11 @@ export function ProductCarousel({
     };
   }, [sync]);
 
-  const nudge = (direction: 1 | -1) => {
+  /** Physical horizontal delta: negative moves on to later products in RTL. */
+  const nudge = (delta: 1 | -1) => {
     const node = rail.current;
     if (!node) return;
-    node.scrollBy({ left: direction * Math.round(node.clientWidth * 0.72), behavior: "smooth" });
+    node.scrollBy({ left: delta * Math.round(node.clientWidth * 0.72), behavior: "smooth" });
   };
 
   return (
@@ -66,15 +71,15 @@ export function ProductCarousel({
       </ul>
 
       <div className="mt-8 flex items-center justify-between gap-4">
-        <p className="text-xs tracking-[0.14em] uppercase text-muted-foreground">
-          {atEnd ? "End of selection" : "Scroll for more"}
+        <p className="text-xs text-muted-foreground">
+          {atEnd ? "پایان فهرست" : "برای دیدن بیشتر اسکرول کنید"}
         </p>
         <div className="flex gap-2">
-          <CarouselButton label="Previous products" disabled={atStart} onClick={() => nudge(-1)}>
-            <ArrowLeft className="size-4" strokeWidth={1.5} aria-hidden />
-          </CarouselButton>
-          <CarouselButton label="Next products" disabled={atEnd} onClick={() => nudge(1)}>
+          <CarouselButton label="محصولات قبلی" disabled={atStart} onClick={() => nudge(1)}>
             <ArrowRight className="size-4" strokeWidth={1.5} aria-hidden />
+          </CarouselButton>
+          <CarouselButton label="محصولات بعدی" disabled={atEnd} onClick={() => nudge(-1)}>
+            <ArrowLeft className="size-4" strokeWidth={1.5} aria-hidden />
           </CarouselButton>
         </div>
       </div>

@@ -1,12 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, Plus, X } from "lucide-react";
+import { ArrowLeft, Plus, X } from "lucide-react";
 import { formatPrice, getProduct, images, roomHotspots } from "@/data/catalog";
 import { useStore } from "@/lib/store";
 import { notifyCart } from "@/components/ToastNotification";
 import { cn } from "@/lib/utils";
 
-/** Interactive room photograph: hotspots reveal a quick-view card per piece. */
+/**
+ * Interactive room photograph: hotspots reveal a quick-view card per piece.
+ * Hotspot coordinates stay physical (the photograph itself is never mirrored).
+ */
 export function ShopTheRoom() {
   const [active, setActive] = useState<string | null>(roomHotspots[0]?.id ?? null);
   const { addToCart } = useStore();
@@ -18,23 +21,24 @@ export function ShopTheRoom() {
     <section aria-labelledby="room-heading" className="shell py-20 md:py-28">
       <div className="flex flex-wrap items-end justify-between gap-6 pb-10 md:pb-12">
         <div className="max-w-xl">
-          <p className="eyebrow">Shop the room</p>
+          <p className="eyebrow">از دل فضا خرید کنید</p>
           <h2 id="room-heading" className="display-lg mt-3">
-            Every piece, in one place
+            همه قطعه‌ها، در یک نگاه
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
-            Tap a marker to see what is in the room — then take it home on its own.
+            روی نشانگرها بزنید تا ببینید در این فضا چه چیزی به کار رفته — و هر قطعه را جداگانه به
+            خانه ببرید.
           </p>
         </div>
-        <p className="text-[0.62rem] tracking-[0.16em] uppercase text-muted-foreground">
-          {roomHotspots.length} pieces in this room
+        <p className="text-[0.75rem] text-muted-foreground">
+          {roomHotspots.length} قطعه در این فضا
         </p>
       </div>
 
       <div className="relative overflow-hidden rounded-2xl bg-linen">
         <img
           src={images.room}
-          alt="Modern open-plan living room with a modular sofa, oak coffee table, floor lamp and accent chair"
+          alt="نشیمن مدرن و باز با مبل ماژولار، میز جلومبلی بلوط، چراغ ایستاده و صندلی"
           loading="lazy"
           className="h-[clamp(19rem,52vh,34rem)] w-full object-cover md:h-[clamp(26rem,64vh,40rem)]"
         />
@@ -47,7 +51,7 @@ export function ShopTheRoom() {
             <button
               key={hotspot.id}
               type="button"
-              aria-label={`View details for ${product.name}`}
+              aria-label={`مشاهده جزئیات ${product.name}`}
               aria-pressed={isActive}
               onClick={() => setActive(isActive ? null : hotspot.id)}
               style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
@@ -69,7 +73,7 @@ export function ShopTheRoom() {
               </span>
               <span
                 className={cn(
-                  "pointer-events-none absolute bottom-full mb-1.5 rounded-full bg-background/92 px-2.5 py-1 text-[0.58rem] tracking-[0.14em] whitespace-nowrap uppercase backdrop-blur-sm transition-opacity duration-400",
+                  "pointer-events-none absolute bottom-full mb-1.5 rounded-full bg-background/92 px-2.5 py-1 text-[0.7rem] font-medium whitespace-nowrap backdrop-blur-sm transition-opacity duration-400",
                   isActive ? "opacity-100" : "opacity-0",
                 )}
               >
@@ -89,10 +93,8 @@ export function ShopTheRoom() {
                 className="size-20 shrink-0 rounded-lg object-cover md:size-24"
               />
               <div className="min-w-0 flex-1">
-                <p className="text-[0.58rem] tracking-[0.16em] uppercase text-muted-foreground">
-                  {activeProduct.categoryName}
-                </p>
-                <h3 className="mt-1 text-sm leading-snug">{activeProduct.name}</h3>
+                <p className="text-[0.72rem] text-muted-foreground">{activeProduct.categoryName}</p>
+                <h3 className="mt-1 text-sm font-semibold leading-snug">{activeProduct.name}</h3>
                 <p className="mt-1.5 text-sm text-muted-foreground">
                   {formatPrice(activeProduct.price)}
                 </p>
@@ -103,19 +105,19 @@ export function ShopTheRoom() {
                       addToCart(activeProduct.id, activeProduct.options?.values[0]);
                       notifyCart(activeProduct.name);
                     }}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-2 text-[0.58rem] tracking-[0.14em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-2 text-[0.7rem] font-semibold text-primary-foreground transition-opacity hover:opacity-85"
                   >
                     <Plus className="size-3" strokeWidth={1.8} aria-hidden />
-                    Add to cart
+                    افزودن به سبد
                   </button>
                   <Link
                     to="/product/$slug"
                     params={{ slug: activeProduct.slug }}
-                    className="group inline-flex items-center gap-1.5 text-[0.58rem] tracking-[0.14em] uppercase text-muted-foreground hover:text-foreground"
+                    className="group inline-flex items-center gap-1.5 text-[0.7rem] font-medium text-muted-foreground hover:text-foreground"
                   >
-                    View
-                    <ArrowRight
-                      className="size-3 transition-transform duration-500 group-hover:translate-x-1"
+                    مشاهده
+                    <ArrowLeft
+                      className="size-3 transition-transform duration-500 group-hover:-translate-x-1"
                       strokeWidth={1.6}
                       aria-hidden
                     />
@@ -124,7 +126,7 @@ export function ShopTheRoom() {
               </div>
               <button
                 type="button"
-                aria-label="Close product preview"
+                aria-label="بستن پیش‌نمایش محصول"
                 onClick={() => setActive(null)}
                 className="grid size-8 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
               >

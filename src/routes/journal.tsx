@@ -5,16 +5,16 @@ import { journalPosts } from "@/data/catalog";
 export const Route = createFileRoute("/journal")({
   head: () => ({
     meta: [
-      { title: "Journal — MODERNO" },
+      { title: "مجله | مدرنو" },
       {
         name: "description",
         content:
-          "Interiors, craft and guides from the MODERNO studio — notes on sourcing, lighting, proportion and living well with furniture.",
+          "معماری داخلی، صنعتگری و راهنماها از استودیو مدرنو — یادداشت‌هایی درباره متریال، نور، تناسبات و زندگی خوب با مبلمان.",
       },
-      { property: "og:title", content: "Journal — MODERNO" },
+      { property: "og:title", content: "مجله | مدرنو" },
       {
         property: "og:description",
-        content: "Interiors, craft and guides from the MODERNO studio.",
+        content: "معماری داخلی، صنعتگری و راهنماها از استودیو مدرنو.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -28,23 +28,20 @@ function JournalPage() {
 
   return (
     <div className="shell py-10 md:py-14">
-      <nav
-        aria-label="Breadcrumb"
-        className="text-[0.62rem] tracking-[0.16em] uppercase text-muted-foreground"
-      >
+      <nav aria-label="مسیر صفحه" className="text-[0.75rem] text-muted-foreground">
         <Link to="/" className="hover:text-foreground">
-          Home
+          خانه
         </Link>
         <span className="px-2">/</span>
-        <span className="text-foreground">Journal</span>
+        <span className="text-foreground">مجله</span>
       </nav>
 
       <header className="mt-6 max-w-2xl">
-        <p className="eyebrow">Journal</p>
-        <h1 className="display-lg mt-3 text-balance">Notes on living well with furniture</h1>
+        <p className="eyebrow">مجله</p>
+        <h1 className="display-lg mt-3">یادداشت‌هایی برای زندگی خوب با مبلمان</h1>
         <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
-          Slow writing from the studio: how we source, how we draw a room, and what we have learned
-          from twenty years of making things that are meant to last.
+          نوشته‌های آرام از استودیو: چطور متریال تهیه می‌کنیم، چطور یک فضا را طراحی می‌کنیم و از
+          بیست سال ساختن چیزهایی که برای ماندن ساخته شده‌اند چه آموخته‌ایم.
         </p>
       </header>
 
@@ -63,13 +60,11 @@ function JournalPage() {
               <p className="eyebrow">
                 {lead.category} · {lead.readingTime}
               </p>
-              <h2 className="display-md mt-3 text-balance">{lead.title}</h2>
+              <h2 className="display-md mt-3">{lead.title}</h2>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
                 {lead.excerpt}
               </p>
-              <p className="mt-5 text-xs tracking-[0.14em] uppercase text-muted-foreground">
-                {lead.date}
-              </p>
+              <p className="mt-5 text-xs text-muted-foreground">{lead.date}</p>
             </div>
           </article>
         </Reveal>
@@ -92,9 +87,7 @@ function JournalPage() {
               </p>
               <h2 className="display-sm mt-2.5">{post.title}</h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{post.excerpt}</p>
-              <p className="mt-4 text-xs tracking-[0.14em] uppercase text-muted-foreground">
-                {post.date}
-              </p>
+              <p className="mt-4 text-xs text-muted-foreground">{post.date}</p>
             </article>
           </Reveal>
         ))}

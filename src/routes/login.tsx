@@ -5,8 +5,8 @@ import { images } from "@/data/catalog";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Sign In — MODERNO" },
-      { name: "description", content: "Sign in to your MODERNO account." },
+      { title: "ورود | مدرنو" },
+      { name: "description", content: "به حساب کاربری مدرنو وارد شوید." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -19,10 +19,11 @@ function LoginPage() {
   return (
     <div className="shell grid gap-12 py-12 md:py-16 lg:grid-cols-2 lg:gap-20">
       <div className="max-w-md">
-        <p className="eyebrow">Account</p>
-        <h1 className="display-lg mt-4">Welcome back</h1>
+        <p className="eyebrow">حساب کاربری</p>
+        <h1 className="display-lg mt-4">خوش آمدید</h1>
         <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-          Sign in to follow orders, revisit your wishlist and keep your delivery details on file.
+          وارد شوید تا سفارش‌ها را پیگیری کنید، علاقه‌مندی‌هایتان را ببینید و اطلاعات ارسال را ذخیره
+          نگه دارید.
         </p>
 
         <form
@@ -34,7 +35,7 @@ function LoginPage() {
         >
           <div>
             <label htmlFor="login-email" className="eyebrow">
-              Email address
+              نشانی ایمیل
             </label>
             <input
               id="login-email"
@@ -46,7 +47,7 @@ function LoginPage() {
           </div>
           <div>
             <label htmlFor="login-password" className="eyebrow">
-              Password
+              گذرواژه
             </label>
             <input
               id="login-password"
@@ -58,21 +59,21 @@ function LoginPage() {
           </div>
           <button
             type="submit"
-            className="w-full rounded-full bg-primary py-4 text-[0.68rem] tracking-[0.18em] uppercase text-primary-foreground transition-opacity hover:opacity-88"
+            className="w-full rounded-full bg-primary py-4 text-[0.8rem] font-semibold text-primary-foreground transition-opacity hover:opacity-88"
           >
-            Sign in
+            ورود
           </button>
           {sent && (
             <p aria-live="polite" className="text-sm text-muted-foreground">
-              Check your inbox — we've sent a secure sign-in link.
+              ایمیل خود را ببینید — پیوند ورود امن را برای شما فرستادیم.
             </p>
           )}
         </form>
 
         <p className="mt-7 text-sm text-muted-foreground">
-          New to MODERNO?{" "}
+          تازه با مدرنو آشنا شده‌اید؟{" "}
           <Link to="/shop" className="link-underline text-foreground">
-            Start with the collection
+            از مجموعه شروع کنید
           </Link>
           .
         </p>
@@ -81,7 +82,7 @@ function LoginPage() {
       <div className="hidden overflow-hidden rounded-lg bg-linen lg:block">
         <img
           src={images.editorialMain}
-          alt="Neutral modern living room with layered natural light"
+          alt="اتاق نشیمن مدرن و خنثی با نور طبیعی لایه‌لایه"
           loading="lazy"
           className="size-full object-cover"
         />
