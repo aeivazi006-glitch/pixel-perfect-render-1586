@@ -1,55 +1,89 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Facebook, Twitter, Youtube } from "lucide-react";
-import { Newsletter } from "@/components/Newsletter";
 
-const shopLinks = [
-  { label: "Shop all", to: "/shop" },
-  { label: "Accessories", to: "/accessories" },
-  { label: "Wall Art", to: "/wall-art" },
-  { label: "Home Decor", to: "/home-decor" },
-  { label: "New Arrivals", to: "/new-arrivals" },
-  { label: "Best Sellers", to: "/best-sellers" },
-] as const;
+const aboutLinks = [
+  { label: "Our Story", to: "/about" as const },
+  { label: "Journal", to: "/journal" as const },
+  { label: "Design Philosophy", to: "/about" as const },
+  { label: "Contact", to: "/contact" as const },
+];
 
-const serviceLinks = [
-  { label: "Contact us", to: "/contact" },
-  { label: "Your account", to: "/account" },
-  { label: "Wishlist", to: "/wishlist" },
-  { label: "Cart", to: "/cart" },
-] as const;
+const careLinks = ["Shipping", "Returns", "FAQ", "Support", "Track Order"];
+const socialLinks = [
+  { label: "Instagram", href: "https://instagram.com" },
+  { label: "Pinterest", href: "https://pinterest.com" },
+  { label: "Facebook", href: "https://facebook.com" },
+];
+
+const paymentMethods = ["Visa", "Mastercard", "Amex", "PayPal", "Apple Pay"];
+
+const linkClass = "text-muted-foreground transition-colors hover:text-foreground";
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-border bg-linen">
-      <div className="shell grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
+    <footer className="mt-20 border-t border-border bg-linen md:mt-28">
+      <div className="shell grid gap-12 py-16 md:grid-cols-2 md:py-20 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:gap-10">
         <div className="max-w-xs">
-          <span className="font-display text-2xl">Maison Étage</span>
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-            A small curated house of art, objects and accessories — made in limited runs with
-            independent studios, chosen for rooms with personality.
+          <span className="block font-sans text-[1.05rem] font-medium tracking-[0.34em] uppercase">
+            Moderno
+          </span>
+          <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+            Premium modern furniture and home decor, designed in-house and made to order for rooms
+            that are lived in rather than styled.
           </p>
-          <div className="mt-6 flex gap-4 text-muted-foreground">
-            <a href="https://instagram.com" aria-label="Instagram" className="hover:text-foreground">
-              <Instagram className="size-[1.1rem]" strokeWidth={1.4} />
-            </a>
-            <a href="https://facebook.com" aria-label="Facebook" className="hover:text-foreground">
-              <Facebook className="size-[1.1rem]" strokeWidth={1.4} />
-            </a>
-            <a href="https://twitter.com" aria-label="Twitter" className="hover:text-foreground">
-              <Twitter className="size-[1.1rem]" strokeWidth={1.4} />
-            </a>
-            <a href="https://youtube.com" aria-label="YouTube" className="hover:text-foreground">
-              <Youtube className="size-[1.1rem]" strokeWidth={1.4} />
-            </a>
-          </div>
+          <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
+            18 Rue des Arts, Lisbon
+            <br />
+            hello@moderno.com
+          </p>
         </div>
 
         <nav aria-label="Shop" className="text-sm">
-          <h3 className="eyebrow">Shop</h3>
+          <h2 className="eyebrow">Shop</h2>
           <ul className="mt-5 space-y-3">
-            {shopLinks.map((link) => (
-              <li key={link.to}>
-                <Link to={link.to} className="text-muted-foreground transition-colors hover:text-foreground">
+            <li>
+              <Link to="/new-arrivals" className={linkClass}>
+                New Arrivals
+              </Link>
+            </li>
+            <li>
+              <Link to="/best-sellers" className={linkClass}>
+                Best Sellers
+              </Link>
+            </li>
+            <li>
+              <Link to="/shop" search={{ category: "living-room" }} className={linkClass}>
+                Living Room
+              </Link>
+            </li>
+            <li>
+              <Link to="/shop" search={{ category: "bedroom" }} className={linkClass}>
+                Bedroom
+              </Link>
+            </li>
+            <li>
+              <Link to="/shop" search={{ category: "dining-room" }} className={linkClass}>
+                Dining
+              </Link>
+            </li>
+            <li>
+              <Link to="/shop" search={{ category: "home-office" }} className={linkClass}>
+                Office
+              </Link>
+            </li>
+            <li>
+              <Link to="/shop" search={{ sale: true }} className={linkClass}>
+                Sale
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
+        <nav aria-label="About" className="text-sm">
+          <h2 className="eyebrow">About</h2>
+          <ul className="mt-5 space-y-3">
+            {aboutLinks.map((link) => (
+              <li key={link.label}>
+                <Link to={link.to} className={linkClass}>
                   {link.label}
                 </Link>
               </li>
@@ -57,39 +91,71 @@ export function Footer() {
           </ul>
         </nav>
 
-        <nav aria-label="Customer service" className="text-sm">
-          <h3 className="eyebrow">Customer care</h3>
-          <ul className="mt-5 space-y-3">
-            {serviceLinks.map((link) => (
-              <li key={link.to}>
-                <Link to={link.to} className="text-muted-foreground transition-colors hover:text-foreground">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-            <li className="text-muted-foreground">Delivery in 3–6 working days</li>
-            <li className="text-muted-foreground">Free returns within 30 days</li>
-          </ul>
-        </nav>
+        <div className="grid content-start gap-10">
+          <nav aria-label="Customer care" className="text-sm">
+            <h2 className="eyebrow">Customer Care</h2>
+            <ul className="mt-5 space-y-3">
+              {careLinks.map((label) => (
+                <li key={label}>
+                  <Link to="/contact" className={linkClass}>
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        <div>
-          <h3 className="eyebrow">Newsletter</h3>
-          <Newsletter compact />
-          <p className="mt-6 text-sm text-muted-foreground">
-            <Link to="/about" className="link-underline">
-              Our story
-            </Link>
-            {" · "}
-            <Link to="/contact" className="link-underline">
-              Studio visits
-            </Link>
-          </p>
+          <div className="text-sm">
+            <h2 className="eyebrow">Social</h2>
+            <ul className="mt-5 space-y-3">
+              {socialLinks.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className={linkClass}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 
-      <div className="shell flex flex-col gap-2 border-t border-border py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-        <p>© {new Date().getFullYear()} Maison Étage. All rights reserved.</p>
-        <p>Studio 4, 18 Rue des Arts, Lisbon · hello@maisonetage.com</p>
+      <div className="shell flex flex-col gap-6 border-t border-border py-7 lg:flex-row lg:items-center lg:justify-between">
+        <p className="text-xs text-muted-foreground">© 2026 MODERNO. All rights reserved.</p>
+
+        <ul className="flex flex-wrap items-center gap-2" aria-label="Accepted payment methods">
+          {paymentMethods.map((method) => (
+            <li
+              key={method}
+              className="rounded-md border border-border bg-background/70 px-2.5 py-1 text-[0.6rem] tracking-[0.12em] uppercase text-muted-foreground"
+            >
+              {method}
+            </li>
+          ))}
+        </ul>
+
+        <ul className="flex flex-wrap items-center gap-5 text-xs text-muted-foreground">
+          <li>
+            <Link to="/contact" className="link-underline">
+              Privacy Policy
+            </Link>
+          </li>
+          <li>
+            <Link to="/contact" className="link-underline">
+              Cookie Preferences
+            </Link>
+          </li>
+          <li>
+            <Link to="/contact" className="link-underline">
+              Terms
+            </Link>
+          </li>
+        </ul>
       </div>
     </footer>
   );

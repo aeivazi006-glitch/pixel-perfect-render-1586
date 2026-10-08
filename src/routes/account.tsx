@@ -7,12 +7,8 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/account")({
   head: () => ({
     meta: [
-      { title: "Your Account — Maison Étage" },
+      { title: "Your Account — MODERNO" },
       { name: "description", content: "Orders, saved pieces and delivery details." },
-      { property: "og:title", content: "Your Account — Maison Étage" },
-      { property: "og:description", content: "Orders, saved pieces and delivery details." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -22,9 +18,9 @@ export const Route = createFileRoute("/account")({
 const tabs = ["Orders", "Wishlist", "Details"] as const;
 
 const orders = [
-  { id: "ME-10428", date: "12 March 2026", status: "Delivered", total: 363, items: 2 },
-  { id: "ME-10311", date: "24 February 2026", status: "Delivered", total: 88, items: 1 },
-  { id: "ME-10190", date: "06 January 2026", status: "Refunded", total: 42, items: 1 },
+  { id: "MD-10428", date: "12 September 2026", status: "Delivered", total: 1098, items: 2 },
+  { id: "MD-10311", date: "24 August 2026", status: "In transit", total: 299, items: 1 },
+  { id: "MD-10190", date: "06 July 2026", status: "Delivered", total: 189, items: 1 },
 ];
 
 function AccountPage() {
@@ -33,9 +29,9 @@ function AccountPage() {
   const saved = products.filter((product) => wishlist.includes(product.id));
 
   return (
-    <div className="shell py-12 md:py-16">
+    <div className="shell py-10 md:py-14">
       <p className="eyebrow">Account</p>
-      <h1 className="display-lg mt-3">Hello, Alireza</h1>
+      <h1 className="display-lg mt-3">Hello, Alex</h1>
       <p className="mt-3 text-sm text-muted-foreground">
         Not you?{" "}
         <Link to="/login" className="link-underline text-foreground">
@@ -49,8 +45,9 @@ function AccountPage() {
             key={item}
             type="button"
             onClick={() => setTab(item)}
+            aria-pressed={tab === item}
             className={cn(
-              "-mb-px border-b-2 pb-3 text-[0.7rem] tracking-[0.18em] uppercase transition-colors",
+              "-mb-px border-b-2 pb-3 text-[0.68rem] tracking-[0.16em] uppercase transition-colors",
               tab === item ? "border-foreground" : "border-transparent text-muted-foreground",
             )}
           >
@@ -62,14 +59,17 @@ function AccountPage() {
       {tab === "Orders" && (
         <ul className="mt-10 divide-y divide-border border-y border-border">
           {orders.map((order) => (
-            <li key={order.id} className="flex flex-wrap items-center justify-between gap-4 py-6 text-sm">
+            <li
+              key={order.id}
+              className="flex flex-wrap items-center justify-between gap-4 py-6 text-sm"
+            >
               <div>
                 <p>{order.id}</p>
                 <p className="mt-1 text-xs text-muted-foreground">
                   {order.date} · {order.items} {order.items === 1 ? "item" : "items"}
                 </p>
               </div>
-              <span className="text-xs tracking-[0.14em] uppercase text-muted-foreground">
+              <span className="rounded-full border border-border px-3 py-1 text-[0.6rem] tracking-[0.14em] uppercase text-muted-foreground">
                 {order.status}
               </span>
               <span>{formatPrice(order.total)}</span>
@@ -94,9 +94,10 @@ function AccountPage() {
                 <li key={product.id} className="flex items-center gap-4 border-b border-border pb-4">
                   <img
                     src={product.image}
-                    alt={product.name}
+                    alt=""
+                    aria-hidden
                     loading="lazy"
-                    className="aspect-square w-14 object-cover"
+                    className="size-14 rounded-lg object-cover"
                   />
                   <Link
                     to="/product/$slug"
@@ -105,7 +106,7 @@ function AccountPage() {
                   >
                     {product.name}
                   </Link>
-                  <span>{formatPrice(product.price)}</span>
+                  <span className="text-muted-foreground">{formatPrice(product.price)}</span>
                 </li>
               ))}
             </ul>
@@ -114,18 +115,21 @@ function AccountPage() {
       )}
 
       {tab === "Details" && (
-        <dl className="mt-10 grid max-w-2xl gap-6 text-sm sm:grid-cols-2">
-          {[
-            ["Name", "Alireza Eivazi"],
-            ["Email", "alireza@example.com"],
-            ["Phone", "+351 210 000 000"],
-            ["Shipping address", "18 Rue des Arts, Lisbon, 1200-000"],
-          ].map(([label, value]) => (
-            <div key={label}>
-              <dt className="eyebrow">{label}</dt>
-              <dd className="mt-2 text-muted-foreground">{value}</dd>
-            </div>
-          ))}
+        <dl className="mt-10 grid max-w-lg gap-6 text-sm sm:grid-cols-2">
+          <div>
+            <dt className="eyebrow">Name</dt>
+            <dd className="mt-2">Alex Moreau</dd>
+          </div>
+          <div>
+            <dt className="eyebrow">Email</dt>
+            <dd className="mt-2">alex@example.com</dd>
+          </div>
+          <div className="sm:col-span-2">
+            <dt className="eyebrow">Delivery address</dt>
+            <dd className="mt-2 text-muted-foreground">
+              24 Fitzroy Street, London W1T 4BQ, United Kingdom
+            </dd>
+          </div>
         </dl>
       )}
     </div>

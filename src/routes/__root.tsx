@@ -13,20 +13,24 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { CartDrawer } from "@/components/CartDrawer";
+import { SearchModal } from "@/components/SearchModal";
+import { Toaster } from "@/components/ToastNotification";
 import { StoreProvider } from "@/lib/store";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-[70svh] items-center justify-center px-4">
+    <div className="flex min-h-[60svh] items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="display-lg">Page not found</h1>
+        <p className="eyebrow">404</p>
+        <h1 className="display-lg mt-3">Page not found</h1>
         <p className="mt-4 text-sm text-muted-foreground">
           The page you're looking for doesn't exist or has been moved.
         </p>
         <div className="mt-8">
           <Link
             to="/shop"
-            className="inline-flex bg-primary px-8 py-4 text-[0.7rem] tracking-[0.2em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
+            className="inline-flex rounded-full bg-primary px-8 py-4 text-[0.68rem] tracking-[0.18em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
           >
             Continue shopping
           </Link>
@@ -44,7 +48,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div className="flex min-h-[70svh] items-center justify-center px-4">
+    <div className="flex min-h-[60svh] items-center justify-center px-4">
       <div className="max-w-md text-center">
         <h1 className="display-md">This page didn't load</h1>
         <p className="mt-3 text-sm text-muted-foreground">
@@ -56,13 +60,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="bg-primary px-7 py-3.5 text-[0.7rem] tracking-[0.2em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
+            className="rounded-full bg-primary px-7 py-3.5 text-[0.68rem] tracking-[0.18em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
           >
             Try again
           </button>
           <a
             href="/"
-            className="border border-input px-7 py-3.5 text-[0.7rem] tracking-[0.2em] uppercase transition-colors hover:border-foreground"
+            className="rounded-full border border-input px-7 py-3.5 text-[0.68rem] tracking-[0.18em] uppercase transition-colors hover:border-foreground"
           >
             Go home
           </a>
@@ -77,13 +81,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Maison Étage — Art, Objects & Accessories" },
+      { title: "MODERNO — Premium Modern Furniture & Home Decor" },
       {
         name: "description",
         content:
-          "Curated wall art, posters, ceramics and minimal accessories for spaces with personality.",
+          "MODERNO designs premium modern furniture and home decor — sofas, tables, beds and lighting made to order and delivered to your door.",
       },
-      { property: "og:site_name", content: "Maison Étage" },
+      { name: "theme-color", content: "#f9f7f2" },
+      { property: "og:site_name", content: "MODERNO" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -94,7 +99,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300;400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap",
       },
     ],
   }),
@@ -124,12 +129,21 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <StoreProvider>
+        <a
+          href="#main"
+          className="sr-only rounded-full focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:bg-primary focus:px-5 focus:py-3 focus:text-[0.68rem] focus:tracking-[0.18em] focus:uppercase focus:text-primary-foreground"
+        >
+          Skip to content
+        </a>
         <Header />
-        <main>
+        <main id="main">
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
         </main>
         <Footer />
+        <CartDrawer />
+        <SearchModal />
+        <Toaster />
       </StoreProvider>
     </QueryClientProvider>
   );

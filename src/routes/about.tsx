@@ -5,16 +5,16 @@ import { Reveal } from "@/components/Reveal";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Us — Maison Étage" },
+      { title: "About Us — MODERNO" },
       {
         name: "description",
         content:
-          "Maison Étage is a small curated house of art and objects, working with independent studios on short runs made to live with for years.",
+          "MODERNO designs and makes premium modern furniture in short runs, working with a small group of workshops across Portugal, Spain and Denmark.",
       },
-      { property: "og:title", content: "About Maison Étage" },
+      { property: "og:title", content: "About MODERNO" },
       {
         property: "og:description",
-        content: "A small curated house of art and objects, made in short runs with independent studios.",
+        content: "Furniture with a sense of place — designed in-house, made in short runs.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -23,76 +23,89 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
 });
 
+const principles = [
+  {
+    title: "Proportion before ornament",
+    body: "Every piece is drawn to sit well beside the next one, so a room can be built over years rather than bought in a weekend.",
+  },
+  {
+    title: "Materials you can trace",
+    body: "Managed European oak, aniline-dyed leather, unlacquered brass and stoneware. Nothing synthetic pretending otherwise.",
+  },
+  {
+    title: "Made to be repaired",
+    body: "Covers unzip, slats lift out and hardware is standard. Furniture should outlast the trend that sold it to you.",
+  },
+];
+
 function AboutPage() {
   return (
-    <div className="pb-8">
-      <section className="shell grid items-center gap-12 py-16 md:grid-cols-2 md:py-24">
-        <div className="max-w-lg">
+    <div className="pb-4">
+      <section className="shell grid items-center gap-12 py-14 md:py-20 lg:grid-cols-2 lg:gap-20">
+        <div className="max-w-xl">
           <p className="eyebrow">Our story</p>
-          <h1 className="display-lg mt-4">A house of art, objects and quiet detail.</h1>
-          <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-            Maison Étage began in a single sunlit apartment in Lisbon, framing prints for friends and
-            running out of wall. Today we work with a small group of independent studios across
-            Portugal, Spain and Denmark on short runs of art, ceramics and accessories.
+          <h1 className="display-lg mt-4 text-balance">
+            A house of quiet furniture, made slowly.
+          </h1>
+          <p className="mt-6 text-sm leading-relaxed text-muted-foreground md:text-base">
+            MODERNO began in a single sunlit workshop in Lisbon, making one sofa at a time for people
+            who could not find anything low enough, soft enough and simple enough. Twenty years on,
+            we still work the same way: a small group of workshops in Portugal, Spain and Denmark,
+            short runs, and no seasonal churn.
           </p>
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-            We keep collections small on purpose. Each piece has to earn its place on a shelf or a
-            wall — and be good enough that you never think about replacing it.
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+            We believe great furniture should do more than fill a room. It should create atmosphere,
+            support everyday living and become part of the stories made at home.
           </p>
           <Link
             to="/shop"
-            className="mt-8 inline-flex bg-primary px-8 py-4 text-[0.7rem] tracking-[0.2em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
+            className="mt-9 inline-flex rounded-full bg-primary px-8 py-4 text-[0.68rem] tracking-[0.18em] uppercase text-primary-foreground transition-opacity hover:opacity-85"
           >
             Shop the collection
           </Link>
         </div>
-        <img
-          src={images.editorial}
-          alt="Hanging a framed print in a sunlit room"
-          loading="lazy"
-          className="aspect-4/3 w-full object-cover"
-        />
+        <div className="aspect-4/3 overflow-hidden rounded-lg bg-linen lg:aspect-4/5">
+          <img
+            src={images.story}
+            alt="Calm living room with pale seating, a fireplace and soft afternoon light"
+            loading="lazy"
+            className="size-full object-cover"
+          />
+        </div>
       </section>
 
-      <Reveal as="section" className="bg-linen">
-        <div className="shell grid gap-10 py-20 md:grid-cols-3">
-          {[
-            {
-              title: "Made in short runs",
-              body: "Fifty pieces or fewer per release, produced by the studios themselves rather than a factory floor.",
-            },
-            {
-              title: "Materials you can trace",
-              body: "Cotton rag paper, vegetable-tanned leather, unlacquered brass, stoneware and stone — nothing synthetic pretending otherwise.",
-            },
-            {
-              title: "Packed without plastic",
-              body: "Recycled board, paper tape and reinforced corners for framed pieces. Carbon-neutral delivery as standard.",
-            },
-          ].map((item) => (
+      <Reveal as="section" className="border-y border-border bg-linen/70">
+        <div className="shell grid gap-10 py-20 md:grid-cols-3 md:py-24">
+          {principles.map((item) => (
             <div key={item.title}>
               <h2 className="display-md">{item.title}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+              <p className="mt-3.5 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
             </div>
           ))}
         </div>
       </Reveal>
 
-      <section className="shell grid items-center gap-12 py-20 md:grid-cols-2">
-        <img
-          src={images.lifestyle}
-          alt="Styled desk with brass objects and a small framed print"
-          loading="lazy"
-          className="aspect-square w-full object-cover"
-        />
+      <section className="shell grid items-center gap-12 py-20 md:py-24 lg:grid-cols-2 lg:gap-20">
+        <div className="aspect-4/3 overflow-hidden rounded-lg bg-linen">
+          <img
+            src={images.editorialMain}
+            alt="Neutral living room styled with layered natural light and greenery"
+            loading="lazy"
+            className="size-full object-cover"
+          />
+        </div>
         <div className="max-w-md">
           <p className="eyebrow">The studio</p>
           <h2 className="display-lg mt-4">Visit us in Lisbon</h2>
-          <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-            Our framing studio is open by appointment on Thursdays and Fridays. Bring a photograph of
-            your wall and we'll help you choose sizes, frames and spacing.
+          <p className="mt-5 text-sm leading-relaxed text-muted-foreground md:text-base">
+            Our showroom and workshop are open by appointment on Thursdays and Fridays. Bring a plan
+            of your room and we will help you with sizes, finishes and spacing — no obligation, no
+            showroom theatre.
           </p>
-          <Link to="/contact" className="mt-7 inline-flex link-underline text-[0.7rem] tracking-[0.2em] uppercase">
+          <Link
+            to="/contact"
+            className="mt-7 inline-flex text-[0.68rem] tracking-[0.18em] uppercase link-underline"
+          >
             Book a visit
           </Link>
         </div>

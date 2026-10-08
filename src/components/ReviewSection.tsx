@@ -1,3 +1,4 @@
+import { BadgeCheck } from "lucide-react";
 import type { Review } from "@/data/catalog";
 import { Stars } from "@/components/Stars";
 
@@ -26,7 +27,7 @@ export function ReviewSection({
         </div>
         <button
           type="button"
-          className="border border-input px-6 py-3 text-[0.68rem] tracking-[0.18em] uppercase transition-colors hover:border-foreground"
+          className="rounded-full border border-input px-6 py-3 text-[0.64rem] tracking-[0.16em] uppercase transition-colors duration-500 hover:border-foreground hover:bg-primary hover:text-primary-foreground"
         >
           Write a review
         </button>
@@ -38,8 +39,9 @@ export function ReviewSection({
             <Stars rating={review.rating} />
             <h3 className="mt-3 text-base">{review.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{review.body}</p>
-            <p className="mt-4 text-xs tracking-[0.12em] uppercase text-muted-foreground">
-              {review.author} · {review.date}
+            <p className="mt-4 flex items-center gap-2 text-[0.62rem] tracking-[0.14em] uppercase text-muted-foreground">
+              <BadgeCheck className="size-3.5 text-clay" strokeWidth={1.6} aria-hidden />
+              {review.author} · Verified purchase
             </p>
           </li>
         ))}

@@ -5,20 +5,21 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * MAISON ÉTAGE — design system
- * Warm ivory editorial palette, clay accent, serif display + grotesque body.
- * Never hardcode colors in components; use the tokens below.
+ * MODERNO — design system.
+ * Quiet luxury: warm ivory ground, sand + stone neutrals, charcoal type,
+ * a single warm oak accent. Serif display pairs with a modern grotesque.
+ * Never hardcode colours in components; use the tokens below.
  */
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 3px);
-  --radius-md: calc(var(--radius) - 1px);
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 3px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 6px);
   --radius-2xl: calc(var(--radius) + 14px);
 
-  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -38,43 +39,49 @@
   --color-clay-foreground: var(--clay-foreground);
   --color-sand: var(--sand);
   --color-linen: var(--linen);
+  --color-umber: var(--umber);
+  --color-stone: var(--stone);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --shadow-soft: 0 1px 2px oklch(0.3 0.03 60 / 6%), 0 12px 32px -18px oklch(0.3 0.03 60 / 18%);
-  --shadow-lift: 0 2px 6px oklch(0.3 0.03 60 / 8%), 0 28px 60px -28px oklch(0.3 0.03 60 / 26%);
+  /* Diffused depth — never heavy drop shadows. */
+  --shadow-soft: 0 1px 2px oklch(0.32 0.02 65 / 4%), 0 14px 34px -20px oklch(0.32 0.02 65 / 16%);
+  --shadow-lift: 0 2px 6px oklch(0.32 0.02 65 / 6%), 0 30px 64px -30px oklch(0.32 0.02 65 / 22%);
 
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 :root {
-  --radius: 0.25rem;
-  --background: oklch(0.982 0.008 85);
-  --foreground: oklch(0.235 0.012 60);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.012 60);
-  --popover: oklch(0.994 0.004 85);
-  --popover-foreground: oklch(0.235 0.012 60);
-  --primary: oklch(0.255 0.015 55);
-  --primary-foreground: oklch(0.985 0.008 85);
-  --secondary: oklch(0.949 0.014 82);
-  --secondary-foreground: oklch(0.29 0.018 55);
-  --muted: oklch(0.951 0.012 82);
-  --muted-foreground: oklch(0.505 0.018 62);
-  --accent: oklch(0.93 0.022 75);
-  --accent-foreground: oklch(0.28 0.02 55);
-  --clay: oklch(0.575 0.104 45);
-  --clay-foreground: oklch(0.985 0.008 85);
-  --sand: oklch(0.905 0.028 77);
-  --linen: oklch(0.962 0.014 84);
-  --destructive: oklch(0.545 0.17 27);
-  --destructive-foreground: oklch(0.985 0.008 85);
-  --border: oklch(0.898 0.014 80);
-  --input: oklch(0.888 0.014 80);
-  --ring: oklch(0.575 0.104 45);
+  --radius: 0.75rem;
+
+  --background: #f9f7f2;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #fdfcfa;
+  --popover-foreground: #1a1a1a;
+  --primary: #1a1a1a;
+  --primary-foreground: #f9f7f2;
+  --secondary: #e8e2d6;
+  --secondary-foreground: #2a2723;
+  --muted: #efeae0;
+  --muted-foreground: #6d6862;
+  --accent: #e8e2d6;
+  --accent-foreground: #2a2723;
+  --clay: #8c6b4a;
+  --clay-foreground: #fdfbf7;
+  --sand: #e8e2d6;
+  --linen: #f1ece2;
+  --umber: #4a4540;
+  --stone: #d1cdc1;
+  --destructive: #a8322a;
+  --destructive-foreground: #fdfbf7;
+  --border: #ded9cd;
+  --input: #d1cdc1;
+  --ring: #4a4540;
 }
 
 @layer base {
@@ -91,6 +98,7 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-size: 1rem;
     font-feature-settings: "kern" 1;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
@@ -105,35 +113,66 @@
     letter-spacing: -0.015em;
   }
 
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
   ::selection {
     background: var(--color-sand);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
 }
 
-/* Typographic utilities */
+/* ---- Typographic utilities ---- */
+
 @utility display-xl {
   font-family: var(--font-display);
-  font-size: clamp(2.6rem, 6.2vw, 5.2rem);
+  font-size: clamp(2.75rem, 6vw, 5.25rem);
   line-height: 1.02;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.022em;
+  font-weight: 400;
 }
 
 @utility display-lg {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  font-size: clamp(1.95rem, 4vw, 3.4rem);
   line-height: 1.08;
-  letter-spacing: -0.018em;
+  letter-spacing: -0.02em;
+  font-weight: 400;
 }
 
 @utility display-md {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
-  line-height: 1.15;
+  font-size: clamp(1.45rem, 2.4vw, 2.1rem);
+  line-height: 1.16;
+  font-weight: 400;
+}
+
+@utility display-sm {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  line-height: 1.2;
+  font-weight: 400;
 }
 
 @utility eyebrow {
-  font-size: 0.688rem;
-  letter-spacing: 0.22em;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;
   color: var(--color-muted-foreground);
@@ -142,7 +181,7 @@
 @utility shell {
   width: 100%;
   margin-inline: auto;
-  max-width: 88rem;
+  max-width: 87.5rem;
   padding-inline: 1.25rem;
   @media (min-width: 768px) {
     padding-inline: 2rem;
@@ -150,6 +189,12 @@
   @media (min-width: 1280px) {
     padding-inline: 3rem;
   }
+}
+
+/* ---- Motifs ---- */
+
+@utility hairline {
+  border-top: 1px solid var(--color-border);
 }
 
 @utility link-underline {
@@ -164,20 +209,43 @@
     background: currentColor;
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.4s var(--ease-editorial);
+    transition: transform 0.45s var(--ease-editorial);
   }
-  &:hover::after {
+  &:hover::after,
+  &:focus-visible::after {
     transform: scaleX(1);
   }
 }
 
-/* Entrance animation */
+/* Left-to-right fill sweep used by outline buttons. */
+@utility fill-sweep {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--color-foreground);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-editorial);
+  }
+  &:hover::before,
+  &:focus-visible::before {
+    transform: scaleX(1);
+  }
+}
+
+/* ---- Motion ---- */
+
 @utility reveal {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(20px);
   transition:
-    opacity 0.8s var(--ease-editorial),
-    transform 0.8s var(--ease-editorial);
+    opacity 0.85s var(--ease-editorial),
+    transform 0.85s var(--ease-editorial);
 }
 
 @utility reveal-in {
@@ -190,4 +258,83 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+@utility snap-row {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  & > * {
+    scroll-snap-align: start;
+  }
+}
+
+/* Skeleton shimmer for loading states. */
+@utility skeleton {
+  background: linear-gradient(
+    100deg,
+    var(--color-linen) 30%,
+    var(--color-sand) 50%,
+    var(--color-linen) 70%
+  );
+  background-size: 220% 100%;
+  animation: skeleton-drift 1.6s ease-in-out infinite;
+}
+
+@keyframes skeleton-drift {
+  from {
+    background-position: 140% 0;
+  }
+  to {
+    background-position: -40% 0;
+  }
+}
+
+@keyframes hotspot-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+@utility hotspot-ring {
+  animation: hotspot-pulse 2.8s var(--ease-editorial) infinite;
+}
+
+@keyframes bag-bump {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.28);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@utility count-bump {
+  animation: bag-bump 0.45s var(--ease-editorial);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility toast-in {
+  animation: toast-in 0.4s var(--ease-editorial) both;
 }

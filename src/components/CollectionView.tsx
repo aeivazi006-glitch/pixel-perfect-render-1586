@@ -1,9 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SlidersHorizontal, X } from "lucide-react";
-import { defaultFilters, FilterSidebar, type Filters } from "@/components/FilterSidebar";
+import { defaultFilters, FilterSidebar, PRICE_CEILING, type Filters } from "@/components/FilterSidebar";
+import { FilterDrawer } from "@/components/FilterDrawer";
 import { ProductGrid } from "@/components/ProductGrid";
-import type { Product } from "@/data/catalog";
+import { categoryName, type CategorySlug, type Product } from "@/data/catalog";
+import { cn } from "@/lib/utils";
 
 type SortKey = "featured" | "price-asc" | "price-desc" | "rating" | "newest";
 
@@ -15,25 +17,51 @@ const sortOptions: { value: SortKey; label: string }[] = [
   { value: "rating", label: "Top rated" },
 ];
 
+const PAGE_SIZE = 12;
+
 export function CollectionView({
   title,
   description,
   products,
+  initialCategory,
+  initialSale = false,
   lockCategories = false,
+  columns = 4,
+  showRating = false,
+  crumb,
 }: {
   title: string;
   description: string;
   products: Product[];
+  initialCategory?: CategorySlug | undefined;
+  initialSale?: boolean;
   lockCategories?: boolean;
+  columns?: 3 | 4 | 5;
+  showRating?: boolean;
+  crumb?: string | undefined;
 }) {
-  const [filters, setFilters] = useState<Filters>(defaultFilters);
+  const [filters, setFilters] = useState<Filters>(() => ({
+    ...defaultFilters,
+    categories: initialCategory ? [initialCategory] : [],
+    onSale: initialSale,
+  }));
   const [sort, setSort] = useState<SortKey>("featured");
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
-  const visible = useMemo(() => {
+  useEffect(() => {
+    setFilters({
+      ...defaultFilters,
+      categories: initialCategory ? [initialCategory] : [],
+      onSale: initialSale,
+    });
+    setVisibleCount(PAGE_SIZE);
+  }, [initialCategory, initialSale]);
+
+  const filtered = useMemo(() => {
     const query = filters.query.trim().toLowerCase();
-    const filtered = products.filter((product) => {
-      if (query && !`${product.name} ${product.description}`.toLowerCase().includes(query))
+    const list = products.filter((product) => {
+      if (query && !`${product.name} ${product.categoryName} ${product.summary}`.toLowerCase().includes(query))
         return false;
       if (filters.categories.length && !filters.categories.includes(product.category)) return false;
       if (product.price > filters.maxPrice) return false;
@@ -42,7 +70,7 @@ export function CollectionView({
       return true;
     });
 
-    const sorted = [...filtered];
+    const sorted = [...list];
     if (sort === "price-asc") sorted.sort((a, b) => a.price - b.price);
     if (sort === "price-desc") sorted.sort((a, b) => b.price - a.price);
     if (sort === "rating") sorted.sort((a, b) => b.rating - a.rating);
@@ -51,40 +79,95 @@ export function CollectionView({
     return sorted;
   }, [products, filters, sort]);
 
+  const visible = filtered.slice(0, visibleCount);
+
+  const activeChips: { label: string; clear: () => void }[] = [
+    ...filters.categories.map((slug) => ({
+      label: categoryName(slug),
+      clear: () =>
+        setFilters((prev) => ({
+          ...prev,
+          categories: prev.categories.filter((item) => item !== slug),
+        })),
+    })),
+    ...(filters.maxPrice < PRICE_CEILING
+      ? [
+          {
+            label: `Under $${filters.maxPrice.toLocaleString("en-US")}`,
+            clear: () => setFilters((prev) => ({ ...prev, maxPrice: PRICE_CEILING })),
+          },
+        ]
+      : []),
+    ...(filters.inStockOnly
+      ? [{ label: "In stock", clear: () => setFilters((prev) => ({ ...prev, inStockOnly: false })) }]
+      : []),
+    ...(filters.onSale
+      ? [{ label: "On sale", clear: () => setFilters((prev) => ({ ...prev, onSale: false })) }]
+      : []),
+  ];
+
+  const filterProps = {
+    filters,
+    onChange: setFilters,
+    onReset: () => setFilters({ ...defaultFilters, categories: initialCategory ? [initialCategory] : [] }),
+    lockCategories,
+  };
+
   return (
-    <div className="shell py-12 md:py-16">
-      <nav aria-label="Breadcrumb" className="text-xs tracking-[0.14em] uppercase text-muted-foreground">
+    <div className="shell py-10 md:py-14">
+      <nav
+        aria-label="Breadcrumb"
+        className="text-[0.62rem] tracking-[0.16em] uppercase text-muted-foreground"
+      >
         <Link to="/" className="hover:text-foreground">
           Home
         </Link>
         <span className="px-2">/</span>
-        <span className="text-foreground">{title}</span>
+        {crumb ? (
+          <>
+            <Link to="/shop" className="hover:text-foreground">
+              Shop
+            </Link>
+            <span className="px-2">/</span>
+            <span className="text-foreground">{crumb}</span>
+          </>
+        ) : (
+          <span className="text-foreground">{title}</span>
+        )}
       </nav>
 
       <header className="mt-6 max-w-2xl">
         <h1 className="display-lg">{title}</h1>
-        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{description}</p>
+        <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+          {description}
+        </p>
       </header>
 
-      <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-y border-border py-4">
+      <div className="mt-9 flex flex-wrap items-center justify-between gap-4 border-y border-border py-4">
         <p className="text-xs tracking-[0.14em] uppercase text-muted-foreground">
-          {visible.length} {visible.length === 1 ? "product" : "products"}
+          {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
         </p>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
             className="flex items-center gap-2 text-xs tracking-[0.14em] uppercase lg:hidden"
           >
-            <SlidersHorizontal className="size-4" strokeWidth={1.4} />
+            <SlidersHorizontal className="size-4" strokeWidth={1.4} aria-hidden />
             Filters
           </button>
-          <label className="flex items-center gap-2 text-xs tracking-[0.14em] uppercase">
-            <span className="text-muted-foreground">Sort</span>
+          <div className="flex items-center gap-2">
+            <label
+              htmlFor="sort-select"
+              className="text-xs tracking-[0.14em] uppercase text-muted-foreground"
+            >
+              Sort
+            </label>
             <select
+              id="sort-select"
               value={sort}
               onChange={(event) => setSort(event.target.value as SortKey)}
-              className="border-b border-input bg-transparent py-1 pr-1 text-xs tracking-[0.1em] uppercase outline-none focus:border-foreground"
+              className="rounded-full border border-input bg-background/70 py-2 pr-3 pl-3.5 text-xs tracking-[0.1em] uppercase outline-none focus:border-foreground"
             >
               {sortOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -92,52 +175,68 @@ export function CollectionView({
                 </option>
               ))}
             </select>
-          </label>
-        </div>
-      </div>
-
-      <div className="mt-10 grid gap-10 lg:grid-cols-[15rem_1fr] lg:gap-14">
-        <FilterSidebar
-          className="hidden lg:block"
-          filters={filters}
-          onChange={setFilters}
-          onReset={() => setFilters(defaultFilters)}
-          lockCategories={lockCategories}
-        />
-        <ProductGrid products={visible} />
-      </div>
-
-      {drawerOpen && (
-        <div
-          className="fixed inset-0 z-60 bg-foreground/40 backdrop-blur-sm lg:hidden"
-          onClick={() => setDrawerOpen(false)}
-        >
-          <div
-            className="ml-auto h-full w-[86%] max-w-sm overflow-y-auto bg-background p-6"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="flex items-center justify-between pb-8">
-              <h2 className="font-display text-xl">Filters</h2>
-              <button type="button" aria-label="Close filters" onClick={() => setDrawerOpen(false)}>
-                <X className="size-5" strokeWidth={1.4} />
-              </button>
-            </div>
-            <FilterSidebar
-              filters={filters}
-              onChange={setFilters}
-              onReset={() => setFilters(defaultFilters)}
-              lockCategories={lockCategories}
-            />
-            <button
-              type="button"
-              onClick={() => setDrawerOpen(false)}
-              className="mt-10 w-full bg-primary py-3.5 text-[0.7rem] tracking-[0.2em] uppercase text-primary-foreground"
-            >
-              Show {visible.length} products
-            </button>
           </div>
         </div>
+      </div>
+
+      {activeChips.length > 0 && (
+        <ul className="mt-5 flex flex-wrap items-center gap-2">
+          {activeChips.map((chip) => (
+            <li key={chip.label}>
+              <button
+                type="button"
+                onClick={chip.clear}
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3.5 py-1.5 text-[0.62rem] tracking-[0.12em] uppercase transition-colors hover:border-foreground/30"
+              >
+                {chip.label}
+                <X className="size-3" strokeWidth={1.8} aria-hidden />
+              </button>
+            </li>
+          ))}
+        </ul>
       )}
+
+      <div className={cn("mt-9 grid gap-10 lg:grid-cols-[15rem_1fr] lg:gap-14")}>
+        <FilterSidebar className="hidden lg:block" {...filterProps} />
+        <div>
+          <ProductGrid
+            products={visible}
+            columns={columns}
+            showRating={showRating}
+            emptyMessage="No pieces match those filters — try widening your price range or clearing a category."
+          />
+          {visibleCount < filtered.length && (
+            <div className="mt-14 flex flex-col items-center gap-4">
+              <p className="text-xs tracking-[0.14em] uppercase text-muted-foreground">
+                Showing {visible.length} of {filtered.length}
+              </p>
+              <button
+                type="button"
+                onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}
+                className="rounded-full border border-foreground/25 px-8 py-3.5 text-[0.66rem] tracking-[0.18em] uppercase transition-colors duration-500 hover:border-foreground hover:bg-primary hover:text-primary-foreground"
+              >
+                Load more
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <FilterDrawer
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        footer={
+          <button
+            type="button"
+            onClick={() => setDrawerOpen(false)}
+            className="w-full rounded-full bg-primary py-3.5 text-[0.66rem] tracking-[0.18em] uppercase text-primary-foreground"
+          >
+            Show {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
+          </button>
+        }
+      >
+        <FilterSidebar {...filterProps} />
+      </FilterDrawer>
     </div>
   );
 }
